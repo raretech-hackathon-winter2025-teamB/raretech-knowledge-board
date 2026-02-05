@@ -86,4 +86,6 @@ USE_TZ = True
 # 静的ファイル
 STATIC_URL = 'static/'
 
+# AUTH_USER_MODEL = 'accounts.user' #accountsアプリが用意されたら表示する。
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
