@@ -1,6 +1,18 @@
-from django.shortcuts import render
+# from django.shortcuts import render
+from django.views.generic import TemplateView, ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-# Create your views here.
+# from .models import Question
 
-def homeview(request):
-    return render(request, 'home.html')
+
+#TOP画面の表示
+class TopView(TemplateView):
+    template_name = 'index.html'
+    
+
+
+#質問一覧の表示
+#本当はListView使用
+class QuestionList(LoginRequiredMixin,TemplateView):
+    template_name = 'home.html'
+    # model = Question

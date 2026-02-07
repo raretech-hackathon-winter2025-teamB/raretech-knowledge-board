@@ -1,1 +1,7 @@
 hello world
+
+<form method="POST" action="{% url 'logout' %}">
+  {% csrf_token %}
+  <button type="submit">ログアウト</button>
+</form>
+<a class="auth-link" href="{% url 'accounts:setting' %}">マイページはこちら</a>

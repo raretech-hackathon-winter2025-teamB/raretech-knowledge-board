@@ -23,6 +23,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'knowledgeapp.apps.KnowledgeappConfig',
+    #マイグレーションする時にaccountsアプリを参照してくれるようになる
+    'accounts.apps.AccountsConfig', 
 ]
 
 MIDDLEWARE = [
@@ -87,3 +89,15 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = "accounts.User"
+
+# LoginRequiredMixinを使うと、デフォルトでaccounts/login/というURLにリダイレクトされる
+    #accounts/login/以外にリダイレクトしたいなら、「LOGIN_URL =」 設定する必要がある
+LOGIN_URL = "/login"
+
+#ログイン後にリダイレクトされるパスを設定
+LOGIN_REDIRECT_URL = "/home"
+
+#ログアウト後にリダイレクトされるパスを設定
+LOGOUT_REDIRECT_URL = '/login'
