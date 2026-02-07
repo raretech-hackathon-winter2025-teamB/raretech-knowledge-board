@@ -24,16 +24,23 @@ class Setting(LoginRequiredMixin, TemplateView):
     
 # ユーザ登録
 class SignUpView(CreateView):
+    # このビューが使用するフォームクラスを指定
     form_class = SignUpForm
     #ユーザ作成後のリダイレクト先
-    success_url = reverse_lazy("accounts:setting")
+    success_url = reverse_lazy("knowledgeapp:question")
     template_name = "accounts/signup.html"
 
-    # form_valid:フォームが有効な場合に呼ばれ、ユーザーを保存し自動的にログインする
+    # CreateViewはフォームがバリデーションに成功したときに自動的にform_valid()メソッドを呼び出す
+    # デフォのform_valid()の動作をカスタマイズする
     def form_valid(self, form):
+        # 新しいUserオブジェクトをDBに保存
         user = form.save()
+        # django.contrib.authが提供するlogin関数を呼び出して、今作成したばかりのユーザをその場でログインさせている
         login(self.request, user)
+        # 作成されたオブジェクトをself.objectに設定している
+        # CreateViewの場合フォームが保存された後、新しく作成されたモデルインスタンスがこのself.objectに設定されることが期待されている
         self.object = user
+        # self.get_success_url()は、クラス属性success_urlの値を返すメソッド
         return redirect(self.get_success_url())
     
 

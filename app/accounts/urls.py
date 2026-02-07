@@ -9,7 +9,7 @@ urlpatterns = [
         "login/",
         auth_views.LoginView.as_view(
           redirect_authenticated_user=True, template_name="accounts/login.html"
-        ),# 認証済みの状態でログインページにアクセスした際にプロフィール画面にリダイレクト
+        ),# 認証済みの状態でログインページにアクセスした際にホーム画面にリダイレクト
         name="login",
     ),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
