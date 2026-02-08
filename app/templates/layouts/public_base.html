@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}RareTECH ナレッジ掲示板{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'globals.css' %}" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+  <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+  <style>
+    body[data-vanta="birds"] {
+      background: transparent !important;
+    }
+  </style>
+  {% block extra_head %}{% endblock %}
+</head>
+<body class="min-h-screen w-full bg-gradient-to-br from-[#feecd3] via-[#fff7ed] to-[#feecd3] text-[#7c2808]" hx-boost="true" {% block body_attrs %}{% endblock %}>
+  {% include "includes/public/_header.html" %}
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  {% include "includes/public/_footer.html" %}
+
+  <div id="overlay" class="relative z-20"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.birds.min.js"></script>
+  <script>
+    function applyVantaBirds() {
+      if (!window.VANTA) return;
+      if (document.body.dataset.vanta !== "birds") return;
+      if (window.__vantaEffect) {
+        window.__vantaEffect.destroy();
+        window.__vantaEffect = null;
+      }
+      window.__vantaEffect = VANTA.BIRDS({
+        el: document.body,
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200,
+        minWidth: 200,
+        scale: 1,
+        scaleMobile: 1,
+        backgroundColor: 0xfeecd3,
+        color1: 0xc93400,
+        color2: 0x1838b3,
+        backgroundAlpha: 0.98
+      });
+    }
+    window.applyVantaBirds = applyVantaBirds;
+    window.addEventListener("DOMContentLoaded", applyVantaBirds);
+    document.addEventListener("htmx:afterSwap", applyVantaBirds);
+    document.addEventListener("htmx:afterSettle", applyVantaBirds);
+    document.addEventListener("htmx:load", applyVantaBirds);
+  </script>
+</body>
+</html>

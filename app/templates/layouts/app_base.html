@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}RareTECH ナレッジ掲示板{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'globals.css' %}" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+  <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+  {% block extra_head %}{% endblock %}
+</head>
+<body class="min-h-screen w-full overflow-y-scroll bg-[#fff7ed] text-[#7c2808]" hx-boost="true">
+  <div class="min-h-screen lg:flex">
+    {% include "includes/app/_sidebar.html" %}
+
+    <div class="flex-1 min-w-0 min-h-screen">
+      {% block topbar %}
+        {% include "includes/app/_topbar.html" %}
+      {% endblock %}
+
+      <main class="w-full max-w-6xl mx-auto px-6 py-6">
+        {% include "includes/app/_message.html" %}
+        <div class="mt-4">
+          {% block content %}{% endblock %}
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

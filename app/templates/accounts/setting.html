@@ -1,31 +1,163 @@
-<form method="post" action="{% url 'accounts:setting' %}" enctype="multipart/form-data">
-  {% csrf_token %}
-  <div>
-    <label for="name">名前</label>
-    <input value="{{ request.user.name }}" name="name" type="text" required="required" />
+{% extends "layouts/app_base.html" %}
+
+{% block title %}マイページ | RareTECHナレッジ掲示板{% endblock %}
+{% block topbar %}{% endblock %}
+
+{% block content %}
+<section class="space-y-5">
+  <div class="bg-[#7c2808] text-[#fff7ed] rounded-2xl px-8 py-6 flex items-center justify-between w-full shadow-lg">
+    <div class="flex items-center gap-3">
+      <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+        <circle cx="12" cy="7" r="4" />
+      </svg>
+      <h1 class="text-2xl font-bold">マイページ設定</h1>
+    </div>
+    <a href="/home/" hx-get="/home/" hx-target="main" hx-select="main" hx-swap="outerHTML" hx-push-url="true" class="px-4 py-2 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#fff7ed] hover:text-[#7c2808] transition-colors font-bold">
+      ホームへ戻る
+    </a>
   </div>
 
-  <div>
-    <label for="email">メールアドレス</label>
-    <input value="{{ request.user.email }}" name="email" type="email" />
-  </div>
+  <div class="space-y-5">
+    <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-6 shadow-md">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="font-bold text-[#7c2808] text-lg">ユーザー名</h2>
+        <button type="button" class="px-4 py-2 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#7c2808] transition-colors text-sm font-medium"
+                _="on click remove .hidden from #modal-name">
+          変更
+        </button>
+      </div>
+      <p class="text-[#7c2808] font-medium text-lg">{{ request.user.name|default:request.user.username }}</p>
+    </div>
 
-  <div>
-    <label for="password">パスワード</label>
-    <input value="{{ request.user.password }}" name="password" type="password"></input>
-  </div>
+    <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-6 shadow-md">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="font-bold text-[#7c2808] text-lg">メールアドレス</h2>
+        <button type="button" class="px-4 py-2 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#7c2808] transition-colors text-sm font-medium"
+                _="on click remove .hidden from #modal-email">
+          変更
+        </button>
+      </div>
+      <p class="text-[#7c2808] font-medium text-lg">{{ request.user.email }}</p>
+    </div>
 
-  <div>
-    <label for="icon">アイコン</label>
-    <input type="file" name="icon" />
-  </div>
+    <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-6 shadow-md">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="font-bold text-[#7c2808] text-lg">パスワード</h2>
+        <button type="button" class="px-4 py-2 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#7c2808] transition-colors text-sm font-medium"
+                _="on click remove .hidden from #modal-password">
+          変更
+        </button>
+      </div>
+      <p class="text-[#7c2808] font-medium text-lg">••••••••</p>
+    </div>
 
-  <div>
-    <button type="submit">保存</button>
-  </div>
-</form>
+    <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-6 shadow-md">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="font-bold text-[#7c2808] text-lg">プロフィール画像</h2>
+      </div>
+      <form method="get" action="{% url 'accounts:setting' %}" enctype="multipart/form-data"
+            hx-get="{% url 'accounts:setting' %}" hx-target="main" hx-select="main" hx-swap="outerHTML" hx-push-url="true"
+            class="flex flex-col gap-3 md:flex-row md:items-center">
+        <input type="file" name="icon" class="w-full border-2 border-[#7c2808] rounded-lg px-3 py-2 bg-white">
+        <button type="submit" class="px-4 py-2 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#7c2808] transition-colors font-medium">保存</button>
+      </form>
+    </div>
 
-<form method="POST" action="{% url 'logout' %}">
-  {% csrf_token %}
-  <button type="submit">ログアウト</button>
-</form>
+    <div class="pt-2 grid gap-3 md:grid-cols-2">
+      <a href="/home/" hx-get="/home/" hx-target="main" hx-select="main" hx-swap="outerHTML" hx-push-url="true"
+         class="w-full px-6 py-3 border-2 border-[#7c2808] text-[#7c2808] rounded-lg hover:bg-[#7c2808] hover:text-[#fff7ed] transition-colors font-medium text-center">
+        ホームへ戻る
+      </a>
+      <button type="button" class="w-full px-6 py-3 border-2 border-red-600 text-red-600 rounded-lg hover:bg-red-50 transition-colors font-medium"
+              _="on click remove .hidden from #modal-withdraw">
+        退会する
+      </button>
+    </div>
+  </div>
+</section>
+
+<div id="modal-name" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+     _="on click if event.target == me then add .hidden to me">
+  <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] shadow-2xl w-full max-w-md">
+    <div class="bg-[#7c2808] text-[#fff7ed] px-6 py-4 flex items-center justify-between rounded-t-xl">
+      <h3 class="text-xl font-bold">ユーザー名の変更</h3>
+      <button type="button" class="p-1 hover:bg-[#fff7ed]/20 rounded transition-colors" _="on click add .hidden to #modal-name">×</button>
+    </div>
+    <form method="get" action="{% url 'accounts:setting' %}"
+          hx-get="{% url 'accounts:setting' %}" hx-target="main" hx-select="main" hx-swap="outerHTML" hx-push-url="true"
+          class="p-6 space-y-4">
+      <div>
+        <label class="block mb-2 font-medium text-[#7c2808]">新しいユーザー名</label>
+        <input type="text" name="name" value="{{ request.user.name|default:request.user.username }}" required class="w-full px-4 py-3 border-2 border-[#7c2808] rounded-lg bg-white text-[#7c2808]">
+      </div>
+      <div class="flex gap-3">
+        <button type="button" class="flex-1 px-4 py-3 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors font-medium"
+                _="on click add .hidden to #modal-name">キャンセル</button>
+        <button type="submit" class="flex-1 px-4 py-3 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#7c2808] transition-colors font-medium">保存</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="modal-email" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+     _="on click if event.target == me then add .hidden to me">
+  <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] shadow-2xl w-full max-w-md">
+    <div class="bg-[#7c2808] text-[#fff7ed] px-6 py-4 flex items-center justify-between rounded-t-xl">
+      <h3 class="text-xl font-bold">メールアドレスの変更</h3>
+      <button type="button" class="p-1 hover:bg-[#fff7ed]/20 rounded transition-colors" _="on click add .hidden to #modal-email">×</button>
+    </div>
+    <form method="get" action="{% url 'accounts:setting' %}"
+          hx-get="{% url 'accounts:setting' %}" hx-target="main" hx-select="main" hx-swap="outerHTML" hx-push-url="true"
+          class="p-6 space-y-4">
+      <div>
+        <label class="block mb-2 font-medium text-[#7c2808]">新しいメールアドレス</label>
+        <input type="email" name="email" value="{{ request.user.email }}" required class="w-full px-4 py-3 border-2 border-[#7c2808] rounded-lg bg-white text-[#7c2808]">
+      </div>
+      <div class="flex gap-3">
+        <button type="button" class="flex-1 px-4 py-3 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors font-medium"
+                _="on click add .hidden to #modal-email">キャンセル</button>
+        <button type="submit" class="flex-1 px-4 py-3 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#7c2808] transition-colors font-medium">保存</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="modal-password" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+     _="on click if event.target == me then add .hidden to me">
+  <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] shadow-2xl w-full max-w-md">
+    <div class="bg-[#7c2808] text-[#fff7ed] px-6 py-4 flex items-center justify-between rounded-t-xl">
+      <h3 class="text-xl font-bold">パスワードの変更</h3>
+      <button type="button" class="p-1 hover:bg-[#fff7ed]/20 rounded transition-colors" _="on click add .hidden to #modal-password">×</button>
+    </div>
+    <form method="get" action="{% url 'accounts:setting' %}"
+          hx-get="{% url 'accounts:setting' %}" hx-target="main" hx-select="main" hx-swap="outerHTML" hx-push-url="true"
+          class="p-6 space-y-4">
+      <div>
+        <label class="block mb-2 font-medium text-[#7c2808]">新しいパスワード</label>
+        <input type="password" name="password" required class="w-full px-4 py-3 border-2 border-[#7c2808] rounded-lg bg-white text-[#7c2808]">
+      </div>
+      <div class="flex gap-3">
+        <button type="button" class="flex-1 px-4 py-3 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors font-medium"
+                _="on click add .hidden to #modal-password">キャンセル</button>
+        <button type="submit" class="flex-1 px-4 py-3 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#7c2808] transition-colors font-medium">保存</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="modal-withdraw" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+     _="on click if event.target == me then add .hidden to me">
+  <div class="bg-[#fff7ed] rounded-xl border-2 border-red-600 shadow-2xl w-full max-w-md">
+    <div class="bg-red-600 text-white px-6 py-4 flex items-center justify-between rounded-t-xl">
+      <h3 class="text-xl font-bold">退会確認</h3>
+      <button type="button" class="p-1 hover:bg-white/20 rounded transition-colors" _="on click add .hidden to #modal-withdraw">×</button>
+    </div>
+    <div class="p-6 space-y-4">
+      <p class="text-[#7c2808]">退会機能は未実装です。バックエンド実装後に接続してください。</p>
+      <button type="button" class="w-full px-4 py-3 border-2 border-red-600 text-red-600 rounded-lg hover:bg-red-50 transition-colors font-medium"
+              _="on click add .hidden to #modal-withdraw">閉じる</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
