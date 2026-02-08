@@ -20,4 +20,9 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('knowledgeapp.urls')),
+    path('', include('accounts.urls')),
+    #Djangoが元々持っているauthという認証機能を追加
+    #これがあるとhtmlでaccounts:login,accounts:logoutと指定しなくて済む
+    path('', include('django.contrib.auth.urls')),
+
 ]
