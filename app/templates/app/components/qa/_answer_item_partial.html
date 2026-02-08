@@ -1,0 +1,11 @@
+<article class="bg-white rounded-lg border border-[#7c2808]/20 p-4">
+  <div class="text-xs text-[#8c3f27] mb-2">
+    <span class="font-medium">回答者:</span> {{ a.user.name|default:a.user.email }}
+    <span class="mx-2">|</span>
+    <span>{{ a.created_at|date:"Y/m/d H:i" }}</span>
+  </div>
+  <div id="answer-markdown-{{ a.id }}"
+       data-markdown-source="1"
+       data-rendered="0"
+       class="text-[#7c2808] text-sm leading-7 [&_h1]:text-2xl [&_h1]:font-bold [&_h1]:mb-3 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:mb-2 [&_h3]:text-lg [&_h3]:font-bold [&_h3]:mb-2 [&_p]:mb-3 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:mb-1 [&_pre]:bg-[#7c2808] [&_pre]:text-[#fff7ed] [&_pre]:p-3 [&_pre]:rounded-lg [&_pre]:overflow-auto [&_code]:bg-[#7c2808]/10 [&_code]:px-1 [&_code]:rounded [&_blockquote]:border-l-4 [&_blockquote]:border-[#c93400] [&_blockquote]:pl-3 [&_blockquote]:text-[#8c3f27]">{{ a.detail }}</div>
+</article>

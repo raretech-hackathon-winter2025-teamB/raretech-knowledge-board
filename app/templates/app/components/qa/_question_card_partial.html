@@ -1,0 +1,32 @@
+<article class="w-full bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
+         hx-get="/question/{{ q.id }}/"
+         hx-target="main"
+         hx-select="main"
+         hx-swap="outerHTML"
+         hx-push-url="true">
+  <div class="flex gap-4 p-4">
+    <div class="flex flex-col items-center justify-center w-20 shrink-0">
+      <div class="text-center mb-2 font-medium {% if q.status == '2' %}text-[#7c2808]{% else %}text-[#006044]{% endif %}">
+        {% if q.status == '2' %}open{% else %}closed{% endif %}
+      </div>
+      <div class="w-6 h-6 rounded-full {% if q.status == '2' %}bg-[#feecd3]{% else %}bg-[#006044]{% endif %}"></div>
+      <div class="text-xs font-bold mt-2 {% if q.status == '2' %}text-[#7c2808]{% else %}text-[#006044]{% endif %}">
+        {{ q.created_at|date:"Y/m/d" }}
+      </div>
+    </div>
+
+    <div class="flex-1 min-w-0">
+      <h2 class="font-bold text-[#7c2808] text-lg mb-1 truncate">
+        {{ q.title }}
+      </h2>
+      <p class="text-sm text-[#8c3f27] mb-1">{{ q.category.name }}</p>
+      <p class="text-sm text-[#8c3f27]">{{ q.detail|truncatechars:120 }}</p>
+    </div>
+
+    {% if show_bookmark %}
+      <div class="flex items-start">
+        {% include "app/components/qa/_bookmark_button_partial.html" with q=q %}
+      </div>
+    {% endif %}
+  </div>
+</article>

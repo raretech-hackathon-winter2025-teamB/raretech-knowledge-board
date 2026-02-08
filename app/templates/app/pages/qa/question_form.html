@@ -1,0 +1,75 @@
+{% extends "layouts/app_base.html" %}
+
+{% block title %}質問投稿 | RareTECHナレッジ掲示板{% endblock %}
+
+{% block content %}
+<section class="space-y-5">
+  <div class="bg-[#7c2808] text-[#fff7ed] rounded-2xl px-8 py-6 flex items-center justify-between w-full shadow-lg">
+    <div class="flex items-center gap-3">
+      <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M22 2 11 13" />
+        <path d="M22 2 15 22l-4-9-9-4 20-7z" />
+      </svg>
+      <h1 class="text-2xl font-bold">質問を投稿</h1>
+    </div>
+    <a href="/home/" class="px-4 py-2 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#fff7ed] hover:text-[#7c2808] transition-colors font-bold">
+      一覧へ戻る
+    </a>
+  </div>
+
+  {% if form.errors %}
+    <div class="bg-[#fff7ed] border-2 border-red-600 rounded-lg p-4 text-sm text-red-700">
+      入力内容を確認してください。
+      {{ form.errors }}
+    </div>
+  {% endif %}
+
+  <form method="post" action="/question/new/" class="space-y-5"
+        hx-post="/question/new/" hx-target="main" hx-select="main" hx-swap="outerHTML" hx-push-url="true">
+    {% csrf_token %}
+
+    <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-6 shadow-md">
+      <label class="block mb-3 font-bold text-[#7c2808] text-lg">
+        <span class="text-[#c93400]">*</span>
+        カテゴリ
+      </label>
+      <select name="category" id="id_category" class="w-full px-4 py-3 border-2 border-[#7c2808] rounded-lg focus:outline-none focus:border-[#c93400] bg-white text-[#7c2808]" required>
+        <option value="">カテゴリを選択してください</option>
+        {% for c in categories %}
+          <option value="{{ c.pk }}" {% if form.category.value|stringformat:"s" == c.pk|stringformat:"s" %}selected{% endif %}>{{ c.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-6 shadow-md">
+      <label for="id_title" class="block mb-3 font-bold text-[#7c2808] text-lg">
+        <span class="text-[#c93400]">*</span>
+        タイトル
+      </label>
+      <input id="id_title" name="title" type="text" value="{{ form.title.value|default:'' }}" class="w-full px-4 py-3 border-2 border-[#7c2808] rounded-lg focus:outline-none focus:border-[#c93400] bg-white text-[#7c2808]" placeholder="質問のタイトルを入力" required>
+    </div>
+
+    <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-6 shadow-md">
+      <div class="flex items-center justify-between mb-3">
+        <label for="id_detail" class="font-bold text-[#7c2808] text-lg">
+          <span class="text-[#c93400]">*</span>
+          質問内容
+        </label>
+        <a href="/how-to-ask/" class="text-sm text-[#c93400] underline">いい質問の仕方</a>
+      </div>
+
+      {% include "app/components/editor/_tabs_partial.html" with tab_edit_id="tab-edit" tab_preview_id="tab-preview" editor_pane_id="editor-pane" preview_pane_id="preview-pane" editor_id="id_detail" preview_id="preview-content" %}
+      {% include "app/components/editor/_toolbar_partial.html" with editor_id="id_detail" upload_picker_id="question-image-picker" %}
+      {% include "app/components/editor/_upload_partial.html" with upload_picker_id="question-image-picker" upload_meta_id="question-image-meta" upload_result_id="question-upload-result" upload_target_field="id_detail" %}
+      {% include "app/components/editor/_markdown_editor_partial.html" with editor_pane_id="editor-pane" preview_pane_id="preview-pane" editor_id="id_detail" editor_name="detail" editor_value=form.detail.value|default:'' rows="12" preview_id="preview-content" editor_placeholder="質問内容をマークダウン形式で入力してください" editor_min_h="min-h-[300px]" %}
+    </div>
+
+    <div class="flex gap-3 justify-end">
+      <a href="/home/" class="px-6 py-3 border-2 border-[#7c2808] text-[#7c2808] rounded-lg hover:bg-[#7c2808] hover:text-[#fff7ed] transition-colors font-medium">キャンセル</a>
+      <button type="submit" class="px-6 py-3 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#7c2808] transition-colors font-bold">
+        投稿する
+      </button>
+    </div>
+  </form>
+</section>
+{% endblock %}

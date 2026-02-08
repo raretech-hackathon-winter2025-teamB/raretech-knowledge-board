@@ -80,3 +80,22 @@ textarea,
 select {
   font-weight: var(--font-weight-normal);
 }
+
+.tab-active {
+  color: #c93400 !important;
+  border-bottom-color: #c93400 !important;
+}
+
+.tab-inactive {
+  color: rgba(124, 40, 8, 0.6) !important;
+  border-bottom-color: transparent !important;
+}
+
+.app-shell {
+  background: #fff7ed !important;
+  color: #7c2808 !important;
+}
+
+.app-main {
+  background: #fff7ed !important;
+}

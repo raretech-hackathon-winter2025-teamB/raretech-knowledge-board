@@ -9,19 +9,20 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/htmx.org@1.9.12"></script>
   <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+  <script src="{% static 'js/markdown-editor.js' %}" defer></script>
   {% block extra_head %}{% endblock %}
 </head>
-<body class="min-h-screen w-full overflow-y-scroll bg-[#fff7ed] text-[#7c2808]" hx-boost="true">
+<body class="app-shell min-h-screen w-full overflow-y-scroll bg-orange-50 text-amber-900" hx-boost="true">
   <div class="min-h-screen lg:flex">
-    {% include "includes/app/_sidebar.html" %}
+    {% include "app/components/sidebar.html" %}
 
     <div class="flex-1 min-w-0 min-h-screen">
-      {% block topbar %}
-        {% include "includes/app/_topbar.html" %}
-      {% endblock %}
-
-      <main class="w-full max-w-6xl mx-auto px-6 py-6">
-        {% include "includes/app/_message.html" %}
+      <main class="app-main w-full max-w-6xl mx-auto px-6 py-6 bg-orange-50">
+        {% include "app/components/message.html" %}
         <div class="mt-4">
           {% block content %}{% endblock %}
         </div>

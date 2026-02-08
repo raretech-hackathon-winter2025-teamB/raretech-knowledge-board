@@ -1,0 +1,33 @@
+<input
+  id="{{ upload_picker_id }}"
+  type="file"
+  name="image"
+  accept="image/*"
+  class="hidden"
+  hx-post="/upload-image/"
+  hx-encoding="multipart/form-data"
+  hx-include="#{{ upload_meta_id }}"
+  hx-target="#{{ upload_result_id }}"
+  hx-swap="beforeend"
+  hx-select="div[data-url], div.text-red-600"
+  hx-push-url="false"
+  hx-trigger="change"
+  _="on htmx:afterRequest set my.value to ''"
+>
+<div id="{{ upload_meta_id }}" class="hidden">
+  {% csrf_token %}
+  <input type="hidden" name="target_field" value="{{ upload_target_field }}">
+</div>
+<div id="{{ upload_result_id }}" _="
+  on htmx:afterSwap
+    set node to my.querySelector('[data-url]')
+    if node is not null
+      set targetId to node.getAttribute('data-target')
+      set target to document.getElementById(targetId)
+      if target is not null
+        set target.value to target.value + '\n![' + node.getAttribute('data-name') + '](' + node.getAttribute('data-url') + ')\n'
+        focus() on target
+      end
+      remove node
+    end
+"></div>

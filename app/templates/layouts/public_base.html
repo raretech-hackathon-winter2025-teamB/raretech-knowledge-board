@@ -17,13 +17,13 @@
   {% block extra_head %}{% endblock %}
 </head>
 <body class="min-h-screen w-full bg-gradient-to-br from-[#feecd3] via-[#fff7ed] to-[#feecd3] text-[#7c2808]" hx-boost="true" {% block body_attrs %}{% endblock %}>
-  {% include "includes/public/_header.html" %}
+  {% include "public/components/header.html" %}
 
   <main>
     {% block content %}{% endblock %}
   </main>
 
-  {% include "includes/public/_footer.html" %}
+  {% include "public/components/footer.html" %}
 
   <div id="overlay" class="relative z-20"></div>
 

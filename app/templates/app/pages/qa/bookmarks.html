@@ -1,0 +1,42 @@
+{% extends "layouts/app_base.html" %}
+
+{% block title %}ブックマーク | RareTECHナレッジ掲示板{% endblock %}
+
+{% block content %}
+<section class="space-y-5">
+  <div class="bg-[#7c2808] text-[#fff7ed] rounded-2xl px-8 py-6 flex items-center justify-between w-full shadow-lg">
+    <div class="flex items-center gap-3">
+      <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+      </svg>
+      <h1 class="text-2xl font-bold">ブックマーク</h1>
+    </div>
+    <a href="/home/"
+      class="px-4 py-2 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#fff7ed] hover:text-[#7c2808] transition-colors font-bold"
+      hx-get="/home/"
+      hx-target="main"
+      hx-select="main"
+      hx-swap="outerHTML"
+      hx-push-url="true">
+      質問一覧へ
+    </a>
+  </div>
+
+  {% if not request.user.is_authenticated %}
+    <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-8 shadow-md text-center space-y-3">
+      <p class="text-[#7c2808] text-lg font-medium">ブックマークを表示するにはログインが必要です。</p>
+      <a href="/login/" class="inline-flex px-5 py-2 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#7c2808] transition-colors font-medium">
+        ログイン
+      </a>
+    </div>
+  {% else %}
+    <div class="space-y-4">
+      {% if object_list %}
+        {% include "app/components/qa/_question_list_partial.html" with questions=object_list show_bookmark="1" %}
+      {% else %}
+        {% include "app/components/qa/_question_empty_partial.html" with show_icon="1" empty_title="ブックマークはまだありません" empty_message="質問一覧から気になる投稿を保存してください。" %}
+      {% endif %}
+    </div>
+  {% endif %}
+</section>
+{% endblock %}
