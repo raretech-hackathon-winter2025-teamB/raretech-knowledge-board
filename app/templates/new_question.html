@@ -1,0 +1,12 @@
+<form action="" method="post">
+{% csrf_token %}
+<div>タイトル：{{ form.title }}</div>
+<div>本文：{{ form.detail }}</div>
+<div>カテゴリ：{{ form.category }}</div>
+<div>画像：{{ form.image_url }}</div>
+
+<!-- {{ form.as_p }} -->
+<!-- {{ form.as_table }} -->
+<!-- {{ form.as_li }} -->
+<input type="submit" value="投稿">
+</form>
