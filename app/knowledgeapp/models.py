@@ -25,7 +25,7 @@ class Question(models.Model):
     title = models.CharField(max_length=255, verbose_name='質問タイトル')
     detail = models.TextField(max_length=4000, verbose_name='質問本文')
     image_url = models.URLField(max_length=2048, verbose_name='画像URL', null=True, blank=True)
-    created_at = models.DateField(auto_now_add=True, verbose_name='投稿日時')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='投稿日時')
     status = models.CharField(max_length=16, choices=STATUS, verbose_name='ステータス', default='2')
 
     def __str__(self):
