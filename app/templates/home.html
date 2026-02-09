@@ -1,4 +1,8 @@
 
+現在のログインユーザー:
+{{user.name}}
+<!-- ↑開発用にいれてます。誰がログインしているかわからなくなるため。消してOK　byアナザー -->
+
 {% for question in object_list %}
 
 <p>投稿者：{{question.user.name}}</p>
@@ -6,7 +10,10 @@
 <p>投稿日時：{{question.created_at | date:"Y/m/d H:i"}}</p>
 <p>カテゴリ：{{question.category.name}}</p>
 <p>ステータス：{{question.get_status_display}}</p>
-<a href="" type="submit">削除</a>
+{% if question.user == user %}
+    <!-- 自分の時だけ削除ボタンを出す -->
+    <a href="{% url 'knowledgeapp:delete_question' question.pk %}">削除</a>
+{% endif %}
 {% empty %}
     <p>データがありません。</p>
 {% endfor %}
