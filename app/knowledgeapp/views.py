@@ -30,3 +30,9 @@ class QuestionCreate(LoginRequiredMixin,CreateView):
         form.instance.user = self.request.user
         form.instance.status = '2'
         return super().form_valid(form)
+    
+#質問投稿の削除
+class QuestionDelete(LoginRequiredMixin,DeleteView):
+    template_name = 'delete_question.html'
+    model = Question
+    success_url = reverse_lazy('knowledgeapp:question')
