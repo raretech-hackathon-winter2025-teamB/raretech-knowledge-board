@@ -1,0 +1,24 @@
+{% extends "layouts/public_base.html" %}
+
+{% block title %}利用規約 | RareTECHナレッジ掲示板{% endblock %}
+
+{% block content %}
+<section class="max-w-4xl mx-auto px-4 py-12">
+  <div class="bg-[#fff7ed] rounded-2xl border-2 border-[#7c2808] shadow-xl p-8 md:p-10 space-y-6">
+    <h1 class="text-3xl font-bold text-[#7c2808]">利用規約</h1>
+    {% include "app/components/legal/_terms_content_partial.html" %}
+
+    <div class="pt-4">
+      <a href="/"
+         hx-get="/"
+         hx-target="main"
+         hx-select="main"
+         hx-swap="outerHTML"
+         hx-push-url="true"
+         class="inline-flex px-5 py-3 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#7c2808] transition-colors font-medium">
+        トップへ戻る
+      </a>
+    </div>
+  </div>
+</section>
+{% endblock %}

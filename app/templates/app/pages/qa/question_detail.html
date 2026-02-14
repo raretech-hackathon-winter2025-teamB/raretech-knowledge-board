@@ -1,0 +1,12 @@
+{% extends "layouts/app_base.html" %}
+
+{% block title %}質問詳細 | RareTECHナレッジ掲示板{% endblock %}
+
+{% block content %}
+<section class="space-y-5">
+  {% include "app/components/qa/_question_detail_header_partial.html" %}
+  {% include "app/components/qa/_question_detail_body_partial.html" %}
+  {% include "app/components/qa/_answer_list_partial.html" with answers=answers %}
+  {% include "app/components/qa/_answer_form_partial.html" %}
+</section>
+{% endblock %}

@@ -1,0 +1,22 @@
+<div class="relative">
+  <div class="absolute inset-0 flex items-center">
+    <div class="w-full border-t-2 border-[#7c2808]/20"></div>
+  </div>
+  <div class="relative flex justify-center text-sm">
+    <span class="px-4 bg-[#fff7ed] text-[#7c2808]/80 font-medium">{{ lead_text }}</span>
+  </div>
+</div>
+
+<div class="text-center">
+  <button
+    type="button"
+    class="px-6 py-3 border-2 border-[#7c2808] text-[#7c2808] rounded-lg hover:bg-[#7c2808] hover:text-[#fff7ed] transition-colors font-bold inline-flex items-center justify-center"
+    hx-get="{{ target_path }}"
+    hx-target="{% firstof htmx_target '#public-main' %}"
+    hx-select="{% firstof htmx_select '#public-main' %}"
+    hx-swap="{% firstof htmx_swap 'outerHTML' %}"
+    hx-push-url="{% firstof htmx_push_url 'true' %}"
+  >
+    {{ button_text }}
+  </button>
+</div>

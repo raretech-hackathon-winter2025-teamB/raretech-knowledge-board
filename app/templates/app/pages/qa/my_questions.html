@@ -1,0 +1,36 @@
+{% extends "layouts/app_base.html" %}
+
+{% block title %}自分の質問 | RareTECHナレッジ掲示板{% endblock %}
+
+{% block content %}
+<section class="space-y-5">
+  <div class="bg-[#7c2808] text-[#fff7ed] rounded-2xl px-8 py-6 flex items-center justify-between w-full shadow-lg">
+    <div class="flex items-center gap-3">
+      <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15a4 4 0 0 1-4 4H7l-4 4V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z" />
+      </svg>
+      <h1 class="text-2xl font-bold">自分の質問</h1>
+    </div>
+    <a href="/question/new/" hx-get="/question/new/" hx-target="main" hx-select="main" hx-swap="outerHTML" hx-push-url="true" class="px-4 py-2 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#fff7ed] hover:text-[#7c2808] transition-colors font-bold">
+      質問投稿
+    </a>
+  </div>
+
+  {% if not request.user.is_authenticated %}
+    <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-8 shadow-md text-center space-y-3">
+      <p class="text-[#7c2808] text-lg font-medium">自分の質問を表示するにはログインが必要です。</p>
+      <a href="/login/" class="inline-flex px-5 py-2 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#7c2808] transition-colors font-medium">
+        ログイン
+      </a>
+    </div>
+  {% else %}
+    <div class="space-y-4">
+      {% if object_list %}
+        {% include "app/components/qa/_question_list_partial.html" with questions=object_list show_bookmark="" %}
+      {% else %}
+        {% include "app/components/qa/_question_empty_partial.html" with show_icon="" empty_title="自分の質問はまだありません" empty_message="最初の質問を投稿してみましょう。" %}
+      {% endif %}
+    </div>
+  {% endif %}
+</section>
+{% endblock %}

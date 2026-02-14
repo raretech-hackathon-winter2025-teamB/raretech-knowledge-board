@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}RareTECH ナレッジ掲示板{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'globals.css' %}" />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="preload" as="script" href="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js" />
+  <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.birds.min.js" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+  <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+  {% block extra_head %}{% endblock %}
+</head>
+<body class="min-h-screen w-full bg-gradient-to-br from-[#feecd3] via-[#fff7ed] to-[#feecd3] text-[#7c2808]" hx-boost="true" {% block body_attrs %}{% endblock %}>
+  {% include "public/components/header.html" %}
+
+  <main id="public-main">
+    {% block content %}{% endblock %}
+  </main>
+
+  {% include "public/components/footer.html" %}
+
+  <div id="overlay" class="relative z-20"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.birds.min.js" defer></script>
+  <script src="{% static 'js/public-base.js' %}" defer></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<section class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-6 shadow-md">
+  <div class="flex items-center justify-between mb-4">
+    <h3 class="text-xl font-bold text-[#7c2808]">回答 ({{ answers|length }})</h3>
+  </div>
+  {% if answers %}
+    <div class="space-y-4">
+      {% for a in answers %}
+        {% include "app/components/qa/_answer_item_partial.html" with a=a %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="bg-white rounded-lg border border-[#7c2808]/20 p-6 text-center text-[#7c2808]/80">
+      まだ回答はありません。
+    </div>
+  {% endif %}
+</section>

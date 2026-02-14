@@ -1,0 +1,40 @@
+<article class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-6 shadow-md">
+  <div class="flex items-center justify-between gap-3 mb-3">
+    <h2 class="text-2xl font-bold text-[#7c2808]">{{ object.title }}</h2>
+    <div class="flex items-center gap-2">
+      <span class="text-xs px-3 py-1 rounded-full {% if object.status == '2' %}bg-[#feecd3] text-[#7c2808]{% else %}bg-[#006044] text-white{% endif %}">
+        {% if object.status == '2' %}未解決{% else %}解決済み{% endif %}
+      </span>
+      {% if request.user.is_authenticated and request.user == object.user and object.status == '2' %}
+        <form method="post" action="/question/{{ object.id }}/resolve/"
+              hx-post="/question/{{ object.id }}/resolve/"
+              hx-target="main"
+              hx-select="main"
+              hx-swap="outerHTML"
+              hx-push-url="true">
+          {% csrf_token %}
+          <button type="submit"
+                  class="text-xs px-3 py-1 rounded-full bg-[#c93400] text-[#fff7ed] hover:bg-[#7c2808] transition-colors font-medium">
+            解決済みにする
+          </button>
+        </form>
+      {% endif %}
+    </div>
+  </div>
+  <div class="text-sm text-[#8c3f27] mb-4">
+    <span class="font-medium">カテゴリ:</span> {{ object.category.name }}
+    <span class="mx-2">|</span>
+    <span class="font-medium">投稿者:</span> {{ object.user.name|default:object.user.email }}
+    <span class="mx-2">|</span>
+    <span class="font-medium">投稿日:</span> {{ object.created_at|date:"Y/m/d H:i" }}
+  </div>
+  <div id="question-detail-markdown"
+       data-markdown-source="1"
+       data-rendered="0"
+       class="bg-white rounded-lg border border-[#7c2808]/20 p-4 text-[#7c2808] text-sm leading-7 [&_h1]:text-2xl [&_h1]:font-bold [&_h1]:mb-3 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:mb-2 [&_h3]:text-lg [&_h3]:font-bold [&_h3]:mb-2 [&_p]:mb-3 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:mb-1 [&_pre]:bg-[#7c2808] [&_pre]:text-[#fff7ed] [&_pre]:p-3 [&_pre]:rounded-lg [&_pre]:overflow-auto [&_code]:bg-[#7c2808]/10 [&_code]:px-1 [&_code]:rounded [&_blockquote]:border-l-4 [&_blockquote]:border-[#c93400] [&_blockquote]:pl-3 [&_blockquote]:text-[#8c3f27]">{{ object.detail }}</div>
+  {% if object.image_url %}
+    <div class="mt-4">
+      <a href="{{ object.image_url }}" target="_blank" rel="noopener" class="text-[#c93400] underline text-sm">画像URLを開く</a>
+    </div>
+  {% endif %}
+</article>

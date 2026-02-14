@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}RareTECH ナレッジ掲示板{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'globals.css' %}" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+  <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+  <script src="{% static 'js/markdown-editor.js' %}" defer></script>
+  {% block extra_head %}{% endblock %}
+</head>
+<body class="app-shell min-h-screen w-full overflow-y-scroll bg-orange-50 text-amber-900" hx-boost="true">
+  <div class="min-h-screen lg:flex">
+    {% include "app/components/sidebar.html" %}
+
+    <div class="flex-1 min-w-0 min-h-screen">
+      <main class="app-main w-full max-w-6xl mx-auto px-6 py-6 bg-orange-50">
+        {% include "app/components/message.html" %}
+        <div class="mt-4">
+          {% block content %}{% endblock %}
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

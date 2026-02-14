@@ -1,34 +1,71 @@
-from django.contrib.auth import login
-from django.views.generic import CreateView, TemplateView
-from django.shortcuts import redirect, render
+from django.contrib import messages
+from django.contrib.auth import login, logout
+from django.contrib.auth import views as auth_views
+from django.views.generic import CreateView, TemplateView, View
+from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
-# from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 from django.urls import reverse_lazy
 from .form import SignUpForm
 
+
 # ユーザ編集画面
 class Setting(LoginRequiredMixin, TemplateView):
-  template_name = "accounts/setting.html"
+    template_name = "app/pages/profile/setting.html"
 
-# ユーザ編集
-  def setting(request):
-      if request.method == "POST":
-          user = request.user
-          user.email = request.POST["email"]
-          user.name = request.POST["name"]
-          user.password = request.POST["password"]
-          user.save()
-          return redirect("accounts:setting")
-      else:
-          return render(request, "home.html")
-    
+
+class LogoutView(View):
+    def get(self, request):
+        logout(request)
+        if request.headers.get("HX-Request") == "true":
+            response = HttpResponse("")
+            response["HX-Redirect"] = "/"
+            return response
+        return redirect("/")
+
+    def post(self, request):
+        return self.get(request)
+
+
+class WithdrawView(LoginRequiredMixin, View):
+    def post(self, request):
+        current_password = request.POST.get("current_password", "")
+        user = request.user
+
+        if not current_password or not user.check_password(current_password):
+            messages.error(request, "現在のパスワードが正しくありません。")
+            return redirect("/setting/")
+
+        logout(request)
+        user.delete()
+
+        if request.headers.get("HX-Request") == "true":
+            response = HttpResponse("")
+            response["HX-Redirect"] = "/"
+            return response
+        return redirect("/")
+
+
+class LoginView(auth_views.LoginView):
+    template_name = "app/pages/auth/login.html"
+    redirect_authenticated_user = True
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        if self.request.headers.get("HX-Request") == "true":
+            htmx_redirect = HttpResponse("")
+            htmx_redirect["HX-Redirect"] = self.get_success_url()
+            return htmx_redirect
+        return response
+
+
 # ユーザ登録
 class SignUpView(CreateView):
     # このビューが使用するフォームクラスを指定
     form_class = SignUpForm
-    #ユーザ作成後のリダイレクト先
+    # ユーザ作成後のリダイレクト先
     success_url = reverse_lazy("knowledgeapp:question")
-    template_name = "accounts/signup.html"
+    template_name = "app/pages/auth/signup.html"
 
     # CreateViewはフォームがバリデーションに成功したときに自動的にform_valid()メソッドを呼び出す
     # デフォのform_valid()の動作をカスタマイズする
@@ -40,8 +77,9 @@ class SignUpView(CreateView):
         # 作成されたオブジェクトをself.objectに設定している
         # CreateViewの場合フォームが保存された後、新しく作成されたモデルインスタンスがこのself.objectに設定されることが期待されている
         self.object = user
+        if self.request.headers.get("HX-Request") == "true":
+            response = HttpResponse("")
+            response["HX-Redirect"] = self.get_success_url()
+            return response
         # self.get_success_url()は、クラス属性success_urlの値を返すメソッド
         return redirect(self.get_success_url())
-    
-
-
