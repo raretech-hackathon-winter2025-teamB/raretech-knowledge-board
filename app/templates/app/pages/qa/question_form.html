@@ -24,8 +24,8 @@
     </div>
   {% endif %}
 
-  <form method="post" action="/question/new/" class="space-y-5"
-        hx-post="/question/new/" hx-target="main" hx-select="main" hx-swap="outerHTML" hx-push-url="true">
+  <form method="post" action="/question/new/" autocomplete="off" class="space-y-5"
+        hx-post="/question/new/" hx-target="main" hx-select="main" hx-swap="outerHTML show:window:top" hx-push-url="true">
     {% csrf_token %}
 
     <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-6 shadow-md">
@@ -46,7 +46,7 @@
         <span class="text-[#c93400]">*</span>
         タイトル
       </label>
-      <input id="id_title" name="title" type="text" value="{{ form.title.value|default:'' }}" class="w-full px-4 py-3 border-2 border-[#7c2808] rounded-lg focus:outline-none focus:border-[#c93400] bg-white text-[#7c2808]" placeholder="質問のタイトルを入力" required>
+      <input id="id_title" name="title" type="text" value="{{ form.title.value|default:'' }}" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="w-full px-4 py-3 border-2 border-[#7c2808] rounded-lg focus:outline-none focus:border-[#c93400] bg-white text-[#7c2808]" placeholder="質問のタイトルを入力" required>
     </div>
 
     <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-6 shadow-md">

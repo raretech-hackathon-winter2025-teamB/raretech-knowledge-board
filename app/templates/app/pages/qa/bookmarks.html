@@ -16,11 +16,13 @@
       hx-get="/home/"
       hx-target="main"
       hx-select="main"
-      hx-swap="outerHTML"
+      hx-swap="outerHTML show:window:top"
       hx-push-url="true">
       質問一覧へ
     </a>
   </div>
+
+  {% include "app/components/qa/common/_search_filter_bar.html" with form_action="/bookmarks/" hx_get_url="/bookmarks/" search_placeholder="ブックマークを検索..." modal_id="bookmark-filter-modal" %}
 
   {% if not request.user.is_authenticated %}
     <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-8 shadow-md text-center space-y-3">
@@ -39,4 +41,6 @@
     </div>
   {% endif %}
 </section>
+
+{% include "app/components/qa/common/_filter_modal.html" with modal_id="bookmark-filter-modal" form_action="/bookmarks/" hx_get_url="/bookmarks/" %}
 {% endblock %}

@@ -92,10 +92,29 @@ select {
 }
 
 .app-shell {
-  background: #fff7ed !important;
+  background: #feecd3 !important;
   color: #7c2808 !important;
 }
 
 .app-main {
-  background: #fff7ed !important;
+  background: #feecd3 !important;
+}
+
+.sidebar-item {
+  color: #7c2808;
+}
+
+.sidebar-inactive {
+  color: #7c2808;
+}
+
+.sidebar-active {
+  background: #c93400;
+  color: #fff7ed;
+  font-weight: 700;
+}
+
+.sidebar-active:hover {
+  background: #c93400 !important;
+  color: #fff7ed !important;
 }

@@ -11,10 +11,12 @@
       </svg>
       <h1 class="text-2xl font-bold">自分の質問</h1>
     </div>
-    <a href="/question/new/" hx-get="/question/new/" hx-target="main" hx-select="main" hx-swap="outerHTML" hx-push-url="true" class="px-4 py-2 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#fff7ed] hover:text-[#7c2808] transition-colors font-bold">
+    <a href="/question/new/" hx-get="/question/new/" hx-target="main" hx-select="main" hx-swap="outerHTML show:window:top" hx-push-url="true" class="px-4 py-2 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#fff7ed] hover:text-[#7c2808] transition-colors font-bold">
       質問投稿
     </a>
   </div>
+
+  {% include "app/components/qa/common/_search_filter_bar.html" with form_action="/my-questions/" hx_get_url="/my-questions/" search_placeholder="自分の質問を検索..." modal_id="my-filter-modal" %}
 
   {% if not request.user.is_authenticated %}
     <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-8 shadow-md text-center space-y-3">
@@ -33,4 +35,6 @@
     </div>
   {% endif %}
 </section>
+
+{% include "app/components/qa/common/_filter_modal.html" with modal_id="my-filter-modal" form_action="/my-questions/" hx_get_url="/my-questions/" %}
 {% endblock %}

@@ -9,19 +9,26 @@
     <div class="flex items-center gap-3">
       <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <circle cx="12" cy="12" r="10"></circle>
-        <path d="M12 16v.01"></path>
-        <path d="M12 12a2 2 0 1 0-2-2"></path>
+        <path d="M12 7v7"></path>
+        <circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"></circle>
       </svg>
       <h1 class="text-2xl font-bold">いい質問の仕方</h1>
     </div>
-    <a href="/question/new/" hx-get="/question/new/" hx-target="main" hx-select="main" hx-swap="outerHTML" hx-push-url="true"
+    <a href="/question/new/" hx-get="/question/new/" hx-target="main" hx-select="main" hx-swap="outerHTML show:window:top" hx-push-url="true"
        class="px-4 py-2 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#fff7ed] hover:text-[#7c2808] transition-colors font-bold">
       質問投稿へ
     </a>
   </div>
 
   <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-6 shadow-md w-full">
-    <h2 class="text-xl font-bold text-[#7c2808] mb-4">エンジニアとして効果的な質問をするために</h2>
+    <h2 class="text-xl font-bold text-[#7c2808] mb-4 flex items-center gap-2">
+      <svg class="w-6 h-6 text-[#c93400]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"></circle>
+        <path d="M12 7v7"></path>
+        <circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"></circle>
+      </svg>
+      エンジニアとして効果的な質問をするために
+    </h2>
     <p class="text-[#7c2808] leading-relaxed mb-3">
       ITエンジニアにとって、技術的な問題を正確に伝える能力は非常に重要です。 適切な質問をすることで、より早く、的確な回答を得ることができます。
     </p>
@@ -31,7 +38,12 @@
   </div>
 
   <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-6 shadow-md w-full">
-    <h2 class="text-xl font-bold text-[#7c2808] mb-4">質問に含めるべき5つの要素</h2>
+    <h2 class="text-xl font-bold text-[#7c2808] mb-4 flex items-center gap-2">
+      <svg class="w-6 h-6 text-[#c93400]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M20 6 9 17l-5-5"></path>
+      </svg>
+      質問に含めるべき5つの要素
+    </h2>
     <div class="space-y-4">
       <div class="p-4 bg-[#feecd3] rounded-lg border-l-4 border-[#c93400]">
         <h3 class="font-bold text-[#7c2808] mb-2">1. 何を実現したいのか（目的）</h3>
@@ -76,7 +88,13 @@
   </div>
 
   <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-6 shadow-md w-full">
-    <h2 class="text-xl font-bold text-[#7c2808] mb-4">コードやエラーの提示方法</h2>
+    <h2 class="text-xl font-bold text-[#7c2808] mb-4 flex items-center gap-2">
+      <svg class="w-6 h-6 text-[#c93400]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="m16 18 6-6-6-6"></path>
+        <path d="m8 6-6 6 6 6"></path>
+      </svg>
+      コードやエラーの提示方法
+    </h2>
 
     <div class="space-y-4">
       <div>
@@ -122,7 +140,13 @@ const handleLogin = async (userData) => {
   </div>
 
   <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-6 shadow-md w-full">
-    <h2 class="text-xl font-bold text-[#7c2808] mb-4">再現手順の書き方</h2>
+    <h2 class="text-xl font-bold text-[#7c2808] mb-4 flex items-center gap-2">
+      <svg class="w-6 h-6 text-[#c93400]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16l4-3 4 3 4-3 4 3V8z"></path>
+        <path d="M14 2v6h6"></path>
+      </svg>
+      再現手順の書き方
+    </h2>
     <p class="text-sm text-[#7c2808]/80 mb-4">問題を再現できる手順を番号付きで明確に記載しましょう。</p>
     <div class="bg-[#e8f5e9] p-4 rounded-lg border-l-4 border-green-600">
       <h3 class="font-bold text-[#7c2808] mb-3">✅ 良い例</h3>
@@ -139,7 +163,13 @@ const handleLogin = async (userData) => {
   </div>
 
   <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-6 shadow-md w-full">
-    <h2 class="text-xl font-bold text-[#7c2808] mb-4">環境情報のチェックリスト</h2>
+    <h2 class="text-xl font-bold text-[#7c2808] mb-4 flex items-center gap-2">
+      <svg class="w-6 h-6 text-[#c93400]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="3"></circle>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.08a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.08a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.08a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+      </svg>
+      環境情報のチェックリスト
+    </h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div class="p-4 bg-[#feecd3] rounded-lg">
         <h3 class="font-bold text-[#7c2808] mb-2">フロントエンド</h3>
@@ -177,7 +207,15 @@ const handleLogin = async (userData) => {
   </div>
 
   <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-6 shadow-md w-full">
-    <h2 class="text-xl font-bold text-[#7c2808] mb-4">コミュニケーションのマインドセット</h2>
+    <h2 class="text-xl font-bold text-[#7c2808] mb-4 flex items-center gap-2">
+      <svg class="w-6 h-6 text-[#c93400]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+        <circle cx="9" cy="7" r="4"></circle>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+      </svg>
+      コミュニケーションのマインドセット
+    </h2>
     <div class="space-y-3">
       <div class="p-4 bg-[#feecd3] rounded-lg">
         <h3 class="font-bold text-[#7c2808] mb-2">🎯 相手の時間を尊重する</h3>
@@ -204,7 +242,13 @@ const handleLogin = async (userData) => {
 
   <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-6 shadow-md w-full">
     <div class="flex items-center justify-between gap-3">
-      <h2 class="text-xl font-bold text-[#7c2808]">📋 完全な質問の例</h2>
+      <h2 class="text-xl font-bold text-[#7c2808] flex items-center gap-2">
+        <svg class="w-6 h-6 text-[#c93400]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 11l3 3L22 4"></path>
+          <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+        </svg>
+        完全な質問の例
+      </h2>
       <button type="button" class="px-3 py-1 text-sm bg-[#c93400] text-[#fff7ed] rounded-lg"
               _="on click toggle .hidden on #full-example then
                  if #full-example.matches('.hidden')
@@ -259,7 +303,7 @@ const fetchUserData = async () => {
   <div class="bg-gradient-to-r from-[#c93400] to-[#7c2808] text-[#fff7ed] rounded-xl p-8 shadow-lg w-full text-center">
     <h2 class="text-2xl font-bold mb-3">準備ができたら質問してみましょう！</h2>
     <p class="mb-6 text-[#fff7ed]/90">このガイドを参考に、詳細で分かりやすい質問を投稿してください。</p>
-    <a href="/question/new/" hx-get="/question/new/" hx-target="main" hx-select="main" hx-swap="outerHTML" hx-push-url="true"
+    <a href="/question/new/" hx-get="/question/new/" hx-target="main" hx-select="main" hx-swap="outerHTML show:window:top" hx-push-url="true"
        class="inline-flex px-8 py-3 bg-[#fff7ed] text-[#c93400] rounded-lg hover:bg-[#feecd3] transition-colors font-bold shadow-md">
       質問を投稿する
     </a>

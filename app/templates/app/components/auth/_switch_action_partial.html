@@ -14,7 +14,7 @@
     hx-get="{{ target_path }}"
     hx-target="{% firstof htmx_target '#public-main' %}"
     hx-select="{% firstof htmx_select '#public-main' %}"
-    hx-swap="{% firstof htmx_swap 'outerHTML' %}"
+    hx-swap="{% firstof htmx_swap 'outerHTML show:window:top' %}"
     hx-push-url="{% firstof htmx_push_url 'true' %}"
   >
     {{ button_text }}

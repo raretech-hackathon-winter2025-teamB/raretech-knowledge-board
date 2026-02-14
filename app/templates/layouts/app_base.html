@@ -16,12 +16,12 @@
   <script src="{% static 'js/markdown-editor.js' %}" defer></script>
   {% block extra_head %}{% endblock %}
 </head>
-<body class="app-shell min-h-screen w-full overflow-y-scroll bg-orange-50 text-amber-900" hx-boost="true">
+<body class="app-shell min-h-screen w-full overflow-y-scroll bg-[#feecd3] text-amber-900" hx-boost="true">
   <div class="min-h-screen lg:flex">
     {% include "app/components/sidebar.html" %}
 
     <div class="flex-1 min-w-0 min-h-screen">
-      <main class="app-main w-full max-w-6xl mx-auto px-6 py-6 bg-orange-50">
+      <main class="app-main w-full max-w-6xl mx-auto px-6 py-6 bg-[#feecd3]">
         {% include "app/components/message.html" %}
         <div class="mt-4">
           {% block content %}{% endblock %}

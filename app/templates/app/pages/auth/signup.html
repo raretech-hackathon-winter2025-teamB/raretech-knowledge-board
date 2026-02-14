@@ -12,7 +12,7 @@
       border: none;
       padding: 0;
       background: transparent;
-      width: min(48rem, calc(100vw - 2rem));
+      width: min(40rem, calc(100vw - 2rem));
       max-width: 100%;
     }
     dialog.legal-modal::backdrop {
@@ -33,8 +33,9 @@
               hx-post="/signup/"
               hx-target="#auth-form-shell"
               hx-select="#auth-form-shell"
-              hx-swap="outerHTML"
+              hx-swap="outerHTML show:window:top"
               hx-push-url="true"
+              autocomplete="off"
               class="p-8 space-y-5">
           {% csrf_token %}
           {% if form.errors %}
@@ -56,6 +57,10 @@
                 id="name"
                 name="name"
                 type="text"
+                autocomplete="off"
+                autocorrect="off"
+                autocapitalize="off"
+                spellcheck="false"
                 placeholder="山田太郎"
                 class="w-full pl-12 pr-4 py-3 border-2 rounded-lg focus:outline-none bg-white text-[#7c2808] transition-colors border-[#7c2808] focus:border-[#c93400]"
                 value="{{ form.name.value|default:'' }}"
@@ -78,6 +83,10 @@
                 id="email"
                 name="email"
                 type="email"
+                autocomplete="off"
+                autocorrect="off"
+                autocapitalize="off"
+                spellcheck="false"
                 placeholder="example@raretech.com"
                 class="w-full pl-12 pr-4 py-3 border-2 rounded-lg focus:outline-none bg-white text-[#7c2808] transition-colors border-[#7c2808] focus:border-[#c93400]"
                 value="{{ form.email.value|default:'' }}"
@@ -100,6 +109,7 @@
                 id="password"
                 name="password1"
                 type="password"
+                autocomplete="off"
                 placeholder="8文字以上、大小英数字を含む"
                 class="w-full pl-12 pr-4 py-3 border-2 rounded-lg focus:outline-none bg-white text-[#7c2808] transition-colors border-[#7c2808] focus:border-[#c93400]"
                 required
@@ -121,6 +131,7 @@
                 id="confirm_password"
                 name="password2"
                 type="password"
+                autocomplete="off"
                 placeholder="もう一度入力してください"
                 class="w-full pl-12 pr-4 py-3 border-2 rounded-lg focus:outline-none bg-white text-[#7c2808] transition-colors border-[#7c2808] focus:border-[#c93400]"
                 required

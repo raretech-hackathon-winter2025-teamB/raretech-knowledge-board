@@ -1,0 +1,39 @@
+<div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-6 shadow-md w-full {{ container_extra_class|default:'' }}">
+  <form method="get" action="{{ form_action }}" autocomplete="off" class="flex flex-wrap gap-3 items-center {{ form_extra_class|default:'' }}"
+        hx-get="{{ hx_get_url }}"
+        hx-target="main"
+        hx-select="main"
+        hx-swap="outerHTML show:window:top"
+        hx-push-url="true">
+    <div class="flex-1 min-w-[240px] relative">
+      <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#7c2808]/80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="7" />
+        <path d="m21 21-4.3-4.3" />
+      </svg>
+      <input
+        type="text"
+        name="q"
+        value="{{ selected_q }}"
+        placeholder="{{ search_placeholder }}"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="false"
+        class="w-full pl-12 pr-4 py-3 border-2 border-[#7c2808] rounded-lg focus:outline-none focus:border-[#c93400] bg-white text-[#7c2808]"
+      />
+    </div>
+    <button type="submit" class="px-6 py-3 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#7c2808] transition-colors font-medium">
+      検索
+    </button>
+    <button
+      type="button"
+      class="px-6 py-3 bg-[#7c2808] text-[#fff7ed] rounded-lg hover:bg-[#c93400] transition-colors font-medium flex items-center gap-2"
+      _="on click remove .hidden from #{{ modal_id }}"
+    >
+      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z" />
+      </svg>
+      絞り込み
+    </button>
+  </form>
+</div>
