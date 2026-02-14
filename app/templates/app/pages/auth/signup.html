@@ -1,13 +1,10 @@
 {% extends "layouts/public_base.html" %}
 
 {% block title %}新規登録 | RareTECHナレッジ掲示板{% endblock %}
+{% block body_attrs %}data-auth-page="1"{% endblock %}
 
 {% block extra_head %}
   <style>
-    body {
-      position: relative;
-      min-height: 100vh;
-    }
     dialog.legal-modal {
       border: none;
       padding: 0;
@@ -22,7 +19,7 @@
 {% endblock %}
 
 {% block content %}
-  <div data-vanta-page="birds" class="relative z-20 min-h-screen flex items-center justify-center p-4">
+  <div data-vanta-page="birds" class="relative z-20 h-full flex items-center justify-center p-4">
     <div id="auth-form-shell" class="w-full max-w-md">
       {% include "app/components/auth/_branding_partial.html" with subtitle="アカウントを作成して学びを共有しよう" %}
 
