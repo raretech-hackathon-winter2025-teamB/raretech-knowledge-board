@@ -20,4 +20,6 @@ urlpatterns = [
     path('question/<int:pk>/bookmark/', views.BookmarkToggle.as_view(), name='bookmark_toggle'),
     path('question/<int:pk>/answer/', views.AnswerCreate.as_view(), name='answer_create'),
     path('question/new/', views.QuestionCreate.as_view(), name='new_question'),
+    path('delete_question/<int:pk>/', views.delete_question, name='delete_question'),
+    path('question/<int:pk>/', views.QuestionUpdate.as_view(), name='update_question'),
 ]
