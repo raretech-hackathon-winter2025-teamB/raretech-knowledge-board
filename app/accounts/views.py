@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth import login, logout
+from django.contrib.auth import views as auth_views
 from django.views.generic import CreateView, TemplateView, View
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -45,6 +46,19 @@ class WithdrawView(LoginRequiredMixin, View):
         return redirect("/")
 
 
+class LoginView(auth_views.LoginView):
+    template_name = "app/pages/auth/login.html"
+    redirect_authenticated_user = True
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        if self.request.headers.get("HX-Request") == "true":
+            htmx_redirect = HttpResponse("")
+            htmx_redirect["HX-Redirect"] = self.get_success_url()
+            return htmx_redirect
+        return response
+
+
 # ユーザ登録
 class SignUpView(CreateView):
     # このビューが使用するフォームクラスを指定
@@ -63,5 +77,9 @@ class SignUpView(CreateView):
         # 作成されたオブジェクトをself.objectに設定している
         # CreateViewの場合フォームが保存された後、新しく作成されたモデルインスタンスがこのself.objectに設定されることが期待されている
         self.object = user
+        if self.request.headers.get("HX-Request") == "true":
+            response = HttpResponse("")
+            response["HX-Redirect"] = self.get_success_url()
+            return response
         # self.get_success_url()は、クラス属性success_urlの値を返すメソッド
         return redirect(self.get_success_url())

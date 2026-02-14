@@ -18,6 +18,12 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from . import error_views
+
+handler400 = "config.error_views.bad_request"
+handler403 = "config.error_views.permission_denied"
+handler404 = "config.error_views.page_not_found"
+handler500 = "config.error_views.server_error"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,6 +32,11 @@ urlpatterns = [
     #Djangoが元々持っているauthという認証機能を追加
     #これがあるとhtmlでaccounts:login,accounts:logoutと指定しなくて済む
     path('', include('django.contrib.auth.urls')),
+    path("errors/<int:code>/", error_views.preview_error, name="error_preview"),
+    path("errors/405/", error_views.method_not_allowed, name="error_405"),
+    path("errors/429/", error_views.too_many_requests, name="error_429"),
+    path("errors/502/", error_views.bad_gateway, name="error_502"),
+    path("errors/503/", error_views.service_unavailable, name="error_503"),
 
 ]
 
