@@ -220,3 +220,50 @@
 - `templates/errors/503.html` : 503 Service Unavailable フルページ。
 - `templates/errors/_error_content.html` : エラー本文共通パーツ。
 - `templates/errors/partials/error_panel.html` : htmx向けエラー断片表示。
+
+## 11. アイコン管理（SVG）
+
+### 11.1 管理方針
+- インラインSVGは使用せず、`templates/app/components/icons/*.svg` を `{% include %}` で参照する。
+- 色は `currentColor` ベースで制御し、呼び出し側で `text-*` クラスを付与する。
+- サイズは `icon_class` 引数で指定する（例: `w-4 h-4`, `w-6 h-6`）。
+- 線幅差分が必要な場合のみ引数化（例: `check.svg` の `stroke_width`）。
+
+### 11.2 命名規約
+- ファイル名は `kebab-case.svg`。
+- アイコンの意味が分かる名詞で命名する（例: `bookmark.svg`, `login-square.svg`）。
+- 状態差分はサフィックスで表現する（例: `bookmark.svg` / `bookmark-filled.svg`）。
+
+### 11.3 アイコン一覧と主用途
+- `templates/app/components/icons/alert-circle.svg` : 注意・ガイド見出し。
+- `templates/app/components/icons/arrow-right.svg` : CTA矢印。
+- `templates/app/components/icons/book-guide.svg` : ガイド機能カード。
+- `templates/app/components/icons/bookmark.svg` : ブックマーク通常状態。
+- `templates/app/components/icons/bookmark-filled.svg` : ブックマーク選択状態。
+- `templates/app/components/icons/bulb.svg` : ナレッジ共有表現。
+- `templates/app/components/icons/chat.svg` : 質問/会話系。
+- `templates/app/components/icons/check.svg` : 完了・ステータスチェック。
+- `templates/app/components/icons/clipboard-check.svg` : 完全例・チェック済み文脈。
+- `templates/app/components/icons/close.svg` : モーダル閉じる。
+- `templates/app/components/icons/code-chevrons.svg` : コード例/コード見出し。
+- `templates/app/components/icons/community.svg` : コミュニティ系。
+- `templates/app/components/icons/file-corner.svg` : 手順・ドキュメント見出し。
+- `templates/app/components/icons/filter.svg` : 絞り込み操作。
+- `templates/app/components/icons/image.svg` : 画像挿入。
+- `templates/app/components/icons/link.svg` : リンク挿入。
+- `templates/app/components/icons/lock.svg` : パスワード入力。
+- `templates/app/components/icons/login-square.svg` : ログイン操作。
+- `templates/app/components/icons/logout.svg` : ログアウト操作。
+- `templates/app/components/icons/mail.svg` : メール入力。
+- `templates/app/components/icons/search.svg` : 検索入力。
+- `templates/app/components/icons/send.svg` : 投稿/送信操作。
+- `templates/app/components/icons/settings.svg` : 設定見出し。
+- `templates/app/components/icons/star.svg` : おすすめ・メリット訴求。
+- `templates/app/components/icons/user.svg` : マイページ・ユーザー系。
+- `templates/app/components/icons/user-circle.svg` : ユーザー入力（認証フォーム）。
+- `templates/app/components/icons/user-plus.svg` : 新規登録操作。
+- `templates/app/components/icons/users-group.svg` : コミュニケーション見出し。
+
+### 11.4 呼び出し例
+- 例1: `{% include "app/components/icons/search.svg" with icon_class="w-5 h-5" %}`
+- 例2: `{% include "app/components/icons/check.svg" with icon_class="w-4 h-4" stroke_width="3" %}`

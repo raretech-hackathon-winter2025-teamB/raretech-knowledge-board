@@ -7,10 +7,7 @@
 <section class="space-y-5">
   <div class="bg-[#7c2808] text-[#fff7ed] rounded-2xl px-8 py-6 flex items-center justify-between w-full shadow-lg">
     <div class="flex items-center gap-3">
-      <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-        <circle cx="12" cy="7" r="4" />
-      </svg>
+      {% include "app/components/icons/user.svg" with icon_class="w-8 h-8" %}
       <h1 class="text-2xl font-bold">マイページ設定</h1>
     </div>
     <a href="/home/" hx-get="/home/" hx-target="main" hx-select="main" hx-swap="outerHTML show:window:top" hx-push-url="true" class="px-4 py-2 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#fff7ed] hover:text-[#7c2808] transition-colors font-bold">

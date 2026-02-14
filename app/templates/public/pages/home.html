@@ -25,10 +25,7 @@
         hx-push-url="true"
       >
         今すぐ始める
-        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M5 12h14" />
-          <path d="m13 5 7 7-7 7" />
-        </svg>
+        {% include "app/components/icons/arrow-right.svg" with icon_class="w-5 h-5" %}
       </button>
       <button
         class="px-8 py-4 border-2 border-[#7c2808] text-[#7c2808] rounded-lg hover:bg-[#7c2808] hover:text-[#fff7ed] transition-colors font-bold text-lg"
@@ -45,24 +42,15 @@
     <div class="bg-white rounded-2xl border-2 border-[#7c2808] shadow-2xl p-8 max-w-4xl mx-auto">
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div class="bg-[#fff7ed] border-2 border-[#7c2808] rounded-lg p-6 flex flex-col items-center gap-2">
-          <svg class="w-12 h-12 text-[#c93400]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 15a4 4 0 0 1-4 4H7l-4 4V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z" />
-          </svg>
+          <span class="text-[#c93400]">{% include "app/components/icons/chat.svg" with icon_class="w-12 h-12" %}</span>
           <p class="font-bold text-[#7c2808]">質問投稿</p>
         </div>
         <div class="bg-[#fff7ed] border-2 border-[#7c2808] rounded-lg p-6 flex flex-col items-center gap-2">
-          <svg class="w-12 h-12 text-[#c93400]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M7 21v-2a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v2" />
-            <circle cx="12" cy="7" r="4" />
-          </svg>
+          <span class="text-[#c93400]">{% include "app/components/icons/community.svg" with icon_class="w-12 h-12" %}</span>
           <p class="font-bold text-[#7c2808]">コミュニティ</p>
         </div>
         <div class="bg-[#fff7ed] border-2 border-[#7c2808] rounded-lg p-6 flex flex-col items-center gap-2">
-          <svg class="w-12 h-12 text-[#c93400]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M9 18h6" />
-            <path d="M10 22h4" />
-            <path d="M12 2a7 7 0 0 0-4 12c.6.6 1 1.3 1 2v1h6v-1c0-.7.4-1.4 1-2a7 7 0 0 0-4-12z" />
-          </svg>
+          <span class="text-[#c93400]">{% include "app/components/icons/bulb.svg" with icon_class="w-12 h-12" %}</span>
           <p class="font-bold text-[#7c2808]">ナレッジ共有</p>
         </div>
       </div>
@@ -75,58 +63,42 @@
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div class="bg-white rounded-xl border-2 border-[#7c2808] p-6 shadow-lg hover:shadow-xl transition-shadow">
           <div class="bg-[#c93400] text-[#fff7ed] rounded-lg w-14 h-14 flex items-center justify-center mb-4">
-            <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 15a4 4 0 0 1-4 4H7l-4 4V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z" />
-            </svg>
+            {% include "app/components/icons/chat.svg" with icon_class="w-8 h-8" %}
           </div>
           <h4 class="text-xl font-bold text-[#7c2808] mb-2">質問投稿機能</h4>
           <p class="text-[#7c2808]/80">マークダウンエディタを使って、コードや画像を含めた質問を簡単に投稿できます。プレビュー機能で投稿前に確認も可能です。</p>
         </div>
         <div class="bg-white rounded-xl border-2 border-[#7c2808] p-6 shadow-lg hover:shadow-xl transition-shadow">
           <div class="bg-[#c93400] text-[#fff7ed] rounded-lg w-14 h-14 flex items-center justify-center mb-4">
-            <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="11" cy="11" r="7" />
-              <path d="m21 21-4.3-4.3" />
-            </svg>
+            {% include "app/components/icons/search.svg" with icon_class="w-8 h-8" %}
           </div>
           <h4 class="text-xl font-bold text-[#7c2808] mb-2">検索・絞り込み</h4>
           <p class="text-[#7c2808]/80">キーワード検索、カテゴリー・タグでの絞り込み、解決済み/未解決のフィルタリングで、必要な情報をすぐに見つけられます。</p>
         </div>
         <div class="bg-white rounded-xl border-2 border-[#7c2808] p-6 shadow-lg hover:shadow-xl transition-shadow">
           <div class="bg-[#c93400] text-[#fff7ed] rounded-lg w-14 h-14 flex items-center justify-center mb-4">
-            <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
-            </svg>
+            {% include "app/components/icons/bookmark.svg" with icon_class="w-8 h-8" %}
           </div>
           <h4 class="text-xl font-bold text-[#7c2808] mb-2">ブックマーク機能</h4>
           <p class="text-[#7c2808]/80">気になる質問や役立つ回答をブックマークして、後から簡単に見返すことができます。学びの記録として活用できます。</p>
         </div>
         <div class="bg-white rounded-xl border-2 border-[#7c2808] p-6 shadow-lg hover:shadow-xl transition-shadow">
           <div class="bg-[#c93400] text-[#fff7ed] rounded-lg w-14 h-14 flex items-center justify-center mb-4">
-            <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M7 21v-2a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v2" />
-              <circle cx="12" cy="7" r="4" />
-            </svg>
+            {% include "app/components/icons/community.svg" with icon_class="w-8 h-8" %}
           </div>
           <h4 class="text-xl font-bold text-[#7c2808] mb-2">コミュニティ</h4>
           <p class="text-[#7c2808]/80">エンジニア同士が助け合い、知識を共有するコミュニティです。初心者からベテランまで誰でも質問・回答できます。</p>
         </div>
         <div class="bg-white rounded-xl border-2 border-[#7c2808] p-6 shadow-lg hover:shadow-xl transition-shadow">
           <div class="bg-[#c93400] text-[#fff7ed] rounded-lg w-14 h-14 flex items-center justify-center mb-4">
-            <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20" />
-              <path d="M16 2v20" />
-              <path d="M4 2h8a2 2 0 0 1 2 2v5" />
-            </svg>
+            {% include "app/components/icons/book-guide.svg" with icon_class="w-8 h-8" %}
           </div>
           <h4 class="text-xl font-bold text-[#7c2808] mb-2">質問ガイド</h4>
           <p class="text-[#7c2808]/80">「いい質問の仕方」ガイドで、効果的な質問の書き方を学べます。より早く、より良い回答を得られるようになります。</p>
         </div>
         <div class="bg-white rounded-xl border-2 border-[#7c2808] p-6 shadow-lg hover:shadow-xl transition-shadow">
           <div class="bg-[#c93400] text-[#fff7ed] rounded-lg w-14 h-14 flex items-center justify-center mb-4">
-            <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z" />
-            </svg>
+            {% include "app/components/icons/star.svg" with icon_class="w-8 h-8" %}
           </div>
           <h4 class="text-xl font-bold text-[#7c2808] mb-2">マイページ</h4>
           <p class="text-[#7c2808]/80">自分の質問・回答を一覧で管理できます。プロフィール編集やマイページ設定も簡単に変更できます。</p>
@@ -163,54 +135,42 @@
       <h3 class="text-4xl font-bold text-[#7c2808] text-center mb-12">RareTECHナレッジ掲示板を使うメリット</h3>
       <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
         <div class="flex gap-4">
-          <svg class="w-6 h-6 text-[#c93400] flex-shrink-0 mt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M20 6 9 17l-5-5" />
-          </svg>
+          <span class="text-[#c93400] flex-shrink-0 mt-1">{% include "app/components/icons/check.svg" with icon_class="w-6 h-6" stroke_width="2" %}</span>
           <div>
             <h4 class="font-bold text-[#7c2808] mb-2">学習時間の短縮</h4>
             <p class="text-[#7c2808]/80">経験豊富なエンジニアからの回答で、問題解決までの時間を大幅に短縮できます</p>
           </div>
         </div>
         <div class="flex gap-4">
-          <svg class="w-6 h-6 text-[#c93400] flex-shrink-0 mt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M20 6 9 17l-5-5" />
-          </svg>
+          <span class="text-[#c93400] flex-shrink-0 mt-1">{% include "app/components/icons/check.svg" with icon_class="w-6 h-6" stroke_width="2" %}</span>
           <div>
             <h4 class="font-bold text-[#7c2808] mb-2">知識の蓄積</h4>
             <p class="text-[#7c2808]/80">過去の質問・回答がナレッジベースとして蓄積され、いつでも参照できます</p>
           </div>
         </div>
         <div class="flex gap-4">
-          <svg class="w-6 h-6 text-[#c93400] flex-shrink-0 mt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M20 6 9 17l-5-5" />
-          </svg>
+          <span class="text-[#c93400] flex-shrink-0 mt-1">{% include "app/components/icons/check.svg" with icon_class="w-6 h-6" stroke_width="2" %}</span>
           <div>
             <h4 class="font-bold text-[#7c2808] mb-2">スキルアップ</h4>
             <p class="text-[#7c2808]/80">他の人の質問や回答を見ることで、新しい知識や技術を学べます</p>
           </div>
         </div>
         <div class="flex gap-4">
-          <svg class="w-6 h-6 text-[#c93400] flex-shrink-0 mt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M20 6 9 17l-5-5" />
-          </svg>
+          <span class="text-[#c93400] flex-shrink-0 mt-1">{% include "app/components/icons/check.svg" with icon_class="w-6 h-6" stroke_width="2" %}</span>
           <div>
             <h4 class="font-bold text-[#7c2808] mb-2">コミュニティ形成</h4>
             <p class="text-[#7c2808]/80">同じ目標を持つエンジニア仲間と繋がり、モチベーションを維持できます</p>
           </div>
         </div>
         <div class="flex gap-4">
-          <svg class="w-6 h-6 text-[#c93400] flex-shrink-0 mt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M20 6 9 17l-5-5" />
-          </svg>
+          <span class="text-[#c93400] flex-shrink-0 mt-1">{% include "app/components/icons/check.svg" with icon_class="w-6 h-6" stroke_width="2" %}</span>
           <div>
             <h4 class="font-bold text-[#7c2808] mb-2">アウトプット習慣</h4>
             <p class="text-[#7c2808]/80">質問や回答を通じて、学んだことを言語化する力が身につきます</p>
           </div>
         </div>
         <div class="flex gap-4">
-          <svg class="w-6 h-6 text-[#c93400] flex-shrink-0 mt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M20 6 9 17l-5-5" />
-          </svg>
+          <span class="text-[#c93400] flex-shrink-0 mt-1">{% include "app/components/icons/check.svg" with icon_class="w-6 h-6" stroke_width="2" %}</span>
           <div>
             <h4 class="font-bold text-[#7c2808] mb-2">24時間利用可能</h4>
             <p class="text-[#7c2808]/80">いつでもどこでも質問でき、自分のペースで学習を進められます</p>
@@ -235,10 +195,7 @@
             hx-push-url="true"
           >
             無料で新規登録
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M5 12h14" />
-              <path d="m13 5 7 7-7 7" />
-            </svg>
+            {% include "app/components/icons/arrow-right.svg" with icon_class="w-5 h-5" %}
           </button>
           <button
             class="px-8 py-4 border-2 border-[#fff7ed] text-[#fff7ed] rounded-lg hover:bg-[#fff7ed] hover:text-[#7c2808] transition-colors font-bold text-lg"

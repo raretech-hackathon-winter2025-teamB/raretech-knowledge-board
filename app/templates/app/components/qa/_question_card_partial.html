@@ -10,9 +10,9 @@
         {% if q.status == '2' %}open{% else %}closed{% endif %}
       </div>
       <div class="w-6 h-6 rounded-full {% if q.status == '2' %}bg-[#feecd3]{% else %}bg-[#006044]{% endif %} flex items-center justify-center">
-        <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-          <path d="M20 6 9 17l-5-5"></path>
-        </svg>
+        <span class="text-white">
+          {% include "app/components/icons/check.svg" with icon_class="w-4 h-4" stroke_width="3" %}
+        </span>
       </div>
       <div class="text-xs font-bold mt-2 {% if q.status == '2' %}text-[#7c2808]{% else %}text-[#006044]{% endif %}">
         {{ q.created_at|date:"Y/m/d" }}

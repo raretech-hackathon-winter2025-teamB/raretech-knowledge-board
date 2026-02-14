@@ -7,16 +7,13 @@
   <button type="button" class="p-2 hover:bg-[#7c2808]/10 rounded transition-colors text-sm" title="箇条書き" _="on click set #{{ editor_id }}.value to #{{ editor_id }}.value + '\n- リスト項目\n' then focus() on #{{ editor_id }}">•</button>
   <button type="button" class="p-2 hover:bg-[#7c2808]/10 rounded transition-colors text-sm" title="番号リスト" _="on click set #{{ editor_id }}.value to #{{ editor_id }}.value + '\n1. リスト項目\n' then focus() on #{{ editor_id }}">1.</button>
   <button type="button" class="p-2 hover:bg-[#7c2808]/10 rounded transition-colors" title="リンク" _="on click set #{{ editor_id }}.value to #{{ editor_id }}.value + '[リンクテキスト](https://example.com)' then focus() on #{{ editor_id }}">
-    <svg class="w-5 h-5 text-[#7c2808]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-    </svg>
+    <span class="text-[#7c2808]">
+      {% include "app/components/icons/link.svg" with icon_class="w-5 h-5" %}
+    </span>
   </button>
   <label for="{{ upload_picker_id }}" class="p-2 hover:bg-[#7c2808]/10 rounded transition-colors cursor-pointer" title="画像">
-    <svg class="w-5 h-5 text-[#7c2808]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-      <circle cx="8.5" cy="8.5" r="1.5" />
-      <path d="m21 15-5-5L5 21" />
-    </svg>
+    <span class="text-[#7c2808]">
+      {% include "app/components/icons/image.svg" with icon_class="w-5 h-5" %}
+    </span>
   </label>
 </div>

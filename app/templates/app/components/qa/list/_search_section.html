@@ -6,10 +6,9 @@
         hx-swap="outerHTML show:window:top"
         hx-push-url="true">
     <div class="flex-1 min-w-[240px] relative">
-      <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#7c2808]/80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="11" cy="11" r="7" />
-        <path d="m21 21-4.3-4.3" />
-      </svg>
+      <span class="absolute left-4 top-1/2 -translate-y-1/2 text-[#7c2808]/80">
+        {% include "app/components/icons/search.svg" with icon_class="w-5 h-5" %}
+      </span>
       <input
         type="text"
         name="q"
@@ -30,9 +29,7 @@
       class="px-6 py-3 bg-[#7c2808] text-[#fff7ed] rounded-lg hover:bg-[#c93400] transition-colors font-medium flex items-center gap-2"
       _="on click remove .hidden from #filter-modal"
     >
-      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z" />
-      </svg>
+      {% include "app/components/icons/filter.svg" with icon_class="w-5 h-5" %}
       絞り込み
     </button>
   </form>
