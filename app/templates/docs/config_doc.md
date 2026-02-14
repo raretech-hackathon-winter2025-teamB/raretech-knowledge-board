@@ -1,7 +1,7 @@
 # RareTECHナレッジ掲示板 構成管理書
 
-- 文書版数: 0.2
-- 更新日: 2026-02-13
+- 文書版数: 0.3
+- 更新日: 2026-02-14
 - 対象: `app/` 配下
 
 ## 1. 構成管理方針
@@ -33,6 +33,7 @@
 ### 3.1 Layout
 - `templates/layouts/public_base.html`
 - `templates/layouts/app_base.html`
+- `templates/layouts/error_base.html`
 
 ### 3.2 Public pages
 - `templates/public/pages/home.html`
@@ -61,6 +62,18 @@
 - `templates/app/components/editor/*`
 - `templates/app/components/qa/*`
 
+### 3.5 Error pages
+- `templates/errors/400.html`
+- `templates/errors/403.html`
+- `templates/errors/404.html`
+- `templates/errors/405.html`
+- `templates/errors/429.html`
+- `templates/errors/500.html`
+- `templates/errors/502.html`
+- `templates/errors/503.html`
+- `templates/errors/_error_content.html`
+- `templates/errors/partials/error_panel.html`
+
 ## 4. 命名規約
 - 画面テンプレート: `snake_case.html`
 - パーシャル: `_xxx_partial.html`
@@ -78,6 +91,9 @@
 ## 6. 品質確認チェックリスト
 - URLに対してテンプレート参照切れがない
 - htmx遷移で`main`差し替え時にJS依存が欠落しない
+- 認証失敗時に`#auth-form-shell`のみ差し替わり、Vanta背景が維持される
+- 認証成功時に`HX-Redirect`で`/home/`へ遷移する
+- 404/500等の異常系でエラーページが表示される（htmx時はパネル表示）
 - `_hyperscript`式で構文エラーがない
 - SVG/属性のクォート欠落がない
 - Markdownプレビューが質問投稿・回答投稿の双方で動作する
@@ -86,15 +102,19 @@
 ## 7. ファイル責務一覧
 - `config/settings.py` : Django設定全般（DB、AUTH、STATIC/MEDIA）
 - `config/urls.py` : ルートURL統合（knowledgeapp/accounts/auth）
+- `config/error_views.py` : 4xx/5xxエラーハンドラとhtmx向け断片応答
 - `knowledgeapp/urls.py` : QA・公開ページのURL定義
 - `knowledgeapp/views.py` : 質問/回答/ブックマーク/画像アップロード処理
 - `accounts/urls.py` : signup/login/logout/setting/withdraw URL
-- `accounts/views.py` : 認証補助、設定画面、退会処理
+- `accounts/views.py` : 認証補助（LoginViewの`HX-Redirect`対応を含む）、設定画面、退会処理
 - `templates/layouts/public_base.html` : 公開画面の共通レイアウト
 - `templates/layouts/app_base.html` : ログイン後画面の共通レイアウト（共通JS読込を含む）
+- `templates/app/pages/auth/login.html` : ログインフォーム（`#auth-form-shell`部分更新）
+- `templates/app/pages/auth/signup.html` : 新規登録フォーム（`#auth-form-shell`部分更新）
 - `templates/app/components/sidebar.html` : ログイン後サイドメニュー
 - `templates/app/components/editor/_*.html` : MarkdownエディタUI部品
 - `static/js/markdown-editor.js` : Markdownプレビュー・コード装飾・Copy処理
+- `static/js/public-base.js` : 公開画面Vanta制御（`data-vanta-page`判定、初期化/破棄）
 - `static/globals.css` : 全体スタイル
 
 ## 8. 既知リスク
@@ -111,3 +131,4 @@
 - 認証/設定: `templates/app/pages/auth/*`, `templates/app/pages/profile/*`
 - 公開ページ: `templates/public/pages/*`, `templates/public/components/*`
 - 共通JS/CSS: `static/js/*.js`, `static/*.css`
+- エラー表示: `config/error_views.py`, `templates/errors/*`, `templates/layouts/error_base.html`

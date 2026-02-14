@@ -11,18 +11,21 @@
   </style>
 {% endblock %}
 
-{% block body_attrs %}data-vanta="birds"{% endblock %}
-
 {% block content %}
-  {% include "app/components/auth/_vanta_sync_partial.html" %}
-  <div class="relative z-0 min-h-screen flex items-center justify-center p-4">
-    <div class="w-full max-w-md">
+  <div data-vanta-page="birds" class="relative z-20 min-h-screen flex items-center justify-center p-4">
+    <div id="auth-form-shell" class="w-full max-w-md">
       {% include "app/components/auth/_branding_partial.html" with subtitle="学びを共有し、成長するコミュニティ" %}
 
       <div class="bg-[#fff7ed] rounded-2xl border-2 border-[#7c2808] shadow-2xl overflow-hidden">
         {% include "app/components/auth/_panel_header_partial.html" with mode="login" title="ログイン" %}
 
-        <form method="post" action="/login/" class="p-8 space-y-6">
+        <form method="post" action="/login/"
+              hx-post="/login/"
+              hx-target="#auth-form-shell"
+              hx-select="#auth-form-shell"
+              hx-swap="outerHTML"
+              hx-push-url="true"
+              class="p-8 space-y-6">
           {% csrf_token %}
           {% if form.non_field_errors %}
             <div class="rounded-lg border-2 border-red-600 bg-red-50 px-4 py-3 text-sm text-red-700">
@@ -43,7 +46,7 @@
                 id="email"
                 name="username"
                 type="email"
-                placeholder="example@raretech.com"
+                placeholder="example@raretech-board.com"
                 class="w-full pl-12 pr-4 py-3 border-2 rounded-lg focus:outline-none bg-white text-[#7c2808] transition-colors border-[#7c2808] focus:border-[#c93400]"
                 value="{{ form.username.value|default:'' }}"
                 required
@@ -99,7 +102,7 @@
             ログイン
           </button>
 
-          {% include "app/components/auth/_switch_action_partial.html" with lead_text="アカウントをお持ちでない方" target_path="/signup/" button_text="新規登録" %}
+          {% include "app/components/auth/_switch_action_partial.html" with lead_text="アカウントをお持ちでない方" target_path="/signup/" button_text="新規登録" htmx_target="#auth-form-shell" htmx_select="#auth-form-shell" %}
         </form>
       </div>
 

@@ -1,7 +1,7 @@
 # RareTECHナレッジ掲示板 仕様書
 
-- 文書版数: 0.2
-- 更新日: 2026-02-13
+- 文書版数: 0.3
+- 更新日: 2026-02-14
 - 対象: `app/`（Djangoプロジェクト）
 - 前提: Django 5.2 / Python 3.10 / MySQL / htmx 1.9.12 / _hyperscript 0.9.12 / Tailwind CSS（CDN）
 
@@ -50,11 +50,24 @@ RareTECHナレッジ掲示板は、エンジニア向けQ&Aを中心としたナ
 - `GET /logout/` : ログアウト
 - `POST /logout/` : ログアウト
 
+### 3.4 エラーページ
+- `GET /errors/400/` : 400プレビュー
+- `GET /errors/403/` : 403プレビュー
+- `GET /errors/404/` : 404プレビュー
+- `GET /errors/405/` : 405ページ
+- `GET /errors/429/` : 429ページ
+- `GET /errors/500/` : 500プレビュー
+- `GET /errors/502/` : 502ページ
+- `GET /errors/503/` : 503ページ
+- 本番ハンドラ: `handler400/403/404/500`
+
 ## 4. 主要機能仕様
 
 ### 4.1 認証
 - 新規登録成功時は自動ログインし `/home/` へ遷移。
 - ログアウトは通常遷移とhtmx遷移の両方をサポート。
+- `/login/` と `/signup/` の入力エラー時は、`#auth-form-shell` のみhtmx差し替え（全画面再描画しない）。
+- `/login/` と `/signup/` の成功時は、`HX-Redirect` で `/home/` へ遷移。
 
 ### 4.2 質問一覧
 - キーワード、カテゴリ、ステータス（解決済/未解決）で絞り込み可能。
@@ -79,6 +92,12 @@ RareTECHナレッジ掲示板は、エンジニア向けQ&Aを中心としたナ
   - 新しいパスワード（確認）
 - 退会は現在パスワード入力を必須とし、検証成功時にユーザー削除。
 
+### 4.6 エラー画面
+- 通常アクセス時はフルページ（`templates/errors/{code}.html`）を返却。
+- htmxアクセス時はエラーパネル断片（`templates/errors/partials/error_panel.html`）を返却。
+- htmxエラー応答では `HX-Reselect` と `HX-Retarget` を使用し、表示領域へ確実にエラー内容を反映。
+- 5xx系は「再読み込み」アクションを表示。
+
 ## 5. Markdownエディタ仕様
 - 対象ファイル: `static/js/markdown-editor.js`
 - 提供機能:
@@ -97,6 +116,8 @@ RareTECHナレッジ掲示板は、エンジニア向けQ&Aを中心としたナ
 - レイアウト: `templates/layouts/public_base.html`
 - 共通部品: `templates/public/components/header.html`, `templates/public/components/footer.html`
 - Vanta背景（Birds）をトップ系画面に適用。
+- Vanta適用判定は `data-vanta-page="birds"` を持つ画面のみ。
+- 認証画面間（login/signup）の切替は `#auth-form-shell` のみ差し替え、背景・ヘッダー・フッターは維持する。
 
 ### 6.2 ログイン後画面
 - レイアウト: `templates/layouts/app_base.html`
@@ -106,10 +127,12 @@ RareTECHナレッジ掲示板は、エンジニア向けQ&Aを中心としたナ
 ## 7. 例外・障害耐性
 - DB未作成・接続異常時に、一覧系は空配列返却でテンプレート描画を継続する実装あり。
 - UUIDセッション不整合時の例外に対して、画面崩壊を避けるため防御的実装を一部導入。
+- 4xx/5xx画面は `Cache-Control: no-store` を付与し、古い障害画面キャッシュを抑止。
 
 ## 8. 既知制約
 - Tailwind CDN利用のため、本番ではPostCSS/CLIビルド移行が必要。
 - `favicon.ico`未配置時は404ログが出る。
+- `globals.css` を `/globals.css` で参照すると404になるため、必ず `/static/globals.css` を使用する。
 - 一部設定画面の保存処理（ユーザー名・メール・パスワード更新）はUI先行で、バックエンド永続化の追加実装が必要。
 
 ## 9. 今後改善候補

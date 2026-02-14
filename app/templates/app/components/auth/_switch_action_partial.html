@@ -12,10 +12,10 @@
     type="button"
     class="px-6 py-3 border-2 border-[#7c2808] text-[#7c2808] rounded-lg hover:bg-[#7c2808] hover:text-[#fff7ed] transition-colors font-bold inline-flex items-center justify-center"
     hx-get="{{ target_path }}"
-    hx-target="main"
-    hx-select="main"
-    hx-swap="outerHTML"
-    hx-push-url="true"
+    hx-target="{% firstof htmx_target '#public-main' %}"
+    hx-select="{% firstof htmx_select '#public-main' %}"
+    hx-swap="{% firstof htmx_swap 'outerHTML' %}"
+    hx-push-url="{% firstof htmx_push_url 'true' %}"
   >
     {{ button_text }}
   </button>
