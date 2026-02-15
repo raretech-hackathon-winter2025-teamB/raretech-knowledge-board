@@ -135,7 +135,6 @@ RareTECHナレッジ掲示板は、エンジニア向けQ&Aを中心としたナ
   - `templates/app/components/qa/common/_filter_modal.html`
 - 質問一覧専用部品:
   - `templates/app/components/qa/list/_page_header.html`
-  - `templates/app/components/qa/list/_search_section.html`
 
 ## 7. 例外・障害耐性
 - DB未作成・接続異常時に、一覧系は空配列返却でテンプレート描画を継続する実装あり。

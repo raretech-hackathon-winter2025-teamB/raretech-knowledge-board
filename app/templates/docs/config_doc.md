@@ -64,7 +64,6 @@
 - `templates/app/components/qa/common/_search_filter_bar.html`
 - `templates/app/components/qa/common/_filter_modal.html`
 - `templates/app/components/qa/list/_page_header.html`
-- `templates/app/components/qa/list/_search_section.html`
 
 ### 3.5 Error pages
 - `templates/errors/400.html`
@@ -120,7 +119,6 @@
 - `templates/app/components/qa/common/_search_filter_bar.html` : 検索フォーム＋絞り込みボタン共通部品（質問一覧/自分の質問/ブックマークで再利用）
 - `templates/app/components/qa/common/_filter_modal.html` : カテゴリ/ステータス絞り込みモーダル共通部品
 - `templates/app/components/qa/list/_page_header.html` : 質問一覧ヘッダー部品
-- `templates/app/components/qa/list/_search_section.html` : 質問一覧の検索セクション部品
 - `static/js/markdown-editor.js` : Markdownプレビュー・コード装飾・Copy処理
 - `static/js/public-base.js` : 公開画面Vanta制御（`data-vanta-page`判定、初期化/破棄）
 - `static/globals.css` : 全体スタイル
@@ -207,7 +205,6 @@
 - `templates/app/components/qa/common/_search_filter_bar.html` : 検索入力 + 検索ボタン + 絞り込みボタン共通部品。
 - `templates/app/components/qa/common/_filter_modal.html` : カテゴリ/ステータス絞り込みモーダル共通部品。
 - `templates/app/components/qa/list/_page_header.html` : 質問一覧専用ヘッダー。
-- `templates/app/components/qa/list/_search_section.html` : 質問一覧専用検索セクション。
 
 ### 10.11 エラーページ（errors）
 - `templates/errors/400.html` : 400 Bad Request フルページ。
