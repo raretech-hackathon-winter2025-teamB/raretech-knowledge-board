@@ -1,3 +1,4 @@
+{# 【ファイル責務】画像アップロード入力と投稿本文へのURL追記 #}
 <input
   id="{{ upload_picker_id }}"
   type="file"
@@ -16,8 +17,10 @@
 >
 <div id="{{ upload_meta_id }}" class="hidden">
   {% csrf_token %}
+  {# 【補足】追記先textareaのIDをサーバーへ送信 #}
   <input type="hidden" name="target_field" value="{{ upload_target_field }}">
 </div>
+{# 【遷移】upload結果のdata-urlをMarkdown記法で本文へ追記 #}
 <div id="{{ upload_result_id }}" _="
   on htmx:afterSwap
     set node to my.querySelector('[data-url]')

@@ -1,16 +1,23 @@
 {% extends "layouts/app_base.html" %}
 
+{# 【ファイル責務】いい質問の仕方ガイド画面の表示 #}
 {% block title %}いい質問の仕方 | RareTECHナレッジ掲示板{% endblock %}
 {% block topbar %}{% endblock %}
 
 {% block content %}
+{# 【セクション】ガイド本文 #}
 <section class="space-y-5">
   <div class="bg-[#7c2808] text-[#fff7ed] rounded-2xl px-8 py-6 flex items-center justify-between w-full shadow-lg">
     <div class="flex items-center gap-3">
       {% include "app/components/icons/alert-circle.svg" with icon_class="w-8 h-8" %}
       <h1 class="text-2xl font-bold">いい質問の仕方</h1>
     </div>
-    <a href="/question/new/" hx-get="/question/new/" hx-target="main" hx-select="main" hx-swap="outerHTML show:window:top" hx-push-url="true"
+    <a href="/question/new/"
+       hx-get="/question/new/"
+       hx-target="main"
+       hx-select="main"
+       hx-swap="outerHTML show:window:top"
+       hx-push-url="true"
        class="px-4 py-2 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#fff7ed] hover:text-[#7c2808] transition-colors font-bold">
       質問投稿へ
     </a>
@@ -276,7 +283,12 @@ const fetchUserData = async () => {
   <div class="bg-gradient-to-r from-[#c93400] to-[#7c2808] text-[#fff7ed] rounded-xl p-8 shadow-lg w-full text-center">
     <h2 class="text-2xl font-bold mb-3">準備ができたら質問してみましょう！</h2>
     <p class="mb-6 text-[#fff7ed]/90">このガイドを参考に、詳細で分かりやすい質問を投稿してください。</p>
-    <a href="/question/new/" hx-get="/question/new/" hx-target="main" hx-select="main" hx-swap="outerHTML show:window:top" hx-push-url="true"
+    <a href="/question/new/"
+       hx-get="/question/new/"
+       hx-target="main"
+       hx-select="main"
+       hx-swap="outerHTML show:window:top"
+       hx-push-url="true"
        class="inline-flex px-8 py-3 bg-[#fff7ed] text-[#c93400] rounded-lg hover:bg-[#feecd3] transition-colors font-bold shadow-md">
       質問を投稿する
     </a>

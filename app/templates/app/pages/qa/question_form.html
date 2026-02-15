@@ -1,9 +1,12 @@
 {% extends "layouts/app_base.html" %}
 
+{# 【ファイル責務】質問投稿画面の入力フォーム表示 #}
 {% block title %}質問投稿 | RareTECHナレッジ掲示板{% endblock %}
 
 {% block content %}
+{# 【セクション】投稿フォーム本体 #}
 <section class="space-y-5">
+  {# 【セクション】ページヘッダー #}
   <div class="bg-[#7c2808] text-[#fff7ed] rounded-2xl px-8 py-6 flex items-center justify-between w-full shadow-lg">
     <div class="flex items-center gap-3">
       {% include "app/components/icons/send.svg" with icon_class="w-8 h-8" %}
@@ -14,6 +17,7 @@
     </a>
   </div>
 
+  {# 【セクション】バリデーションエラー表示 #}
   {% if form.errors %}
     <div class="bg-[#fff7ed] border-2 border-red-600 rounded-lg p-4 text-sm text-red-700">
       入力内容を確認してください。
@@ -21,16 +25,27 @@
     </div>
   {% endif %}
 
-  <form method="post" action="/question/new/" autocomplete="off" class="space-y-5"
-        hx-post="/question/new/" hx-target="main" hx-select="main" hx-swap="outerHTML show:window:top" hx-push-url="true">
+  {# 【遷移】submit時にmain領域を差し替え #}
+  <form method="post"
+        action="/question/new/"
+        autocomplete="off"
+        class="space-y-5"
+        hx-post="/question/new/"
+        hx-target="main"
+        hx-select="main"
+        hx-swap="outerHTML show:window:top"
+        hx-push-url="true">
     {% csrf_token %}
 
+    {# 【セクション】カテゴリ入力 #}
     <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-6 shadow-md">
       <label class="block mb-3 font-bold text-[#7c2808] text-lg">
         <span class="text-[#c93400]">*</span>
         カテゴリ
       </label>
-      <select name="category" id="id_category" class="w-full px-4 py-3 border-2 border-[#7c2808] rounded-lg focus:outline-none focus:border-[#c93400] bg-white text-[#7c2808]" required>
+      <select name="category"
+              id="id_category"
+              class="w-full px-4 py-3 border-2 border-[#7c2808] rounded-lg focus:outline-none focus:border-[#c93400] bg-white text-[#7c2808]" required>
         <option value="">カテゴリを選択してください</option>
         {% for c in categories %}
           <option value="{{ c.pk }}" {% if form.category.value|stringformat:"s" == c.pk|stringformat:"s" %}selected{% endif %}>{{ c.name }}</option>
@@ -38,14 +53,25 @@
       </select>
     </div>
 
+    {# 【セクション】タイトル入力 #}
     <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-6 shadow-md">
       <label for="id_title" class="block mb-3 font-bold text-[#7c2808] text-lg">
         <span class="text-[#c93400]">*</span>
         タイトル
       </label>
-      <input id="id_title" name="title" type="text" value="{{ form.title.value|default:'' }}" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="w-full px-4 py-3 border-2 border-[#7c2808] rounded-lg focus:outline-none focus:border-[#c93400] bg-white text-[#7c2808]" placeholder="質問のタイトルを入力" required>
+      <input id="id_title"
+             name="title"
+             type="text"
+             value="{{ form.title.value|default:'' }}"
+             autocomplete="off"
+             autocorrect="off"
+             autocapitalize="off"
+             spellcheck="false"
+             class="w-full px-4 py-3 border-2 border-[#7c2808] rounded-lg focus:outline-none focus:border-[#c93400] bg-white text-[#7c2808]"
+             placeholder="質問のタイトルを入力" required>
     </div>
 
+    {# 【セクション】Markdownエディタ #}
     <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-6 shadow-md">
       <div class="flex items-center justify-between mb-3">
         <label for="id_detail" class="font-bold text-[#7c2808] text-lg">
@@ -61,6 +87,7 @@
       {% include "app/components/editor/_markdown_editor_partial.html" with editor_pane_id="editor-pane" preview_pane_id="preview-pane" editor_id="id_detail" editor_name="detail" editor_value=form.detail.value|default:'' rows="12" preview_id="preview-content" editor_placeholder="質問内容をマークダウン形式で入力してください" editor_min_h="min-h-[300px]" %}
     </div>
 
+    {# 【セクション】フォームアクション #}
     <div class="flex gap-3 justify-end">
       <a href="/home/" class="px-6 py-3 border-2 border-[#7c2808] text-[#7c2808] rounded-lg hover:bg-[#7c2808] hover:text-[#fff7ed] transition-colors font-medium">キャンセル</a>
       <button type="submit" class="px-6 py-3 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#7c2808] transition-colors font-bold">

@@ -1,4 +1,5 @@
 {% load static %}
+{# 【ファイル責務】ログイン後画面の共通レイアウト提供 #}
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -17,10 +18,12 @@
   {% block extra_head %}{% endblock %}
 </head>
 <body class="app-shell min-h-screen w-full overflow-y-scroll bg-[#feecd3] text-amber-900" hx-boost="true">
+  {# 【セクション】サイドバー固定の2カラムレイアウト #}
   <div class="min-h-screen lg:flex">
     {% include "app/components/sidebar.html" %}
 
     <div class="flex-1 min-w-0 min-h-screen">
+      {# 【セクション】ページ本体の差し替え領域 #}
       <main class="app-main w-full max-w-6xl mx-auto px-6 py-6 bg-[#feecd3]">
         {% include "app/components/message.html" %}
         <div class="mt-4">

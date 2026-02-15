@@ -1,5 +1,10 @@
+{# 【ファイル責務】検索入力と絞り込み導線の共通表示 #}
 <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-6 shadow-md w-full {% if show_count %}h-[120px] relative{% endif %} {{ container_extra_class|default:'' }}">
-  <form method="get" action="{{ form_action }}" autocomplete="off" class="flex flex-wrap gap-3 items-center {% if show_count %}absolute inset-x-6 top-1/2 -translate-y-1/2{% endif %} {{ form_extra_class|default:'' }}"
+  {# 【遷移】検索実行時にmain領域を差し替え #}
+  <form method="get"
+        action="{{ form_action }}"
+        autocomplete="off"
+        class="flex flex-wrap gap-3 items-center {% if show_count %}absolute inset-x-6 top-1/2 -translate-y-1/2{% endif %} {{ form_extra_class|default:'' }}"
         hx-get="{{ hx_get_url }}"
         hx-target="main"
         hx-select="main"
@@ -9,31 +14,29 @@
       <span class="absolute left-4 top-1/2 -translate-y-1/2 text-[#7c2808]/80">
         {% include "app/components/icons/search.svg" with icon_class="w-5 h-5" %}
       </span>
-      <input
-        type="text"
-        name="q"
-        value="{{ selected_q }}"
-        placeholder="{{ search_placeholder }}"
-        autocomplete="off"
-        autocorrect="off"
-        autocapitalize="off"
-        spellcheck="false"
-        class="w-full pl-12 pr-4 py-3 border-2 border-[#7c2808] rounded-lg focus:outline-none focus:border-[#c93400] bg-white text-[#7c2808]"
-      />
+      <input type="text"
+             name="q"
+             value="{{ selected_q }}"
+             placeholder="{{ search_placeholder }}"
+             autocomplete="off"
+             autocorrect="off"
+             autocapitalize="off"
+             spellcheck="false"
+             class="w-full pl-12 pr-4 py-3 border-2 border-[#7c2808] rounded-lg focus:outline-none focus:border-[#c93400] bg-white text-[#7c2808]"/>
     </div>
-    <button type="submit" class="px-6 py-3 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#7c2808] transition-colors font-medium">
+    <button type="submit"
+            class="px-6 py-3 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#7c2808] transition-colors font-medium">
       検索
     </button>
-    <button
-      type="button"
-      class="px-6 py-3 bg-[#7c2808] text-[#fff7ed] rounded-lg hover:bg-[#c93400] transition-colors font-medium flex items-center gap-2"
-      _="on click remove .hidden from #{{ modal_id }}"
-    >
+    <button type="button"
+            class="px-6 py-3 bg-[#7c2808] text-[#fff7ed] rounded-lg hover:bg-[#c93400] transition-colors font-medium flex items-center gap-2"
+            _="on click remove .hidden from #{{ modal_id }}">
       {% include "app/components/icons/filter.svg" with icon_class="w-5 h-5" %}
       絞り込み
     </button>
   </form>
   {% if show_count %}
+    {# 【セクション】表示件数 #}
     <div class="absolute left-6 right-6 bottom-2 text-xs text-[#7c2808]/80">
       表示件数: {{ count_value }}
     </div>

@@ -1,4 +1,5 @@
 {% load static %}
+{# 【ファイル責務】HTTPエラーページ共通レイアウト #}
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -11,6 +12,7 @@
   <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
 </head>
 <body class="min-h-screen bg-gradient-to-br from-[#feecd3] via-[#fff7ed] to-[#feecd3] text-[#7c2808]">
+  {# 【セクション】エラー本文差し込み領域 #}
   <main class="min-h-screen flex items-center justify-center px-4 py-10">
     {% block content %}{% endblock %}
   </main>

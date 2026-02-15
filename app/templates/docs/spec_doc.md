@@ -152,14 +152,21 @@ RareTECHナレッジ掲示板は、エンジニア向けQ&Aを中心としたナ
 - 設定画面の更新処理（POST + バリデーション + メッセージ）を正式実装
 - 監査ログ（投稿/回答/退会/ブックマーク）を追加
 
-## 10. テンプレート参照索引（短縮版）
+## 10. テンプレートコメント運用
+- コメント記法は `docs/config_doc.md` の「12. テンプレートコメント規約（固定）」に準拠する。
+- 記法は `{# 【分類】説明 #}` に統一する。
+- 画面テンプレートには `【ファイル責務】` を先頭に1つ必須とする。
+- 主要ブロックは `【セクション】`、再利用部品は `【共通部品】` を使用する。
+- htmx差し替え意図は `【遷移】`、モーダル責務は `【モーダル】` を使用する。
 
-### 10.1 レイアウト
+## 11. テンプレート参照索引（短縮版）
+
+### 11.1 レイアウト
 - `templates/layouts/public_base.html` : 公開画面ベース
 - `templates/layouts/app_base.html` : ログイン後画面ベース
 - `templates/layouts/error_base.html` : エラー画面ベース
 
-### 10.2 公開ページ
+### 11.2 公開ページ
 - `templates/public/pages/home.html` : トップページ
 - `templates/public/pages/terms.html` : 利用規約
 - `templates/public/pages/privacy_policy.html` : プライバシーポリシー
@@ -167,7 +174,7 @@ RareTECHナレッジ掲示板は、エンジニア向けQ&Aを中心としたナ
 - `templates/public/pages/features/question_list.html` : 機能紹介（質問一覧）
 - `templates/public/pages/features/question_guide.html` : 機能紹介（質問ガイド）
 
-### 10.3 ログイン後ページ
+### 11.3 ログイン後ページ
 - `templates/app/pages/auth/login.html` : ログイン
 - `templates/app/pages/auth/signup.html` : 新規登録
 - `templates/app/pages/profile/setting.html` : マイページ設定
@@ -178,7 +185,7 @@ RareTECHナレッジ掲示板は、エンジニア向けQ&Aを中心としたナ
 - `templates/app/pages/qa/bookmarks.html` : ブックマーク
 - `templates/app/pages/qa/how_to_ask.html` : いい質問の仕方
 
-### 10.4 主要パーシャル
+### 11.4 主要パーシャル
 - `templates/app/components/sidebar.html` : サイドバー
 - `templates/app/components/message.html` : メッセージ表示
 - `templates/app/components/editor/_*.html` : Markdownエディタ部品
@@ -186,7 +193,7 @@ RareTECHナレッジ掲示板は、エンジニア向けQ&Aを中心としたナ
 - `templates/app/components/qa/common/_search_filter_bar.html` : 検索＋絞り込みバー共通
 - `templates/app/components/qa/common/_filter_modal.html` : 絞り込みモーダル共通
 
-### 10.5 エラーテンプレート
+### 11.5 エラーテンプレート
 - `templates/errors/400.html` `403.html` `404.html` `405.html` `429.html` `500.html` `502.html` `503.html`
 - `templates/errors/_error_content.html` : エラー本文共通
 - `templates/errors/partials/error_panel.html` : htmx向けエラー断片
