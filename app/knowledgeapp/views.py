@@ -162,7 +162,13 @@ class MyQuestionList(ListView):
             return []
 
         queryset = Question.objects.select_related('category').filter(user=self.request.user).order_by('-created_at')
+        keyword = self.request.GET.get('q', '').strip()
+        category = self.request.GET.get('category', '').strip()
         status = self.request.GET.get('status', '').strip()
+        if keyword:
+            queryset = queryset.filter(title__icontains=keyword)
+        if category:
+            queryset = queryset.filter(category__name=category)
         if status in {'1', '2'}:
             queryset = queryset.filter(status=status)
 
@@ -170,6 +176,17 @@ class MyQuestionList(ListView):
             return list(queryset)
         except (ValidationError, ValueError, ProgrammingError, OperationalError):
             return []
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['selected_q'] = self.request.GET.get('q', '').strip()
+        context['selected_category'] = self.request.GET.get('category', '').strip()
+        context['selected_status'] = self.request.GET.get('status', '').strip()
+        try:
+            context['categories'] = list(Category.objects.order_by('name').values_list('name', flat=True))
+        except (ProgrammingError, OperationalError):
+            context['categories'] = []
+        return context
 
 
 class BookmarkList(ListView):
@@ -180,18 +197,35 @@ class BookmarkList(ListView):
         if not self.request.user.is_authenticated:
             return []
 
+        keyword = self.request.GET.get('q', '').strip()
+        category = self.request.GET.get('category', '').strip()
+        status = self.request.GET.get('status', '').strip()
         try:
-            return list(
+            queryset = (
                 Question.objects.select_related('category')
                 .filter(bookmark__user=self.request.user)
                 .distinct()
                 .order_by('-created_at')
             )
+            if keyword:
+                queryset = queryset.filter(title__icontains=keyword)
+            if category:
+                queryset = queryset.filter(category__name=category)
+            if status in {'1', '2'}:
+                queryset = queryset.filter(status=status)
+            return list(queryset)
         except (ValidationError, ValueError, ProgrammingError, OperationalError):
             return []
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['selected_q'] = self.request.GET.get('q', '').strip()
+        context['selected_category'] = self.request.GET.get('category', '').strip()
+        context['selected_status'] = self.request.GET.get('status', '').strip()
+        try:
+            context['categories'] = list(Category.objects.order_by('name').values_list('name', flat=True))
+        except (ProgrammingError, OperationalError):
+            context['categories'] = []
         context['bookmarked_question_ids'] = set()
         if self.request.user.is_authenticated and context.get('object_list'):
             context['bookmarked_question_ids'] = {q.id for q in context['object_list']}

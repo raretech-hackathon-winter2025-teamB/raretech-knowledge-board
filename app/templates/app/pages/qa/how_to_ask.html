@@ -7,21 +7,20 @@
 <section class="space-y-5">
   <div class="bg-[#7c2808] text-[#fff7ed] rounded-2xl px-8 py-6 flex items-center justify-between w-full shadow-lg">
     <div class="flex items-center gap-3">
-      <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="12" cy="12" r="10"></circle>
-        <path d="M12 16v.01"></path>
-        <path d="M12 12a2 2 0 1 0-2-2"></path>
-      </svg>
+      {% include "app/components/icons/alert-circle.svg" with icon_class="w-8 h-8" %}
       <h1 class="text-2xl font-bold">いい質問の仕方</h1>
     </div>
-    <a href="/question/new/" hx-get="/question/new/" hx-target="main" hx-select="main" hx-swap="outerHTML" hx-push-url="true"
+    <a href="/question/new/" hx-get="/question/new/" hx-target="main" hx-select="main" hx-swap="outerHTML show:window:top" hx-push-url="true"
        class="px-4 py-2 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#fff7ed] hover:text-[#7c2808] transition-colors font-bold">
       質問投稿へ
     </a>
   </div>
 
   <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-6 shadow-md w-full">
-    <h2 class="text-xl font-bold text-[#7c2808] mb-4">エンジニアとして効果的な質問をするために</h2>
+    <h2 class="text-xl font-bold text-[#7c2808] mb-4 flex items-center gap-2">
+      <span class="text-[#c93400]">{% include "app/components/icons/alert-circle.svg" with icon_class="w-6 h-6" %}</span>
+      エンジニアとして効果的な質問をするために
+    </h2>
     <p class="text-[#7c2808] leading-relaxed mb-3">
       ITエンジニアにとって、技術的な問題を正確に伝える能力は非常に重要です。 適切な質問をすることで、より早く、的確な回答を得ることができます。
     </p>
@@ -31,7 +30,10 @@
   </div>
 
   <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-6 shadow-md w-full">
-    <h2 class="text-xl font-bold text-[#7c2808] mb-4">質問に含めるべき5つの要素</h2>
+    <h2 class="text-xl font-bold text-[#7c2808] mb-4 flex items-center gap-2">
+      <span class="text-[#c93400]">{% include "app/components/icons/check.svg" with icon_class="w-6 h-6" stroke_width="2" %}</span>
+      質問に含めるべき5つの要素
+    </h2>
     <div class="space-y-4">
       <div class="p-4 bg-[#feecd3] rounded-lg border-l-4 border-[#c93400]">
         <h3 class="font-bold text-[#7c2808] mb-2">1. 何を実現したいのか（目的）</h3>
@@ -76,7 +78,10 @@
   </div>
 
   <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-6 shadow-md w-full">
-    <h2 class="text-xl font-bold text-[#7c2808] mb-4">コードやエラーの提示方法</h2>
+    <h2 class="text-xl font-bold text-[#7c2808] mb-4 flex items-center gap-2">
+      <span class="text-[#c93400]">{% include "app/components/icons/code-chevrons.svg" with icon_class="w-6 h-6" %}</span>
+      コードやエラーの提示方法
+    </h2>
 
     <div class="space-y-4">
       <div>
@@ -122,7 +127,10 @@ const handleLogin = async (userData) => {
   </div>
 
   <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-6 shadow-md w-full">
-    <h2 class="text-xl font-bold text-[#7c2808] mb-4">再現手順の書き方</h2>
+    <h2 class="text-xl font-bold text-[#7c2808] mb-4 flex items-center gap-2">
+      <span class="text-[#c93400]">{% include "app/components/icons/file-corner.svg" with icon_class="w-6 h-6" %}</span>
+      再現手順の書き方
+    </h2>
     <p class="text-sm text-[#7c2808]/80 mb-4">問題を再現できる手順を番号付きで明確に記載しましょう。</p>
     <div class="bg-[#e8f5e9] p-4 rounded-lg border-l-4 border-green-600">
       <h3 class="font-bold text-[#7c2808] mb-3">✅ 良い例</h3>
@@ -139,7 +147,10 @@ const handleLogin = async (userData) => {
   </div>
 
   <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-6 shadow-md w-full">
-    <h2 class="text-xl font-bold text-[#7c2808] mb-4">環境情報のチェックリスト</h2>
+    <h2 class="text-xl font-bold text-[#7c2808] mb-4 flex items-center gap-2">
+      <span class="text-[#c93400]">{% include "app/components/icons/settings.svg" with icon_class="w-6 h-6" %}</span>
+      環境情報のチェックリスト
+    </h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div class="p-4 bg-[#feecd3] rounded-lg">
         <h3 class="font-bold text-[#7c2808] mb-2">フロントエンド</h3>
@@ -177,7 +188,10 @@ const handleLogin = async (userData) => {
   </div>
 
   <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-6 shadow-md w-full">
-    <h2 class="text-xl font-bold text-[#7c2808] mb-4">コミュニケーションのマインドセット</h2>
+    <h2 class="text-xl font-bold text-[#7c2808] mb-4 flex items-center gap-2">
+      <span class="text-[#c93400]">{% include "app/components/icons/users-group.svg" with icon_class="w-6 h-6" %}</span>
+      コミュニケーションのマインドセット
+    </h2>
     <div class="space-y-3">
       <div class="p-4 bg-[#feecd3] rounded-lg">
         <h3 class="font-bold text-[#7c2808] mb-2">🎯 相手の時間を尊重する</h3>
@@ -204,7 +218,10 @@ const handleLogin = async (userData) => {
 
   <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-6 shadow-md w-full">
     <div class="flex items-center justify-between gap-3">
-      <h2 class="text-xl font-bold text-[#7c2808]">📋 完全な質問の例</h2>
+      <h2 class="text-xl font-bold text-[#7c2808] flex items-center gap-2">
+        <span class="text-[#c93400]">{% include "app/components/icons/clipboard-check.svg" with icon_class="w-6 h-6" %}</span>
+        完全な質問の例
+      </h2>
       <button type="button" class="px-3 py-1 text-sm bg-[#c93400] text-[#fff7ed] rounded-lg"
               _="on click toggle .hidden on #full-example then
                  if #full-example.matches('.hidden')
@@ -259,7 +276,7 @@ const fetchUserData = async () => {
   <div class="bg-gradient-to-r from-[#c93400] to-[#7c2808] text-[#fff7ed] rounded-xl p-8 shadow-lg w-full text-center">
     <h2 class="text-2xl font-bold mb-3">準備ができたら質問してみましょう！</h2>
     <p class="mb-6 text-[#fff7ed]/90">このガイドを参考に、詳細で分かりやすい質問を投稿してください。</p>
-    <a href="/question/new/" hx-get="/question/new/" hx-target="main" hx-select="main" hx-swap="outerHTML" hx-push-url="true"
+    <a href="/question/new/" hx-get="/question/new/" hx-target="main" hx-select="main" hx-swap="outerHTML show:window:top" hx-push-url="true"
        class="inline-flex px-8 py-3 bg-[#fff7ed] text-[#c93400] rounded-lg hover:bg-[#feecd3] transition-colors font-bold shadow-md">
       質問を投稿する
     </a>
