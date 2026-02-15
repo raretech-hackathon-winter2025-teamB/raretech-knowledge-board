@@ -46,6 +46,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.public-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+.public-page #public-main {
+  flex: 1;
+  min-height: 0;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -121,15 +132,11 @@ select {
 
 body[data-auth-page="1"],
 body:has(#auth-form-shell) {
-  display: flex;
-  flex-direction: column;
-  min-height: 100dvh;
+  overflow-y: auto;
 }
 
 body[data-auth-page="1"] #public-main,
 body:has(#auth-form-shell) #public-main {
-  flex: 1;
-  min-height: 0;
   display: flex;
 }
 
