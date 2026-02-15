@@ -64,7 +64,6 @@
 - `templates/app/components/qa/common/_search_filter_bar.html`
 - `templates/app/components/qa/common/_filter_modal.html`
 - `templates/app/components/qa/list/_page_header.html`
-- `templates/app/components/qa/list/_search_section.html`
 
 ### 3.5 Error pages
 - `templates/errors/400.html`
@@ -120,7 +119,6 @@
 - `templates/app/components/qa/common/_search_filter_bar.html` : 検索フォーム＋絞り込みボタン共通部品（質問一覧/自分の質問/ブックマークで再利用）
 - `templates/app/components/qa/common/_filter_modal.html` : カテゴリ/ステータス絞り込みモーダル共通部品
 - `templates/app/components/qa/list/_page_header.html` : 質問一覧ヘッダー部品
-- `templates/app/components/qa/list/_search_section.html` : 質問一覧の検索セクション部品
 - `static/js/markdown-editor.js` : Markdownプレビュー・コード装飾・Copy処理
 - `static/js/public-base.js` : 公開画面Vanta制御（`data-vanta-page`判定、初期化/破棄）
 - `static/globals.css` : 全体スタイル
@@ -207,7 +205,6 @@
 - `templates/app/components/qa/common/_search_filter_bar.html` : 検索入力 + 検索ボタン + 絞り込みボタン共通部品。
 - `templates/app/components/qa/common/_filter_modal.html` : カテゴリ/ステータス絞り込みモーダル共通部品。
 - `templates/app/components/qa/list/_page_header.html` : 質問一覧専用ヘッダー。
-- `templates/app/components/qa/list/_search_section.html` : 質問一覧専用検索セクション。
 
 ### 10.11 エラーページ（errors）
 - `templates/errors/400.html` : 400 Bad Request フルページ。
@@ -240,16 +237,23 @@
 - `templates/app/components/icons/book-guide.svg` : ガイド機能カード。
 - `templates/app/components/icons/bookmark.svg` : ブックマーク通常状態。
 - `templates/app/components/icons/bookmark-filled.svg` : ブックマーク選択状態。
+- `templates/app/components/icons/bold.svg` : Markdownツールバーの太字。
 - `templates/app/components/icons/bulb.svg` : ナレッジ共有表現。
 - `templates/app/components/icons/chat.svg` : 質問/会話系。
 - `templates/app/components/icons/check.svg` : 完了・ステータスチェック。
 - `templates/app/components/icons/clipboard-check.svg` : 完全例・チェック済み文脈。
 - `templates/app/components/icons/close.svg` : モーダル閉じる。
+- `templates/app/components/icons/code-bracket.svg` : Markdownツールバーのインラインコード。
 - `templates/app/components/icons/code-chevrons.svg` : コード例/コード見出し。
 - `templates/app/components/icons/community.svg` : コミュニティ系。
 - `templates/app/components/icons/file-corner.svg` : 手順・ドキュメント見出し。
 - `templates/app/components/icons/filter.svg` : 絞り込み操作。
+- `templates/app/components/icons/h1.svg` : Markdownツールバーの見出し1。
+- `templates/app/components/icons/h2.svg` : Markdownツールバーの見出し2。
 - `templates/app/components/icons/image.svg` : 画像挿入。
+- `templates/app/components/icons/italic.svg` : Markdownツールバーの斜体。
+- `templates/app/components/icons/list.svg` : Markdownツールバーの箇条書き。
+- `templates/app/components/icons/list-ordered.svg` : Markdownツールバーの番号リスト。
 - `templates/app/components/icons/link.svg` : リンク挿入。
 - `templates/app/components/icons/lock.svg` : パスワード入力。
 - `templates/app/components/icons/login-square.svg` : ログイン操作。

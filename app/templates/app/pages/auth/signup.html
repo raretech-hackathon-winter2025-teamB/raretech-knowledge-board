@@ -1,18 +1,15 @@
 {% extends "layouts/public_base.html" %}
 
 {% block title %}新規登録 | RareTECHナレッジ掲示板{% endblock %}
+{% block body_attrs %}data-auth-page="1"{% endblock %}
 
 {% block extra_head %}
   <style>
-    body {
-      position: relative;
-      min-height: 100vh;
-    }
     dialog.legal-modal {
       border: none;
       padding: 0;
       background: transparent;
-      width: min(40rem, calc(100vw - 2rem));
+      width: min(64rem, calc(100vw - 2rem));
       max-width: 100%;
     }
     dialog.legal-modal::backdrop {
@@ -22,7 +19,7 @@
 {% endblock %}
 
 {% block content %}
-  <div data-vanta-page="birds" class="relative z-20 min-h-screen flex items-center justify-center p-4">
+  <div data-vanta-page="birds" class="relative z-20 h-full flex items-center justify-center p-4">
     <div id="auth-form-shell" class="w-full max-w-md">
       {% include "app/components/auth/_branding_partial.html" with subtitle="アカウントを作成して学びを共有しよう" %}
 
@@ -179,16 +176,18 @@
 
   <dialog id="modal-terms" class="legal-modal"
           _="on click if event.target == me then call me.close()">
-    <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] shadow-2xl w-full max-h-[80vh] overflow-hidden flex flex-col">
-      <div class="bg-[#7c2808] text-[#fff7ed] px-6 py-4 flex items-center justify-between rounded-t-xl">
-        <h3 class="text-xl font-bold">利用規約</h3>
-        <button type="button" class="p-1 hover:bg-[#fff7ed]/20 rounded transition-colors" _="on click call #modal-terms.close()">×</button>
+    <div class="bg-[#fff7ed] rounded-2xl border-2 border-[#7c2808] shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col">
+      <div class="bg-[#7c2808] text-[#fff7ed] px-6 py-4 flex items-center justify-between">
+        <h3 class="text-2xl font-bold">利用規約</h3>
+        <button type="button" class="hover:bg-[#fff7ed]/20 rounded-lg p-2 transition-colors" _="on click call #modal-terms.close()">
+          {% include "app/components/icons/close.svg" with icon_class="w-6 h-6" %}
+        </button>
       </div>
-      <div class="flex-1 overflow-y-auto px-6 py-4">
+      <div class="flex-1 overflow-y-auto p-8 text-[#7c2808]">
         {% include "app/components/legal/_terms_content_partial.html" %}
       </div>
-      <div class="px-6 py-6 border-t border-[#7c2808]/20 flex items-center justify-center">
-        <button type="button" class="w-full py-3 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#7c2808] transition-colors font-bold text-base"
+      <div class="bg-[#fff7ed] border-t-2 border-[#7c2808]/20 px-6 py-4">
+        <button type="button" class="w-full px-6 py-3 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#7c2808] transition-colors font-bold"
                 _="on click call #modal-terms.close()">
           閉じる
         </button>
@@ -198,16 +197,18 @@
 
   <dialog id="modal-privacy" class="legal-modal"
           _="on click if event.target == me then call me.close()">
-    <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] shadow-2xl w-full max-h-[80vh] overflow-hidden flex flex-col">
-      <div class="bg-[#7c2808] text-[#fff7ed] px-6 py-4 flex items-center justify-between rounded-t-xl">
-        <h3 class="text-xl font-bold">プライバシーポリシー</h3>
-        <button type="button" class="p-1 hover:bg-[#fff7ed]/20 rounded transition-colors" _="on click call #modal-privacy.close()">×</button>
+    <div class="bg-[#fff7ed] rounded-2xl border-2 border-[#7c2808] shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col">
+      <div class="bg-[#7c2808] text-[#fff7ed] px-6 py-4 flex items-center justify-between">
+        <h3 class="text-2xl font-bold">プライバシーポリシー</h3>
+        <button type="button" class="hover:bg-[#fff7ed]/20 rounded-lg p-2 transition-colors" _="on click call #modal-privacy.close()">
+          {% include "app/components/icons/close.svg" with icon_class="w-6 h-6" %}
+        </button>
       </div>
-      <div class="flex-1 overflow-y-auto px-6 py-4">
+      <div class="flex-1 overflow-y-auto p-8 text-[#7c2808]">
         {% include "app/components/legal/_privacy_content_partial.html" %}
       </div>
-      <div class="px-6 py-6 border-t border-[#7c2808]/20 flex items-center justify-center">
-        <button type="button" class="w-full py-3 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#7c2808] transition-colors font-bold text-base"
+      <div class="bg-[#fff7ed] border-t-2 border-[#7c2808]/20 px-6 py-4">
+        <button type="button" class="w-full px-6 py-3 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#7c2808] transition-colors font-bold"
                 _="on click call #modal-privacy.close()">
           閉じる
         </button>

@@ -20,7 +20,7 @@
     </a>
   </div>
 
-  {% include "app/components/qa/common/_search_filter_bar.html" with form_action="/bookmarks/" hx_get_url="/bookmarks/" search_placeholder="ブックマークを検索..." modal_id="bookmark-filter-modal" %}
+  {% include "app/components/qa/common/_search_filter_bar.html" with form_action="/bookmarks/" hx_get_url="/bookmarks/" search_placeholder="ブックマークを検索..." modal_id="bookmark-filter-modal" show_count=1 count_value=object_list|length %}
 
   {% if not request.user.is_authenticated %}
     <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-8 shadow-md text-center space-y-3">

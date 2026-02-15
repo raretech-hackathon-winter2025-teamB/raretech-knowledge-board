@@ -6,7 +6,7 @@
 {% block content %}
 <section class="space-y-5">
   {% include "app/components/qa/list/_page_header.html" %}
-  {% include "app/components/qa/list/_search_section.html" %}
+  {% include "app/components/qa/common/_search_filter_bar.html" with form_action="/home/" hx_get_url="/home/" search_placeholder="質問を検索..." modal_id="filter-modal" show_count=1 count_value=object_list|length %}
 
   <div class="space-y-4">
     {% if object_list %}

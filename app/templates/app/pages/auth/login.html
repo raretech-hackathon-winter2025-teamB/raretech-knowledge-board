@@ -1,15 +1,7 @@
 {% extends "layouts/public_base.html" %}
 
 {% block title %}ログイン | RareTECHナレッジ掲示板{% endblock %}
-
-{% block extra_head %}
-  <style>
-    body {
-      position: relative;
-      min-height: 100vh;
-    }
-  </style>
-{% endblock %}
+{% block body_attrs %}data-auth-page="1"{% endblock %}
 
 {% block content %}
   <div data-vanta-page="birds" class="relative z-20 h-full flex items-center justify-center p-4">

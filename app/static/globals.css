@@ -46,6 +46,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.public-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+.public-page #public-main {
+  flex: 1;
+  min-height: 0;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -117,4 +128,28 @@ select {
 .sidebar-active:hover {
   background: #c93400 !important;
   color: #fff7ed !important;
+}
+
+body[data-auth-page="1"],
+body:has(#auth-form-shell) {
+  overflow-y: auto;
+}
+
+body[data-auth-page="1"] #public-main,
+body:has(#auth-form-shell) #public-main {
+  display: flex;
+}
+
+body[data-auth-page="1"] #public-main > [data-vanta-page="birds"],
+body:has(#auth-form-shell) #public-main > [data-vanta-page="birds"] {
+  flex: 1;
+  min-height: 0;
+}
+
+body[data-auth-page="1"] .vanta-canvas,
+body:has(#auth-form-shell) .vanta-canvas {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
 }
