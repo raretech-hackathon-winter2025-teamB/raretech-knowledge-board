@@ -1,18 +1,19 @@
 {# 【ファイル責務】エラー表示本文の共通描画 #}
 <section id="error-panel" class="w-full max-w-2xl">
-  <div class="bg-white rounded-2xl border-2 border-[#7c2808] shadow-2xl overflow-hidden">
-    <header class="bg-[#7c2808] text-[#fff7ed] px-6 py-5 text-center">
+  <div class="bg-white rounded-2xl border-2 border-[#7c2808] shadow-2xl overflow-hidden min-h-[30rem] grid grid-rows-[2fr_6fr_2fr]">
+    <header class="bg-[#7c2808] text-[#fff7ed] px-6 py-5 text-center flex flex-col items-center justify-center">
       <p class="text-4xl font-bold">{{ status_code }}</p>
       <h1 class="text-xl font-bold mt-2">{{ status_title }}</h1>
     </header>
 
-    <div class="px-6 py-6 space-y-4">
+    <div class="px-6 py-6 space-y-4 text-center flex flex-col items-center justify-center">
       <p class="text-[#7c2808] leading-7">{{ status_message }}</p>
       <p class="text-sm text-[#7c2808]/70">
         リクエストパス: <code class="font-mono">{{ request_path }}</code>
       </p>
+    </div>
 
-      <div class="flex flex-wrap gap-3 pt-2">
+    <div class="px-6 py-4 border-t-2 border-[#7c2808]/20 flex flex-wrap items-center justify-center gap-3">
         <a href="/"
            class="px-4 py-2 rounded-lg bg-[#c93400] text-[#fff7ed] hover:bg-[#7c2808] transition-colors font-bold">
           トップへ戻る
@@ -29,7 +30,6 @@
             再読み込み
           </button>
         {% endif %}
-      </div>
     </div>
   </div>
 </section>
