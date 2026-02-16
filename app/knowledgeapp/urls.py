@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 
+# 【ファイル責務】質問掲示板機能と公開コンテンツのURLを定義
 app_name = "knowledgeapp"
 urlpatterns = [
     path('', views.TopView.as_view(), name='top'),

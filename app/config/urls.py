@@ -14,6 +14,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+# 【ファイル責務】プロジェクト全体のURL集約とエラーハンドラ定義
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
@@ -26,6 +27,7 @@ handler404 = "config.error_views.page_not_found"
 handler500 = "config.error_views.server_error"
 
 urlpatterns = [
+    # 【セクション】アプリルーティング
     path('admin/', admin.site.urls),
     path('', include('knowledgeapp.urls')),
     path('', include('accounts.urls')),
@@ -41,4 +43,5 @@ urlpatterns = [
 ]
 
 if settings.DEBUG:
+    # 【セクション】開発時のみメディアファイルを配信
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+# 【ファイル責務】サインアップ時の入力フォーム定義
 # Djangoが提供するユーザー登録（アカウント作成）のための便利なフォームクラス
 # カスタムユーザーモデルを使用している場合に、ユーザー登録フォームを簡単に作成できるように設計されている
 from django.contrib.auth.forms import UserCreationForm

@@ -1,6 +1,7 @@
 """
 Django settings for config project.
 """
+# 【ファイル責務】Django全体設定（DB・認証・静的配信・ストレージ）を管理
 import os
 from pathlib import Path
 from dotenv import load_dotenv
@@ -29,6 +30,7 @@ INSTALLED_APPS = [
 
 USE_S3 = os.getenv('USE_S3', 'False') == 'True'
 if USE_S3:
+    # 【セクション】S3保存利用時のみstoragesアプリを有効化
     INSTALLED_APPS.append('storages')
 
 MIDDLEWARE = [
@@ -98,6 +100,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 if USE_S3:
+    # 【セクション】S3関連設定
     AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID', '')
     AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY', '')
     AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME', '')

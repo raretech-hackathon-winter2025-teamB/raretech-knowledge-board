@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 
-
+# 【ファイル責務】質問掲示板の主要ドメインモデルを定義
 
 # Categoriesテーブルの定義
 class Category(models.Model):
