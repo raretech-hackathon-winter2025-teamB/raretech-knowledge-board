@@ -1,8 +1,10 @@
 {% extends "layouts/public_base.html" %}
 
+{# 【ファイル責務】公開トップページの紹介表示と認証導線 #}
 {% block title %}RareTECH ナレッジ掲示板{% endblock %}
 
 {% block content %}
+  {# 【セクション】ヒーローと主要CTA #}
   <section class="max-w-7xl mx-auto px-4 py-20 text-center">
     <div class="mb-8">
       <h2 class="text-5xl font-bold text-[#7c2808] mb-4">
@@ -16,25 +18,21 @@
     </div>
 
     <div class="flex items-center justify-center gap-4 mb-12">
-      <button
-        class="px-8 py-4 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#7c2808] transition-colors font-bold text-lg flex items-center gap-2 shadow-xl"
-        hx-get="/signup/"
-        hx-target="main"
-        hx-select="main"
-        hx-swap="outerHTML show:window:top"
-        hx-push-url="true"
-      >
+      <button class="px-8 py-4 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#7c2808] transition-colors font-bold text-lg flex items-center gap-2 shadow-xl"
+              hx-get="/signup/"
+              hx-target="main"
+              hx-select="main"
+              hx-swap="outerHTML show:window:top"
+              hx-push-url="true">
         今すぐ始める
         {% include "app/components/icons/arrow-right.svg" with icon_class="w-5 h-5" %}
       </button>
-      <button
-        class="px-8 py-4 border-2 border-[#7c2808] text-[#7c2808] rounded-lg hover:bg-[#7c2808] hover:text-[#fff7ed] transition-colors font-bold text-lg"
-        hx-get="/login/"
-        hx-target="main"
-        hx-select="main"
-        hx-swap="outerHTML show:window:top"
-        hx-push-url="true"
-      >
+      <button class="px-8 py-4 border-2 border-[#7c2808] text-[#7c2808] rounded-lg hover:bg-[#7c2808] hover:text-[#fff7ed] transition-colors font-bold text-lg"
+              hx-get="/login/"
+              hx-target="main"
+              hx-select="main"
+              hx-swap="outerHTML show:window:top"
+              hx-push-url="true">
         ログイン
       </button>
     </div>
@@ -57,6 +55,7 @@
     </div>
   </section>
 
+  {# 【セクション】主な機能一覧 #}
   <section class="bg-[#fff7ed] py-20 border-y-2 border-[#7c2808]">
     <div class="max-w-7xl mx-auto px-4">
       <h3 class="text-4xl font-bold text-[#7c2808] text-center mb-12">主な機能</h3>
@@ -107,6 +106,7 @@
     </div>
   </section>
 
+  {# 【セクション】利用開始ステップ #}
   <section class="py-20">
     <div class="max-w-7xl mx-auto px-4">
       <h3 class="text-4xl font-bold text-[#7c2808] text-center mb-12">使い方はシンプル</h3>
@@ -130,6 +130,7 @@
     </div>
   </section>
 
+  {# 【セクション】利用メリット #}
   <section class="bg-white py-20 border-y-2 border-[#7c2808]">
     <div class="max-w-7xl mx-auto px-4">
       <h3 class="text-4xl font-bold text-[#7c2808] text-center mb-12">RareTECHナレッジ掲示板を使うメリット</h3>
@@ -180,31 +181,28 @@
     </div>
   </section>
 
+  {# 【セクション】最終CTA #}
   <section class="py-20">
     <div class="max-w-4xl mx-auto px-4 text-center">
       <div class="bg-[#7c2808] text-[#fff7ed] rounded-2xl p-12 shadow-2xl">
         <h3 class="text-4xl font-bold mb-4">今すぐ始めよう</h3>
         <p class="text-xl mb-8 text-[#fff7ed]/90">無料でアカウントを作成して、学びのコミュニティに参加しましょう</p>
         <div class="flex items-center justify-center gap-4">
-          <button
-            class="px-8 py-4 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#fff7ed] hover:text-[#c93400] transition-colors font-bold text-lg flex items-center gap-2 shadow-xl"
-            hx-get="/signup/"
-            hx-target="main"
-            hx-select="main"
-            hx-swap="outerHTML show:window:top"
-            hx-push-url="true"
-          >
+          <button class="px-8 py-4 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#fff7ed] hover:text-[#c93400] transition-colors font-bold text-lg flex items-center gap-2 shadow-xl"
+                  hx-get="/signup/"
+                  hx-target="main"
+                  hx-select="main"
+                  hx-swap="outerHTML show:window:top"
+                  hx-push-url="true">
             無料で新規登録
             {% include "app/components/icons/arrow-right.svg" with icon_class="w-5 h-5" %}
           </button>
-          <button
-            class="px-8 py-4 border-2 border-[#fff7ed] text-[#fff7ed] rounded-lg hover:bg-[#fff7ed] hover:text-[#7c2808] transition-colors font-bold text-lg"
-            hx-get="/login/"
-            hx-target="main"
-            hx-select="main"
-            hx-swap="outerHTML show:window:top"
-            hx-push-url="true"
-          >
+          <button class="px-8 py-4 border-2 border-[#fff7ed] text-[#fff7ed] rounded-lg hover:bg-[#fff7ed] hover:text-[#7c2808] transition-colors font-bold text-lg"
+                  hx-get="/login/"
+                  hx-target="main"
+                  hx-select="main"
+                  hx-swap="outerHTML show:window:top"
+                  hx-push-url="true">
             ログイン
           </button>
         </div>

@@ -1,3 +1,4 @@
+{# 【ファイル責務】質問カード1件分の表示と詳細遷移 #}
 <article class="w-full bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
          hx-get="/question/{{ q.id }}/"
          hx-target="main"
@@ -5,6 +6,7 @@
          hx-swap="outerHTML show:window:top"
          hx-push-url="true">
   <div class="flex gap-4 p-4">
+    {# 【セクション】ステータスと作成日 #}
     <div class="flex flex-col items-center justify-center w-20 shrink-0">
       <div class="text-center mb-2 font-medium {% if q.status == '2' %}text-[#7c2808]{% else %}text-[#006044]{% endif %}">
         {% if q.status == '2' %}open{% else %}closed{% endif %}
@@ -19,6 +21,7 @@
       </div>
     </div>
 
+    {# 【セクション】タイトルと本文要約 #}
     <div class="flex-1 min-w-0">
       <h2 class="font-bold text-[#7c2808] text-lg mb-1 truncate">
         {{ q.title }}
@@ -27,6 +30,7 @@
       <p class="text-sm text-[#8c3f27]">{{ q.detail|truncatechars:120 }}</p>
     </div>
 
+    {# 【セクション】ブックマーク操作 #}
     {% if show_bookmark %}
       <div class="flex items-start">
         {% include "app/components/qa/_bookmark_button_partial.html" with q=q %}

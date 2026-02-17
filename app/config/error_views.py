@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
+# 【ファイル責務】4xx/5xxエラーページの通常表示とhtmx断片応答を提供
 
 ERROR_META = {
     400: ("400 Bad Request", "リクエストの形式が正しくありません。入力内容を確認してください。", False),
@@ -15,6 +16,7 @@ ERROR_META = {
 
 
 def _context(request, code):
+    # 【セクション】テンプレート描画用コンテキスト生成
     title, message, show_retry = ERROR_META[code]
     return {
         "status_code": code,
@@ -26,6 +28,7 @@ def _context(request, code):
 
 
 def _render_error(request, code):
+    # 【セクション】htmxリクエスト時は断片テンプレートで応答
     context = _context(request, code)
     if request.headers.get("HX-Request") == "true":
         response = render(request, "errors/partials/error_panel.html", context=context, status=code)

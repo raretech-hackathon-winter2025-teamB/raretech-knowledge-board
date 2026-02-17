@@ -2,6 +2,7 @@ from django.contrib.auth.models import (AbstractBaseUser,BaseUserManager,Permiss
 from django.db import models
 import uuid
 
+# 【ファイル責務】カスタムユーザーモデルとユーザー作成マネージャーを定義
 # AbstractBaseUserを使う場合、カスタムマネージャーの定義が必要
 # 新しい一般ユーザーを作成するためのロジックを定義
 class CustomUserManager(BaseUserManager):

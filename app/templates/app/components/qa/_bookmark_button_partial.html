@@ -1,3 +1,4 @@
+{# 【ファイル責務】質問カード内ブックマーク切り替えボタン #}
 <form method="post"
       action="/question/{{ q.id }}/bookmark/"
       hx-post="/question/{{ q.id }}/bookmark/"
@@ -9,7 +10,9 @@
       hx-on:click="event.stopPropagation()">
   {% csrf_token %}
   <input type="hidden" name="next" value="{{ request.get_full_path }}">
-  <button type="submit" class="p-2 hover:bg-[#7c2808]/10 rounded-lg transition-colors" title="お気に入り"
+  <button type="submit"
+          class="p-2 hover:bg-[#7c2808]/10 rounded-lg transition-colors"
+          title="お気に入り"
           hx-on:click="event.stopPropagation()"
           aria-pressed="{% if is_bookmarked or q.id in bookmarked_question_ids %}true{% else %}false{% endif %}">
     {% if is_bookmarked or q.id in bookmarked_question_ids %}

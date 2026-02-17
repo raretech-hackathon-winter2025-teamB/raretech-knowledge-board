@@ -23,43 +23,53 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from .forms import QuestionForm
 
+# 【ファイル責務】質問/回答/ブックマーク/画像アップロードのViewを提供
+
+
+class RedirectAuthenticatedToHomeMixin:
+    # 【ファイル責務】ログイン済みユーザーの公開ページアクセスを/homeへ統一
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('/home/')
+        return super().dispatch(request, *args, **kwargs)
 
 #TOP画面の表示
-class TopView(TemplateView):
+class TopView(RedirectAuthenticatedToHomeMixin, TemplateView):
     template_name = 'public/pages/home.html'
 
 
 #いい質問の仕方画面の表示
-class HowToAskView(TemplateView):
+class HowToAskView(LoginRequiredMixin, TemplateView):
     template_name = 'app/pages/qa/how_to_ask.html'
 
 
-class TermsView(TemplateView):
+class TermsView(RedirectAuthenticatedToHomeMixin, TemplateView):
     template_name = 'public/pages/terms.html'
 
 
-class PrivacyPolicyView(TemplateView):
+class PrivacyPolicyView(RedirectAuthenticatedToHomeMixin, TemplateView):
     template_name = 'public/pages/privacy_policy.html'
 
 
-class FeatureQuestionPostView(TemplateView):
+class FeatureQuestionPostView(RedirectAuthenticatedToHomeMixin, TemplateView):
     template_name = 'public/pages/features/question_post.html'
 
 
-class FeatureQuestionListView(TemplateView):
+class FeatureQuestionListView(RedirectAuthenticatedToHomeMixin, TemplateView):
     template_name = 'public/pages/features/question_list.html'
 
 
-class FeatureQuestionGuideView(TemplateView):
+class FeatureQuestionGuideView(RedirectAuthenticatedToHomeMixin, TemplateView):
     template_name = 'public/pages/features/question_guide.html'
 
 
 #質問一覧の表示
-class QuestionList(ListView):
+class QuestionList(LoginRequiredMixin, ListView):
     template_name = 'app/pages/qa/question_list.html'
     model = Question
 
     def get_queryset(self):
+        # 【セクション】検索条件を適用した質問一覧を返す
         queryset = Question.objects.select_related('category').order_by('-created_at')
         keyword = self.request.GET.get('q', '').strip()
         category = self.request.GET.get('category', '').strip()
@@ -75,10 +85,11 @@ class QuestionList(ListView):
         try:
             return list(queryset)
         except (ValidationError, ValueError, ProgrammingError, OperationalError):
-            # UUID不整合やテーブル未作成時でも画面表示を継続するため空で返す
+            # 【例外】DB不整合時でも画面表示を継続するため空で返す
             return []
 
     def get_context_data(self, **kwargs):
+        # 【セクション】検索条件とブックマーク状態をコンテキストへ追加
         context = super().get_context_data(**kwargs)
         context['selected_q'] = self.request.GET.get('q', '').strip()
         context['selected_category'] = self.request.GET.get('category', '').strip()
@@ -105,7 +116,7 @@ class QuestionList(ListView):
 #     return render(request, 'home.html')
 
 #質問投稿画面の表示
-class QuestionCreate(CreateView):
+class QuestionCreate(LoginRequiredMixin, CreateView):
     template_name = 'app/pages/qa/question_form.html'
     model = Question
     form_class = QuestionForm
@@ -113,6 +124,7 @@ class QuestionCreate(CreateView):
     success_url = reverse_lazy('knowledgeapp:question') #データを登録後、urls.pyのなかのname=○○の箇所に遷移させる。
 
     def form_valid(self, form):
+        # 【セクション】未ログイン投稿を抑止
         # 未ログイン時の投稿は認証画面へ誘導する
         if not self.request.user.is_authenticated:
             return redirect('/login/')
@@ -125,6 +137,7 @@ class QuestionCreate(CreateView):
 #質問の削除 　フロント→バック受け渡し　href="{% url 'knowledgeapp:delete_question' pk=question.pk %}"
 # @csrf_exempt # ←curl確認事項用
 def delete_question(request, pk):
+    # 【セクション】指定質問の削除処理
     question = get_object_or_404(Question, pk=pk) #指定されたQuestionIDの質問があるか確認し、なければエラーを出す。
     # if request.method == 'DELETE':
     question.delete() #データベースから削除する。
@@ -139,6 +152,7 @@ class QuestionUpdate(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('knowledgeapp:question')
 
     def form_valid(self, form):
+        # 【セクション】更新時の投稿者・ステータス再設定
         form.instance.user = self.request.user
         form.instance.status = '2'
         return super().form_valid(form)
@@ -153,11 +167,12 @@ class QuestionUpdate(LoginRequiredMixin, UpdateView):
 
 
 # 自分の質問一覧の表示
-class MyQuestionList(ListView):
+class MyQuestionList(LoginRequiredMixin, ListView):
     template_name = 'app/pages/qa/my_questions.html'
     model = Question
 
     def get_queryset(self):
+        # 【セクション】ログインユーザーの質問一覧を検索条件付きで返す
         if not self.request.user.is_authenticated:
             return []
 
@@ -189,11 +204,12 @@ class MyQuestionList(ListView):
         return context
 
 
-class BookmarkList(ListView):
+class BookmarkList(LoginRequiredMixin, ListView):
     template_name = 'app/pages/qa/bookmarks.html'
     model = Question
 
     def get_queryset(self):
+        # 【セクション】ログインユーザーのブックマーク質問一覧を返す
         if not self.request.user.is_authenticated:
             return []
 
@@ -232,7 +248,7 @@ class BookmarkList(ListView):
         return context
 
 
-class QuestionDetail(DetailView):
+class QuestionDetail(LoginRequiredMixin, DetailView):
     template_name = 'app/pages/qa/question_detail.html'
     model = Question
     pk_url_kwarg = 'pk'
@@ -247,6 +263,7 @@ class QuestionDetail(DetailView):
             raise Http404("Question not found")
 
     def get_context_data(self, **kwargs):
+        # 【セクション】質問に紐づく回答一覧を追加
         context = super().get_context_data(**kwargs)
         try:
             context['answers'] = list(
@@ -259,8 +276,9 @@ class QuestionDetail(DetailView):
         return context
 
 
-class AnswerCreate(View):
+class AnswerCreate(LoginRequiredMixin, View):
     def post(self, request, pk):
+        # 【セクション】回答投稿処理
         if not request.user.is_authenticated:
             return redirect('/login/')
 
@@ -281,8 +299,9 @@ class AnswerCreate(View):
         return redirect(reverse('knowledgeapp:question_detail', kwargs={'pk': question.pk}))
 
 
-class QuestionResolve(View):
+class QuestionResolve(LoginRequiredMixin, View):
     def post(self, request, pk):
+        # 【セクション】投稿者本人のみ質問を解決済みに更新
         if not request.user.is_authenticated:
             return redirect('/login/')
 
@@ -301,8 +320,9 @@ class QuestionResolve(View):
         return redirect(reverse('knowledgeapp:question_detail', kwargs={'pk': pk}))
 
 
-class BookmarkToggle(View):
+class BookmarkToggle(LoginRequiredMixin, View):
     def post(self, request, pk):
+        # 【セクション】ブックマークの作成/解除をトグル
         if not request.user.is_authenticated:
             return redirect('/login/')
 
@@ -319,6 +339,7 @@ class BookmarkToggle(View):
             is_bookmarked = False
 
         if request.headers.get('HX-Request') == 'true':
+            # 【遷移】htmx時はボタン部品のみ返却
             context = {
                 'q': question,
                 'is_bookmarked': is_bookmarked,
@@ -334,12 +355,15 @@ class BookmarkToggle(View):
 
 class ImageUploadView(View):
     def post(self, request):
+        # 【セクション】画像アップロードとURL返却
         upload = request.FILES.get('image')
         if not upload:
+            # 【例外】ファイル未選択
             return HttpResponse("<div class='text-red-600 text-xs mt-2'>ファイルが選択されていません。</div>", status=400)
 
         ext = os.path.splitext(upload.name)[1].lower()
         if ext not in {'.jpg', '.jpeg', '.png', '.gif', '.webp'}:
+            # 【例外】許可外拡張子
             return HttpResponse("<div class='text-red-600 text-xs mt-2'>対応していないファイル形式です。</div>", status=400)
 
         path = f"uploads/{uuid.uuid4().hex}{ext}"
@@ -351,6 +375,7 @@ class ImageUploadView(View):
         escaped_target = escape(target_field)
 
         if request.headers.get('HX-Request') == 'true':
+            # 【遷移】htmx時はdata-urlを含む断片HTMLを返却
             return HttpResponse(
                 f"""
                 <div class="hidden" data-target="{escaped_target}" data-name="{filename}" data-url="{escaped_url}"></div>

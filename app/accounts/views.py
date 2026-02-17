@@ -8,6 +8,15 @@ from django.http import HttpResponse
 from django.urls import reverse_lazy
 from .form import SignUpForm
 
+# 【ファイル責務】認証（login/signup/logout）と設定/退会のViewを提供
+
+
+class RedirectAuthenticatedToHomeMixin:
+    # 【ファイル責務】ログイン済みユーザーの公開認証ページアクセスを/homeへ統一
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect("/home/")
+        return super().dispatch(request, *args, **kwargs)
 
 # ユーザ編集画面
 class Setting(LoginRequiredMixin, TemplateView):
@@ -16,6 +25,7 @@ class Setting(LoginRequiredMixin, TemplateView):
 
 class LogoutView(View):
     def get(self, request):
+        # 【セクション】ログアウト実行後、htmx時はHX-Redirectでトップへ遷移
         logout(request)
         if request.headers.get("HX-Request") == "true":
             response = HttpResponse("")
@@ -29,13 +39,16 @@ class LogoutView(View):
 
 class WithdrawView(LoginRequiredMixin, View):
     def post(self, request):
+        # 【セクション】現在パスワード検証
         current_password = request.POST.get("current_password", "")
         user = request.user
 
         if not current_password or not user.check_password(current_password):
+            # 【例外】パスワード不一致時は設定画面へ戻す
             messages.error(request, "現在のパスワードが正しくありません。")
             return redirect("/setting/")
 
+        # 【セクション】退会処理
         logout(request)
         user.delete()
 
@@ -46,11 +59,12 @@ class WithdrawView(LoginRequiredMixin, View):
         return redirect("/")
 
 
-class LoginView(auth_views.LoginView):
+class LoginView(RedirectAuthenticatedToHomeMixin, auth_views.LoginView):
     template_name = "app/pages/auth/login.html"
     redirect_authenticated_user = True
 
     def form_valid(self, form):
+        # 【遷移】htmxログイン成功時はHX-Redirectで遷移
         response = super().form_valid(form)
         if self.request.headers.get("HX-Request") == "true":
             htmx_redirect = HttpResponse("")
@@ -60,7 +74,7 @@ class LoginView(auth_views.LoginView):
 
 
 # ユーザ登録
-class SignUpView(CreateView):
+class SignUpView(RedirectAuthenticatedToHomeMixin, CreateView):
     # このビューが使用するフォームクラスを指定
     form_class = SignUpForm
     # ユーザ作成後のリダイレクト先
@@ -78,6 +92,7 @@ class SignUpView(CreateView):
         # CreateViewの場合フォームが保存された後、新しく作成されたモデルインスタンスがこのself.objectに設定されることが期待されている
         self.object = user
         if self.request.headers.get("HX-Request") == "true":
+            # 【遷移】htmx登録成功時はHX-Redirectで遷移
             response = HttpResponse("")
             response["HX-Redirect"] = self.get_success_url()
             return response

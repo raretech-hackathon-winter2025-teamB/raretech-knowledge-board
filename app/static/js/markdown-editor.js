@@ -1,7 +1,10 @@
 (() => {
+  // 【ファイル責務】Markdownプレビュー描画とコードブロック補助UI制御
+  // 【セクション】対象セレクタ定義
   const SELECTOR_MD_SOURCE = "[data-markdown-source='1']";
   const SELECTOR_COPY_BUTTON = "[data-copy-code-button='true']";
 
+  // 【セクション】未読込ライブラリ時のフォールバックエスケープ
   const escapeHtml = (text = "") =>
     String(text)
       .replaceAll("&", "&amp;")
@@ -10,10 +13,12 @@
       .replaceAll('"', "&quot;")
       .replaceAll("'", "&#39;");
 
+  // 【セクション】外部ライブラリ存在チェック
   const hasMarked = () => Boolean(window.marked && typeof window.marked.parse === "function");
   const hasPurify = () => Boolean(window.DOMPurify && typeof window.DOMPurify.sanitize === "function");
   const hasHighlightJs = () => Boolean(window.hljs && typeof window.hljs.highlight === "function");
 
+  // 【セクション】MarkdownをHTMLへ変換し必要に応じてサニタイズ
   const renderMarkdownToHtml = (markdown = "") => {
     const source = String(markdown);
     if (!hasMarked()) return `<pre>${escapeHtml(source)}</pre>`;
@@ -21,12 +26,14 @@
     return hasPurify() ? window.DOMPurify.sanitize(raw) : raw;
   };
 
+  // 【セクション】code class属性から言語名を推定
   const getCodeLanguage = (codeEl) => {
     const className = codeEl.className || "";
     const matched = className.match(/language-([a-zA-Z0-9_-]+)/);
     return matched ? matched[1] : "text";
   };
 
+  // 【セクション】highlight.jsでコードハイライトを生成
   const getHighlightedHtml = (codeText, language) => {
     if (!hasHighlightJs()) return escapeHtml(codeText);
 
@@ -41,6 +48,7 @@
     return escapeHtml(codeText);
   };
 
+  // 【セクション】コードブロック表示UIを生成
   const buildCodeBlock = (codeText, language) => {
     const lines = codeText.split("\n");
     if (lines.length > 1 && lines.at(-1) === "") lines.pop();
@@ -75,6 +83,7 @@
     `;
   };
 
+  // 【セクション】pre/codeを装飾済みブロックへ置換
   const decorateCodeBlocks = (rootEl) => {
     if (!rootEl) return;
     const preElements = rootEl.querySelectorAll("pre");
@@ -92,6 +101,7 @@
     });
   };
 
+  // 【セクション】編集ペインの内容を指定プレビューに反映
   const renderPreview = (editorId, previewId) => {
     const editorEl = document.getElementById(editorId);
     const previewEl = document.getElementById(previewId);
@@ -101,6 +111,7 @@
     decorateCodeBlocks(previewEl);
   };
 
+  // 【セクション】data-markdown-source要素を一括レンダリング
   const renderMarkdownBlocks = (root = document) => {
     const scope = root?.querySelectorAll ? root : document;
     const targets = scope.querySelectorAll(SELECTOR_MD_SOURCE);
@@ -116,6 +127,7 @@
     });
   };
 
+  // 【セクション】Copyボタン押下時にコードをクリップボードへコピー
   const handleCopyClick = async (event) => {
     const button = event.target.closest(SELECTOR_COPY_BUTTON);
     if (!button) return;
@@ -134,10 +146,11 @@
         button.textContent = originalLabel;
       }, 1000);
     } catch {
-      // clipboard access denied
+      // 【補足】clipboard access denied
     }
   };
 
+  // 【セクション】htmx差し替え後の再描画イベント登録
   const bindGlobalEvents = () => {
     document.addEventListener("click", handleCopyClick);
 
@@ -156,6 +169,7 @@
     });
   };
 
+  // 【セクション】外部公開API
   window.MarkdownEditor = {
     renderPreview,
     renderMarkdownBlocks,
