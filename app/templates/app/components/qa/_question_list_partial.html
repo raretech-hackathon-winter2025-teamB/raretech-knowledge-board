@@ -1,6 +1,6 @@
 {# 【ファイル責務】質問カード一覧の描画 #}
 <div class="w-full space-y-4">
   {% for q in questions %}
-    {% include "app/components/qa/_question_card_partial.html" with q=q show_bookmark=show_bookmark %}
+    {% include "app/components/qa/_question_card_partial.html" with q=q show_bookmark=show_bookmark show_actions=show_actions %}
   {% endfor %}
 </div>
