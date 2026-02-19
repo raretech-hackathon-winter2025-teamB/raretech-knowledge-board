@@ -133,6 +133,13 @@ class QuestionCreate(LoginRequiredMixin, CreateView):
         form.instance.status = '2'
         return super().form_valid(form)  #QuestionCreateとform_validをセットにして返す。
     
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            context['categories'] = list(Category.objects.order_by('name'))
+        except (ProgrammingError, OperationalError):
+            context['categories'] = []
+        return context
 
 #質問の削除 　フロント→バック受け渡し　href="{% url 'knowledgeapp:delete_question' pk=question.pk %}"
 # @csrf_exempt # ←curl確認事項用
