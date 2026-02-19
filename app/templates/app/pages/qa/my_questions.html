@@ -37,7 +37,7 @@
     {# 【セクション】自分の質問一覧 #}
     <div class="space-y-4">
       {% if object_list %}
-        {% include "app/components/qa/_question_list_partial.html" with questions=object_list show_bookmark="" %}
+        {% include "app/components/qa/_question_list_partial.html" with questions=object_list show_bookmark="" show_actions=1 %}
       {% else %}
         {% include "app/components/qa/_question_empty_partial.html" with show_icon="" empty_title="自分の質問はまだありません" empty_message="最初の質問を投稿してみましょう。" %}
       {% endif %}

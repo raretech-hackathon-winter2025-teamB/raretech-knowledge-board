@@ -34,7 +34,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     # uniqueがあれば空が許されない
     name = models.CharField(max_length=50, unique=False, verbose_name='ユーザ名')
     email = models.EmailField(max_length=255, unique=True, verbose_name='メールアドレス')
-    password = models.CharField(max_length=255, unique=True, verbose_name='パスワード')
+    password = models.CharField(max_length=255, verbose_name='パスワード')
     # PermissionsMixinで提供されるフィールドのデフォルト値を設定
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
