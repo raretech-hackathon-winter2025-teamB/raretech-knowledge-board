@@ -153,7 +153,7 @@ def delete_question(request, pk):
 
 #質問編集機能  フロント→バック受け渡し　href="{% url 'knowledgeapp:update_question' pk=question.pk %}"
 class QuestionUpdate(LoginRequiredMixin, UpdateView):
-    template_name = 'new_question.html' # または編集用テンプレート
+    template_name = 'app/pages/qa/question_form.html' # または編集用テンプレート
     model = Question
     form_class = QuestionForm
     success_url = reverse_lazy('knowledgeapp:question')
