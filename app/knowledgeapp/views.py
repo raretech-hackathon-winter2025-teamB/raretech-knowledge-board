@@ -22,6 +22,7 @@ from django.http import HttpResponse
 # from django.views.decorators.csrf import csrf_exempt  # curl確認用
 from django.shortcuts import get_object_or_404
 from .forms import QuestionForm
+from django.contrib.auth.decorators import login_required
 
 # 【ファイル責務】質問/回答/ブックマーク/画像アップロードのViewを提供
 
@@ -143,13 +144,19 @@ class QuestionCreate(LoginRequiredMixin, CreateView):
 
 #質問の削除 　フロント→バック受け渡し　href="{% url 'knowledgeapp:delete_question' pk=question.pk %}"
 # @csrf_exempt # ←curl確認事項用
+
+@login_required
 def delete_question(request, pk):
     # 【セクション】指定質問の削除処理
     question = get_object_or_404(Question, pk=pk) #指定されたQuestionIDの質問があるか確認し、なければエラーを出す。
     # if request.method == 'DELETE':
+    if question.user_id != request.user.id:
+        return redirect(reverse('knowledgeapp:question_detail', kwargs={'pk': pk}))
+    if request.method != 'POST':
+        return redirect(reverse('knowledgeapp:question_detail', kwargs={'pk': pk}))
     question.delete() #データベースから削除する。
-    return HttpResponse(f"ID {pk} を削除しました！", status=200) #削除した際にブラウザに値を返す。
-
+    # return HttpResponse(f"ID {pk} を削除しました！", status=200) #削除した際にブラウザに値を返す。
+    return redirect(reverse('knowledgeapp:question'))  
 
 #質問編集機能  フロント→バック受け渡し　href="{% url 'knowledgeapp:update_question' pk=question.pk %}"
 class QuestionUpdate(LoginRequiredMixin, UpdateView):
