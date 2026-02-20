@@ -1,0 +1,29 @@
+{# 【ファイル責務】質問詳細下部の回答投稿フォーム表示 #}
+<section class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-6 shadow-md">
+  <h3 class="text-xl font-bold text-[#7c2808] mb-4">返信を投稿</h3>
+  {# 【遷移】submit時にmain領域を再描画 #}
+  <form method="post"
+        action="/question/{{ object.id }}/answer/"
+        hx-post="/question/{{ object.id }}/answer/"
+        hx-target="main"
+        hx-select="main"
+        hx-swap="outerHTML show:window:top"
+        hx-push-url="true"
+        class="space-y-4">
+    {% csrf_token %}
+    <div>
+      <label for="id_answer_detail" class="block mb-2 font-medium text-[#7c2808]">返信内容</label>
+      {# 【共通部品】返信用Markdownエディタ #}
+      {% include "app/components/editor/_tabs_partial.html" with tab_edit_id="answer-tab-edit" tab_preview_id="answer-tab-preview" editor_pane_id="answer-editor-pane" preview_pane_id="answer-preview-pane" editor_id="id_answer_detail" preview_id="answer-preview-content" %}
+      {% include "app/components/editor/_toolbar_partial.html" with editor_id="id_answer_detail" upload_picker_id="answer-image-picker" %}
+      {% include "app/components/editor/_upload_partial.html" with upload_picker_id="answer-image-picker" upload_meta_id="answer-image-meta" upload_result_id="answer-upload-result" upload_target_field="id_answer_detail" %}
+      {% include "app/components/editor/_markdown_editor_partial.html" with editor_pane_id="answer-editor-pane" preview_pane_id="answer-preview-pane" editor_id="id_answer_detail" editor_name="detail" rows="6" preview_id="answer-preview-content" editor_placeholder="回答・補足内容をマークダウン形式で入力してください" %}
+    </div>
+    <div class="flex justify-end">
+      <button type="submit"
+              class="px-6 py-3 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#7c2808] transition-colors font-bold">
+        返信する
+      </button>
+    </div>
+  </form>
+</section>

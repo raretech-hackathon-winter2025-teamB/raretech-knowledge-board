@@ -1,0 +1,6 @@
+.env
+# app/ gitで管理対象外になるため非表示にしました。アナザー
+__pycache__/
+*.pyc
+.DS_Store
+node_modules/

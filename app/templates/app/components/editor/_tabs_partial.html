@@ -1,0 +1,26 @@
+{# 【ファイル責務】Markdownエディタの編集/プレビュー切り替えタブ #}
+<div class="flex gap-2 mb-4 border-b-2 border-[#7c2808]/20">
+  <button id="{{ tab_edit_id }}" type="button" class="px-4 py-2 font-medium border-b-2 -mb-[2px]"
+          style="color:#c93400;border-bottom-color:#c93400;"
+          _="on click
+              remove .hidden from #{{ editor_pane_id }}
+              add .hidden to #{{ preview_pane_id }}
+              set my.style.color to '#c93400'
+              set my.style.borderBottomColor to '#c93400'
+              set #{{ tab_preview_id }}.style.color to 'rgba(124, 40, 8, 0.6)'
+              set #{{ tab_preview_id }}.style.borderBottomColor to 'transparent'">
+    編集
+  </button>
+  <button id="{{ tab_preview_id }}" type="button" class="px-4 py-2 font-medium border-b-2"
+          style="color:rgba(124, 40, 8, 0.6);border-bottom-color:transparent;"
+          _="on click
+              call window.MarkdownEditor.renderPreview('{{ editor_id }}', '{{ preview_id }}')
+              add .hidden to #{{ editor_pane_id }}
+              remove .hidden from #{{ preview_pane_id }}
+              set my.style.color to '#c93400'
+              set my.style.borderBottomColor to '#c93400'
+              set #{{ tab_edit_id }}.style.color to 'rgba(124, 40, 8, 0.6)'
+              set #{{ tab_edit_id }}.style.borderBottomColor to 'transparent'">
+    プレビュー
+  </button>
+</div>

@@ -1,0 +1,11 @@
+{# 【ファイル責務】認証パネル共通ヘッダーの表示切り替え #}
+<div class="bg-[#7c2808] text-[#fff7ed] px-6 py-4">
+  <div class="flex items-center gap-3 justify-center">
+    {% if mode == 'signup' %}
+      {% include "app/components/icons/user-plus.svg" with icon_class="w-6 h-6" %}
+    {% else %}
+      {% include "app/components/icons/login-square.svg" with icon_class="w-6 h-6" %}
+    {% endif %}
+    <h2 class="text-xl font-bold">{{ title }}</h2>
+  </div>
+</div>

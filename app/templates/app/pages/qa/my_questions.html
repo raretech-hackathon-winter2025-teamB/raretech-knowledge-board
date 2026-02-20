@@ -1,0 +1,50 @@
+{% extends "layouts/app_base.html" %}
+
+{# 【ファイル責務】自分の質問一覧画面の表示 #}
+{% block title %}自分の質問 | RareTECHナレッジ掲示板{% endblock %}
+
+{% block content %}
+{# 【セクション】ページヘッダーと検索条件 #}
+<section class="space-y-5">
+  <div class="bg-[#7c2808] text-[#fff7ed] rounded-2xl px-8 py-6 flex items-center justify-between w-full shadow-lg">
+    <div class="flex items-center gap-3">
+      {% include "app/components/icons/chat.svg" with icon_class="w-8 h-8" %}
+      <h1 class="text-2xl font-bold">自分の質問</h1>
+    </div>
+    <a href="/question/new/"
+       hx-get="/question/new/"
+       hx-target="main"
+       hx-select="main"
+       hx-swap="outerHTML show:window:top"
+       hx-push-url="true"
+       class="px-4 py-2 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#fff7ed] hover:text-[#7c2808] transition-colors font-bold">
+      質問投稿
+    </a>
+  </div>
+
+  {# 【共通部品】検索フォーム #}
+  {% include "app/components/qa/common/_search_filter_bar.html" with form_action="/my-questions/" hx_get_url="/my-questions/" search_placeholder="自分の質問を検索..." modal_id="my-filter-modal" show_count=1 count_value=object_list|length %}
+
+  {% if not request.user.is_authenticated %}
+    {# 【セクション】未ログイン時案内 #}
+    <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-8 shadow-md text-center space-y-3">
+      <p class="text-[#7c2808] text-lg font-medium">自分の質問を表示するにはログインが必要です。</p>
+      <a href="/login/" class="inline-flex px-5 py-2 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#7c2808] transition-colors font-medium">
+        ログイン
+      </a>
+    </div>
+  {% else %}
+    {# 【セクション】自分の質問一覧 #}
+    <div class="space-y-4">
+      {% if object_list %}
+        {% include "app/components/qa/_question_list_partial.html" with questions=object_list show_bookmark="" show_actions=1 %}
+      {% else %}
+        {% include "app/components/qa/_question_empty_partial.html" with show_icon="" empty_title="自分の質問はまだありません" empty_message="最初の質問を投稿してみましょう。" %}
+      {% endif %}
+    </div>
+  {% endif %}
+</section>
+
+{# 【共通部品】絞り込みモーダル #}
+{% include "app/components/qa/common/_filter_modal.html" with modal_id="my-filter-modal" form_action="/my-questions/" hx_get_url="/my-questions/" %}
+{% endblock %}

@@ -1,0 +1,165 @@
+:root {
+  /* 【ファイル責務】全画面共通スタイルとデザイントークン定義 */
+  --font-size: 16px;
+  --background: #ffffff;
+  --foreground: #111111;
+  --card: #ffffff;
+  --card-foreground: #111111;
+  --popover: #ffffff;
+  --popover-foreground: #111111;
+  --primary: #030213;
+  --primary-foreground: #ffffff;
+  --secondary: #f1f1f4;
+  --secondary-foreground: #030213;
+  --muted: #ececf0;
+  --muted-foreground: #717182;
+  --accent: #e9ebef;
+  --accent-foreground: #030213;
+  --destructive: #d4183d;
+  --destructive-foreground: #ffffff;
+  --border: rgba(0, 0, 0, 0.1);
+  --input: transparent;
+  --input-background: #f3f3f5;
+  --switch-background: #cbced4;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --ring: rgba(0, 0, 0, 0.25);
+  --radius: 0.625rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: var(--font-size);
+  font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+  color: var(--foreground);
+  line-height: 1.6;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.public-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+.public-page #public-main {
+  flex: 1;
+  min-height: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: var(--font-weight-medium);
+  line-height: 1.5;
+}
+
+label {
+  font-weight: var(--font-weight-medium);
+}
+
+input,
+textarea,
+select {
+  font-weight: var(--font-weight-normal);
+}
+
+.tab-active {
+  /* 【セクション】Markdownエディタのアクティブタブ */
+  color: #c93400 !important;
+  border-bottom-color: #c93400 !important;
+}
+
+.tab-inactive {
+  /* 【セクション】Markdownエディタの非アクティブタブ */
+  color: rgba(124, 40, 8, 0.6) !important;
+  border-bottom-color: transparent !important;
+}
+
+.app-shell {
+  /* 【セクション】ログイン後画面の全体背景 */
+  background: #feecd3 !important;
+  color: #7c2808 !important;
+}
+
+.app-main {
+  background: #feecd3 !important;
+}
+
+.sidebar-item {
+  /* 【セクション】サイドバー共通テキスト色 */
+  color: #7c2808;
+}
+
+.sidebar-inactive {
+  color: #7c2808;
+}
+
+.sidebar-active {
+  /* 【セクション】現在表示中のナビ項目 */
+  background: #c93400;
+  color: #fff7ed;
+  font-weight: 700;
+}
+
+.sidebar-active:hover {
+  /* 【補足】active時はhoverでも色を維持 */
+  background: #c93400 !important;
+  color: #fff7ed !important;
+}
+
+body[data-auth-page="1"],
+body:has(#auth-form-shell) {
+  /* 【セクション】認証画面で縦スクロールを許可 */
+  overflow-y: auto;
+}
+
+body[data-auth-page="1"] #public-main,
+body:has(#auth-form-shell) #public-main {
+  /* 【セクション】認証フォーム領域をflex化 */
+  display: flex;
+}
+
+body[data-auth-page="1"] #public-main > [data-vanta-page="birds"],
+body:has(#auth-form-shell) #public-main > [data-vanta-page="birds"] {
+  flex: 1;
+  min-height: 0;
+}
+
+body[data-auth-page="1"] .vanta-canvas,
+body:has(#auth-form-shell) .vanta-canvas {
+  /* 【補足】Vantaキャンバスを全画面固定で描画 */
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+}

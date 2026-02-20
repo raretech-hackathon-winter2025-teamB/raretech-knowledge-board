@@ -1,0 +1,19 @@
+{% extends "layouts/public_base.html" %}
+
+{# 【ファイル責務】機能紹介ページの質問一覧説明 #}
+{% block title %}機能紹介: 質問一覧 | RareTECHナレッジ掲示板{% endblock %}
+
+{% block content %}
+{# 【セクション】機能説明カード #}
+<section class="max-w-4xl mx-auto px-4 py-12">
+  <div class="bg-[#fff7ed] rounded-2xl border-2 border-[#7c2808] shadow-xl p-8 md:p-10 space-y-6">
+    <h1 class="text-3xl font-bold text-[#7c2808]">機能紹介: 質問一覧</h1>
+    <p class="text-[#7c2808] leading-8">投稿済みの質問を一覧で確認し、ステータスやカテゴリで必要な情報を素早く探せます。気になる質問はブックマークで管理できます。</p>
+    <ul class="list-disc pl-6 text-[#7c2808] leading-8">
+      <li>キーワード検索で絞り込み</li>
+      <li>カテゴリ・解決状態でフィルタ</li>
+      <li>質問カードから詳細へ即時遷移</li>
+    </ul>
+  </div>
+</section>
+{% endblock %}

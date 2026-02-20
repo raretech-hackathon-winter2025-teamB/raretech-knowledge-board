@@ -1,0 +1,222 @@
+{% extends "layouts/public_base.html" %}
+
+{# 【ファイル責務】公開新規登録画面の表示と規約モーダル制御 #}
+{% block title %}新規登録 | RareTECHナレッジ掲示板{% endblock %}
+{% block body_attrs %}data-auth-page="1"{% endblock %}
+
+{% block extra_head %}
+  {# 【補足】利用規約モーダル専用スタイル #}
+  <style>
+    dialog.legal-modal {
+      border: none;
+      padding: 0;
+      background: transparent;
+      width: min(64rem, calc(100vw - 2rem));
+      max-width: 100%;
+    }
+    dialog.legal-modal::backdrop {
+      background: rgba(0, 0, 0, 0.5);
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  {# 【セクション】Vanta背景上の認証コンテナ #}
+  <div data-vanta-page="birds" class="relative z-20 h-full flex items-center justify-center p-4">
+    <div id="auth-form-shell" class="w-full max-w-md">
+      {# 【共通部品】認証ブランディング表示 #}
+      {% include "app/components/auth/_branding_partial.html" with subtitle="アカウントを作成して学びを共有しよう" %}
+
+      <div class="bg-[#fff7ed] rounded-2xl border-2 border-[#7c2808] shadow-2xl overflow-hidden">
+        {# 【共通部品】新規登録パネル見出し #}
+        {% include "app/components/auth/_panel_header_partial.html" with mode="signup" title="新規登録" %}
+
+        {# 【遷移】登録結果をauth-form-shellに反映 #}
+        <form method="post"
+              action="/signup/"
+              hx-post="/signup/"
+              hx-target="#auth-form-shell"
+              hx-select="#auth-form-shell"
+              hx-swap="outerHTML show:window:top"
+              hx-push-url="true"
+              autocomplete="off"
+              class="p-8 space-y-5">
+          {% csrf_token %}
+          {% if form.errors %}
+            <div class="rounded-lg border-2 border-red-600 bg-red-50 px-4 py-3 text-sm text-red-700">
+              {{ form.errors }}
+            </div>
+          {% endif %}
+          <div>
+            <label for="name" class="block mb-2">
+              <span class="font-bold text-[#7c2808] text-sm">名前</span>
+              <span class="text-[#c93400] ml-1">*</span>
+            </label>
+            <div class="relative">
+              <span class="absolute left-4 top-1/2 -translate-y-1/2 text-[#7c2808]/80">
+                {% include "app/components/icons/user-circle.svg" with icon_class="w-5 h-5" %}
+              </span>
+              <input id="name"
+                     name="name"
+                     type="text"
+                     autocomplete="off"
+                     autocorrect="off"
+                     autocapitalize="off"
+                     spellcheck="false"
+                     placeholder="山田太郎"
+                     class="w-full pl-12 pr-4 py-3 border-2 rounded-lg focus:outline-none bg-white text-[#7c2808] transition-colors border-[#7c2808] focus:border-[#c93400]"
+                     value="{{ form.name.value|default:'' }}" required />
+            </div>
+          </div>
+
+          <div>
+            <label for="email" class="block mb-2">
+              <span class="font-bold text-[#7c2808] text-sm">メールアドレス</span>
+              <span class="text-[#c93400] ml-1">*</span>
+            </label>
+            <div class="relative">
+              <span class="absolute left-4 top-1/2 -translate-y-1/2 text-[#7c2808]/80">
+                {% include "app/components/icons/mail.svg" with icon_class="w-5 h-5" %}
+              </span>
+              <input id="email"
+                     name="email"
+                     type="email"
+                     autocomplete="off"
+                     autocorrect="off"
+                     autocapitalize="off"
+                     spellcheck="false"
+                     placeholder="example@raretech.com"
+                     class="w-full pl-12 pr-4 py-3 border-2 rounded-lg focus:outline-none bg-white text-[#7c2808] transition-colors border-[#7c2808] focus:border-[#c93400]"
+                     value="{{ form.email.value|default:'' }}" required />
+            </div>
+          </div>
+
+          <div>
+            <label for="password" class="block mb-2">
+              <span class="font-bold text-[#7c2808] text-sm">パスワード</span>
+              <span class="text-[#c93400] ml-1">*</span>
+            </label>
+            <div class="relative">
+              <span class="absolute left-4 top-1/2 -translate-y-1/2 text-[#7c2808]/80">
+                {% include "app/components/icons/lock.svg" with icon_class="w-5 h-5" %}
+              </span>
+              <input id="password"
+                     name="password1"
+                     type="password"
+                     autocomplete="off"
+                     placeholder="8文字以上、大小英数字を含む"
+                     class="w-full pl-12 pr-4 py-3 border-2 rounded-lg focus:outline-none bg-white text-[#7c2808] transition-colors border-[#7c2808] focus:border-[#c93400]" required />
+            </div>
+          </div>
+
+          <div>
+            <label for="confirm_password" class="block mb-2">
+              <span class="font-bold text-[#7c2808] text-sm">パスワード（確認）</span>
+              <span class="text-[#c93400] ml-1">*</span>
+            </label>
+            <div class="relative">
+              <span class="absolute left-4 top-1/2 -translate-y-1/2 text-[#7c2808]/80">
+                {% include "app/components/icons/lock.svg" with icon_class="w-5 h-5" %}
+              </span>
+              <input id="confirm_password"
+                     name="password2"
+                     type="password"
+                     autocomplete="off"
+                     placeholder="もう一度入力してください"
+                     class="w-full pl-12 pr-4 py-3 border-2 rounded-lg focus:outline-none bg-white text-[#7c2808] transition-colors border-[#7c2808] focus:border-[#c93400]" required />
+            </div>
+          </div>
+
+          <div>
+            <label class="flex items-start gap-3 cursor-pointer">
+              <input type="checkbox"
+                     name="agree"
+                     class="w-5 h-5 mt-0.5 text-[#c93400] border-[#7c2808] rounded focus:ring-[#c93400]" required />
+              <span class="text-sm text-[#7c2808]">
+                <button type="button"
+                        class="text-[#c93400] hover:text-[#7c2808] font-medium underline"
+                        _="on click call #modal-terms.showModal()">
+                  利用規約
+                </button>
+                と
+                <button type="button"
+                        class="text-[#c93400] hover:text-[#7c2808] font-medium underline"
+                        _="on click call #modal-privacy.showModal()">
+                  プライバシーポリシー
+                </button>
+                に同意します
+                <span class="text-[#c93400] ml-1">*</span>
+              </span>
+            </label>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full px-6 py-4 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#7c2808] transition-colors font-bold text-lg flex items-center justify-center gap-3 shadow-lg mt-6"
+          >
+            {% include "app/components/icons/user-plus.svg" with icon_class="w-6 h-6" %}
+            アカウントを作成
+          </button>
+
+          {# 【遷移】ログイン画面への切り替え導線 #}
+          {% include "app/components/auth/_switch_action_partial.html" with lead_text="すでにアカウントをお持ちの方" target_path="/login/" button_text="ログインへ戻る" htmx_target="#auth-form-shell" htmx_select="#auth-form-shell" %}
+        </form>
+      </div>
+
+      {# 【共通部品】認証画面のコピーライト #}
+      {% include "app/components/auth/_copyright_partial.html" %}
+    </div>
+  </div>
+
+  {# 【モーダル】利用規約本文表示 #}
+  <dialog id="modal-terms"
+          class="legal-modal"
+          _="on click if event.target == me then call me.close()">
+    <div class="bg-[#fff7ed] rounded-2xl border-2 border-[#7c2808] shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col">
+      <div class="bg-[#7c2808] text-[#fff7ed] px-6 py-4 flex items-center justify-between">
+        <h3 class="text-2xl font-bold">利用規約</h3>
+        <button type="button"
+                class="hover:bg-[#fff7ed]/20 rounded-lg p-2 transition-colors"
+                _="on click call #modal-terms.close()">
+          {% include "app/components/icons/close.svg" with icon_class="w-6 h-6" %}
+        </button>
+      </div>
+      <div class="flex-1 overflow-y-auto p-8 text-[#7c2808]">
+        {% include "app/components/legal/_terms_content_partial.html" %}
+      </div>
+      <div class="bg-[#fff7ed] border-t-2 border-[#7c2808]/20 px-6 py-4">
+        <button type="button"
+                class="w-full px-6 py-3 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#7c2808] transition-colors font-bold"
+                _="on click call #modal-terms.close()">
+          閉じる
+        </button>
+      </div>
+    </div>
+  </dialog>
+
+  {# 【モーダル】プライバシーポリシー本文表示 #}
+  <dialog id="modal-privacy"
+          class="legal-modal"
+          _="on click if event.target == me then call me.close()">
+    <div class="bg-[#fff7ed] rounded-2xl border-2 border-[#7c2808] shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col">
+      <div class="bg-[#7c2808] text-[#fff7ed] px-6 py-4 flex items-center justify-between">
+        <h3 class="text-2xl font-bold">プライバシーポリシー</h3>
+        <button type="button"
+                class="hover:bg-[#fff7ed]/20 rounded-lg p-2 transition-colors"
+                _="on click call #modal-privacy.close()">
+          {% include "app/components/icons/close.svg" with icon_class="w-6 h-6" %}
+        </button>
+      </div>
+      <div class="flex-1 overflow-y-auto p-8 text-[#7c2808]">
+        {% include "app/components/legal/_privacy_content_partial.html" %}
+      </div>
+      <div class="bg-[#fff7ed] border-t-2 border-[#7c2808]/20 px-6 py-4">
+        <button type="button"
+                class="w-full px-6 py-3 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#7c2808] transition-colors font-bold"
+                _="on click call #modal-privacy.close()">
+          閉じる
+        </button>
+      </div>
+    </div>
+  </dialog>
+{% endblock %}

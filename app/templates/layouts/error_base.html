@@ -1,0 +1,20 @@
+{% load static %}
+{# 【ファイル責務】HTTPエラーページ共通レイアウト #}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}エラー | RareTECH ナレッジ掲示板{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'globals.css' %}" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+  <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-[#feecd3] via-[#fff7ed] to-[#feecd3] text-[#7c2808]">
+  {# 【セクション】エラー本文差し込み領域 #}
+  <main class="min-h-screen flex items-center justify-center px-4 py-10">
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

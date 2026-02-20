@@ -1,0 +1,31 @@
+{# 【ファイル責務】公開ページ共通ヘッダーの認証導線表示 #}
+<header class="bg-[#7c2808] text-[#fff7ed] shadow-lg sticky top-0 z-30">
+  <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="bg-[#fff7ed] text-[#7c2808] rounded-lg px-4 py-2">
+        <h1 class="text-2xl font-bold">RareTECH</h1>
+      </div>
+      <span class="text-lg">ナレッジ掲示板</span>
+    </div>
+    <div class="flex items-center gap-3">
+      <button type="button"
+              class="px-6 py-2 border-2 border-[#fff7ed] text-[#fff7ed] rounded-lg hover:bg-[#fff7ed] hover:text-[#7c2808] transition-colors font-bold"
+              hx-get="/login/"
+              hx-target="main"
+              hx-select="main"
+              hx-swap="outerHTML show:window:top"
+              hx-push-url="true">
+        ログイン
+      </button>
+      <button type="button"
+              class="px-6 py-2 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#fff7ed] hover:text-[#c93400] transition-colors font-bold"
+              hx-get="/signup/"
+              hx-target="main"
+              hx-select="main"
+              hx-swap="outerHTML show:window:top"
+              hx-push-url="true">
+        新規登録
+      </button>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,3 @@
+{# 【ファイル責務】htmx遷移時にVanta再適用を同期 #}
+<body data-vanta="birds" hx-swap-oob="true"></body>
+<div hx-on:htmx:load="document.body.dataset.vanta='birds'; if (window.applyVantaBirds) window.applyVantaBirds();"></div>

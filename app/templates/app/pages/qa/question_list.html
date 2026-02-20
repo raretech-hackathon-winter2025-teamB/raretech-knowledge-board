@@ -1,0 +1,27 @@
+{% extends "layouts/app_base.html" %}
+
+{# 【ファイル責務】質問一覧画面の表示と検索絞り込み導線 #}
+{% block title %}質問一覧 | RareTECHナレッジ掲示板{% endblock %}
+{% block topbar %}{% endblock %}
+
+{% block content %}
+{# 【セクション】一覧ヘッダーと検索条件 #}
+<section class="space-y-5">
+  {# 【共通部品】一覧ヘッダー #}
+  {% include "app/components/qa/list/_page_header.html" %}
+  {# 【共通部品】検索フォーム #}
+  {% include "app/components/qa/common/_search_filter_bar.html" with form_action="/home/" hx_get_url="/home/" search_placeholder="質問を検索..." modal_id="filter-modal" show_count=1 count_value=object_list|length %}
+
+  {# 【セクション】検索結果一覧 #}
+  <div class="space-y-4">
+    {% if object_list %}
+      {% include "app/components/qa/_question_list_partial.html" with questions=object_list show_bookmark="1" %}
+    {% else %}
+      {% include "app/components/qa/_question_empty_partial.html" with show_icon="1" empty_title="該当する質問が見つかりませんでした" empty_message="検索条件を変更するか、新しい質問を投稿してください" %}
+    {% endif %}
+  </div>
+</section>
+
+{# 【共通部品】絞り込みモーダル #}
+{% include "app/components/qa/common/_filter_modal.html" with modal_id="filter-modal" form_action="/home/" hx_get_url="/home/" %}
+{% endblock %}

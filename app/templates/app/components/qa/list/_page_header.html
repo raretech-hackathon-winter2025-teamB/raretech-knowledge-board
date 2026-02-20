@@ -1,0 +1,16 @@
+{# 【ファイル責務】質問一覧画面ヘッダー表示 #}
+<div class="bg-[#7c2808] text-[#fff7ed] rounded-2xl px-8 py-6 flex items-center justify-between w-full shadow-lg">
+  <div class="flex items-center gap-3">
+    {% include "app/components/icons/chat.svg" with icon_class="w-8 h-8" %}
+    <h1 class="text-2xl font-bold">質問一覧</h1>
+  </div>
+  <a href="/question/new/"
+     class="px-4 py-2 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#fff7ed] hover:text-[#7c2808] transition-colors font-bold"
+     hx-get="/question/new/"
+     hx-target="main"
+     hx-select="main"
+     hx-swap="outerHTML show:window:top"
+     hx-push-url="true">
+    質問投稿
+  </a>
+</div>
