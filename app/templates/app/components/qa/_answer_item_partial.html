@@ -1,9 +1,42 @@
-{# 【ファイル責務】回答1件分の表示 #}
+{# 【ファイル責務】回答1件分の表示と編集・削除操作 #}
 <article class="bg-white rounded-lg border border-[#7c2808]/20 p-4">
-  <div class="text-xs text-[#8c3f27] mb-2">
-    <span class="font-medium">回答者:</span> {{ a.user.name|default:a.user.email }}
-    <span class="mx-2">|</span>
-    <span>{{ a.created_at|date:"Y/m/d H:i" }}</span>
+  <div class="flex items-start justify-between gap-2 mb-2">
+    <div class="text-xs text-[#8c3f27]">
+      <span class="font-medium">回答者:</span> {{ a.user.name|default:a.user.email }}
+      <span class="mx-2">|</span>
+      <span>{{ a.created_at|date:"Y/m/d H:i" }}</span>
+    </div>
+    {# 【セクション】編集・削除操作（回答者本人のみ） #}
+    {% if request.user == a.user %}
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="{% url 'knowledgeapp:update_answer' pk=a.pk %}"
+           hx-get="{% url 'knowledgeapp:update_answer' pk=a.pk %}"
+           hx-target="main"
+           hx-select="main"
+           hx-swap="outerHTML show:window:top"
+           hx-push-url="true"
+           class="px-2 py-0.5 text-xs border border-[#7c2808] text-[#7c2808] rounded hover:bg-[#7c2808] hover:text-white transition-colors"
+           title="回答を編集">
+          編集
+        </a>
+        <form method="post"
+              action="{% url 'knowledgeapp:delete_answer' pk=a.pk %}"
+              hx-post="{% url 'knowledgeapp:delete_answer' pk=a.pk %}"
+              hx-target="main"
+              hx-select="main"
+              hx-swap="outerHTML show:window:top"
+              hx-push-url="true"
+              hx-confirm="この回答を削除しますか？この操作は取り消せません。"
+              class="inline">
+          {% csrf_token %}
+          <button type="submit"
+                  class="px-2 py-0.5 text-xs border border-[#c93400] text-[#c93400] rounded hover:bg-[#c93400] hover:text-white transition-colors"
+                  title="回答を削除">
+            削除
+          </button>
+        </form>
+      </div>
+    {% endif %}
   </div>
   <div id="answer-markdown-{{ a.id }}"
        data-markdown-source="1"
