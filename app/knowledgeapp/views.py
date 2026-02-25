@@ -21,7 +21,7 @@ from django.urls import reverse_lazy
 from django.http import HttpResponse
 # from django.views.decorators.csrf import csrf_exempt  # curl確認用
 from django.shortcuts import get_object_or_404
-from .forms import QuestionForm
+from .forms import QuestionForm, AnswerForm
 from django.contrib.auth.decorators import login_required
 
 # 【ファイル責務】質問/回答/ブックマーク/画像アップロードのViewを提供
@@ -160,15 +160,16 @@ def delete_question(request, pk):
 
 #質問編集機能  フロント→バック受け渡し　href="{% url 'knowledgeapp:update_question' pk=question.pk %}"
 class QuestionUpdate(LoginRequiredMixin, UpdateView):
-    template_name = 'app/pages/qa/question_form.html' # または編集用テンプレート
+    template_name = 'app/pages/qa/question_form.html'
     model = Question
     form_class = QuestionForm
     success_url = reverse_lazy('knowledgeapp:question')
 
+    def get_queryset(self):
+        return Question.objects.filter(user=self.request.user)
+
     def form_valid(self, form):
-        # 【セクション】更新時の投稿者・ステータス再設定
         form.instance.user = self.request.user
-        form.instance.status = '2'
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -312,6 +313,36 @@ class AnswerCreate(LoginRequiredMixin, View):
             )
         return redirect(reverse('knowledgeapp:question_detail', kwargs={'pk': question.pk}))
 
+class AnswerUpdate(LoginRequiredMixin, UpdateView):
+    # 【セクション】回答編集処理（所有者のみ）
+    template_name = 'app/pages/qa/answer_form.html'
+    model = Answer
+    form_class = AnswerForm
+
+    def get_queryset(self):
+        # 自分の回答のみ編集可能（他人の回答は404）
+        return Answer.objects.filter(user=self.request.user)
+
+    def get_success_url(self):
+        return reverse('knowledgeapp:question_detail', kwargs={'pk': self.object.question.pk})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['question'] = self.object.question
+        return context
+
+
+@login_required
+def delete_answer(request, pk):
+    # 【セクション】指定回答の削除処理（所有者のみ）
+    answer = get_object_or_404(Answer, pk=pk)
+    question_pk = answer.question.pk
+    if answer.user_id != request.user.id:
+        return redirect(reverse('knowledgeapp:question_detail', kwargs={'pk': question_pk}))
+    if request.method != 'POST':
+        return redirect(reverse('knowledgeapp:question_detail', kwargs={'pk': question_pk}))
+    answer.delete()
+    return redirect(reverse('knowledgeapp:question_detail', kwargs={'pk': question_pk}))
 
 class QuestionResolve(LoginRequiredMixin, View):
     def post(self, request, pk):

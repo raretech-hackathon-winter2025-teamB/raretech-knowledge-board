@@ -19,7 +19,7 @@ services:
       db:
         condition: service_healthy
     restart: unless-stopped
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver --insecure 0.0.0.0:8000
 
   # ===================
   # MySQL（データベース）

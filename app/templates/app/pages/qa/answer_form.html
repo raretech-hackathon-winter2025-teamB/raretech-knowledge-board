@@ -1,0 +1,74 @@
+{% extends "layouts/app_base.html" %}
+
+{# 【ファイル責務】回答編集画面の入力フォーム表示 #}
+{% block title %}回答を編集 | RareTECHナレッジ掲示板{% endblock %}
+
+{% block content %}
+{# 【セクション】編集フォーム本体 #}
+<section class="space-y-5">
+  {# 【セクション】ページヘッダー #}
+  <div class="bg-[#7c2808] text-[#fff7ed] rounded-2xl px-8 py-6 flex items-center justify-between w-full shadow-lg">
+    <div class="flex items-center gap-3">
+      {% include "app/components/icons/send.svg" with icon_class="w-8 h-8" %}
+      <h1 class="text-2xl font-bold">回答を編集</h1>
+    </div>
+    <a href="/question/{{ question.id }}/"
+       hx-get="/question/{{ question.id }}/"
+       hx-target="main"
+       hx-select="main"
+       hx-swap="outerHTML show:window:top"
+       hx-push-url="true"
+       class="px-4 py-2 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#fff7ed] hover:text-[#7c2808] transition-colors font-bold">
+      戻る
+    </a>
+  </div>
+
+  {# 【セクション】バリデーションエラー表示 #}
+  {% if form.errors %}
+    <div class="bg-[#fff7ed] border-2 border-red-600 rounded-lg p-4 text-sm text-red-700">
+      入力内容を確認してください。
+      {{ form.errors }}
+    </div>
+  {% endif %}
+
+  {# 【遷移】submit時にmain領域を差し替え #}
+  <form method="post"
+        action=""
+        autocomplete="off"
+        class="space-y-5"
+        hx-post=""
+        hx-target="main"
+        hx-select="main"
+        hx-swap="outerHTML show:window:top"
+        hx-push-url="true">
+    {% csrf_token %}
+
+    {# 【セクション】Markdownエディタ #}
+    <div class="bg-[#fff7ed] rounded-xl border-2 border-[#7c2808] p-6 shadow-md">
+      <label for="id_detail" class="block mb-3 font-bold text-[#7c2808] text-lg">
+        <span class="text-[#c93400]">*</span>
+        回答内容
+      </label>
+
+      {% include "app/components/editor/_tabs_partial.html" with tab_edit_id="answer-tab-edit" tab_preview_id="answer-tab-preview" editor_pane_id="answer-editor-pane" preview_pane_id="answer-preview-pane" editor_id="id_detail" preview_id="answer-preview-content" %}
+      {% include "app/components/editor/_toolbar_partial.html" with editor_id="id_detail" upload_picker_id="answer-image-picker" %}
+      {% include "app/components/editor/_upload_partial.html" with upload_picker_id="answer-image-picker" upload_meta_id="answer-image-meta" upload_result_id="answer-upload-result" upload_target_field="id_detail" %}
+      {% include "app/components/editor/_markdown_editor_partial.html" with editor_pane_id="answer-editor-pane" preview_pane_id="answer-preview-pane" editor_id="id_detail" editor_name="detail" editor_value=form.detail.value|default:'' rows="12" preview_id="answer-preview-content" editor_placeholder="回答内容をマークダウン形式で入力してください" editor_min_h="min-h-[300px]" %}
+    </div>
+
+    {# 【セクション】フォームアクション #}
+    <div class="flex gap-3 justify-end">
+      <a href="/question/{{ question.id }}/"
+         hx-get="/question/{{ question.id }}/"
+         hx-target="main"
+         hx-select="main"
+         hx-swap="outerHTML show:window:top"
+         hx-push-url="true"
+         class="px-6 py-3 border-2 border-[#7c2808] text-[#7c2808] rounded-lg hover:bg-[#7c2808] hover:text-[#fff7ed] transition-colors font-medium">キャンセル</a>
+      <button type="submit" class="px-6 py-3 bg-[#c93400] text-[#fff7ed] rounded-lg hover:bg-[#7c2808] transition-colors font-bold">
+        更新する
+      </button>
+    </div>
+  </form>
+</section>
+{% endblock %}
