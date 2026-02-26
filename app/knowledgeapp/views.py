@@ -1,38 +1,21 @@
 from django.shortcuts import redirect, get_object_or_404
-from django.views.generic import TemplateView, ListView, CreateView, DeleteView, DetailView, View
+from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView, DetailView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ValidationError
 from django.db.utils import ProgrammingError, OperationalError
-from django.http import Http404
-from django.http import JsonResponse
-from django.http import HttpResponse
+from django.http import Http404, JsonResponse, HttpResponse
 from django.core.files.storage import default_storage
-from .models import Question, Category, Answer, Bookmark
 from django.urls import reverse_lazy, reverse
-import os
-import uuid
 from django.utils.html import escape
 from django.template.loader import render_to_string
-# from django.shortcuts import render
-from django.views.generic import TemplateView, ListView, CreateView, UpdateView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Question
-from django.urls import reverse_lazy
-from django.http import HttpResponse
-# from django.views.decorators.csrf import csrf_exempt  # curl確認用
-from django.shortcuts import get_object_or_404
-from .forms import QuestionForm, AnswerForm
 from django.contrib.auth.decorators import login_required
+import os
+import uuid
+from .models import Question, Category, Answer, Bookmark
+from .forms import QuestionForm, AnswerForm
+from accounts.views import RedirectAuthenticatedToHomeMixin
 
 # 【ファイル責務】質問/回答/ブックマーク/画像アップロードのViewを提供
-
-
-class RedirectAuthenticatedToHomeMixin:
-    # 【ファイル責務】ログイン済みユーザーの公開ページアクセスを/homeへ統一
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return redirect('/home/')
-        return super().dispatch(request, *args, **kwargs)
 
 #TOP画面の表示
 class TopView(RedirectAuthenticatedToHomeMixin, TemplateView):
