@@ -96,15 +96,14 @@
         ×
       </button>
     </div>
-    <form method="get"
+    <form method="post"
           action="{% url 'accounts:setting' %}"
           autocomplete="off"
-          hx-get="{% url 'accounts:setting' %}"
-          hx-target="main"
-          hx-select="main"
-          hx-swap="outerHTML show:window:top"
-          hx-push-url="true"
+          hx-post="{% url 'accounts:setting' %}"
+          hx-push-url="false"
           class="p-6 space-y-4">
+      {% csrf_token %}
+      <input type="hidden" name="action" value="update_name">
       <div>
         <label class="block mb-2 font-medium text-[#7c2808]">新しいユーザー名</label>
         <input type="text"
@@ -144,15 +143,14 @@
         ×
       </button>
     </div>
-    <form method="get"
+    <form method="post"
           action="{% url 'accounts:setting' %}"
           autocomplete="off"
-          hx-get="{% url 'accounts:setting' %}"
-          hx-target="main"
-          hx-select="main"
-          hx-swap="outerHTML show:window:top"
-          hx-push-url="true"
+          hx-post="{% url 'accounts:setting' %}"
+          hx-push-url="false"
           class="p-6 space-y-4">
+      {% csrf_token %}
+      <input type="hidden" name="action" value="update_email">
       <div>
         <label class="block mb-2 font-medium text-[#7c2808]">新しいメールアドレス</label>
         <input type="email"
@@ -192,15 +190,14 @@
         ×
       </button>
     </div>
-    <form method="get"
+    <form method="post"
           action="{% url 'accounts:setting' %}"
           autocomplete="off"
-          hx-get="{% url 'accounts:setting' %}"
-          hx-target="main"
-          hx-select="main"
-          hx-swap="outerHTML show:window:top"
-          hx-push-url="true"
+          hx-post="{% url 'accounts:setting' %}"
+          hx-push-url="false"
           class="p-6 space-y-4">
+      {% csrf_token %}
+      <input type="hidden" name="action" value="update_password">
       <div>
         <label class="block mb-2 font-medium text-[#7c2808]">現在のパスワード</label>
         <input type="password"

@@ -1,9 +1,11 @@
 from django.contrib import messages
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, update_session_auth_hash, get_user_model
 from django.contrib.auth import views as auth_views
-from django.views.generic import CreateView, TemplateView, View
-from django.shortcuts import redirect
+from django.contrib.auth import password_validation
+from django.views.generic import CreateView, View
+from django.shortcuts import redirect, render
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import ValidationError
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 from .form import SignUpForm
@@ -19,8 +21,63 @@ class RedirectAuthenticatedToHomeMixin:
         return super().dispatch(request, *args, **kwargs)
 
 # ユーザ編集画面
-class Setting(LoginRequiredMixin, TemplateView):
+class Setting(LoginRequiredMixin, View):
     template_name = "app/pages/profile/setting.html"
+
+    def get(self, request):
+        return render(request, self.template_name)
+
+    def post(self, request):
+        action = request.POST.get("action", "")
+        user = request.user
+
+        if action == "update_name":
+            name = request.POST.get("name", "").strip()
+            if not name:
+                messages.error(request, "ユーザー名を入力してください。")
+            else:
+                user.name = name
+                user.save(update_fields=["name"])
+                messages.success(request, "ユーザー名を変更しました。")
+
+        elif action == "update_email":
+            email = request.POST.get("email", "").strip()
+            if not email:
+                messages.error(request, "メールアドレスを入力してください。")
+            else:
+                User = get_user_model()
+                if User.objects.filter(email=email).exclude(pk=user.pk).exists():
+                    messages.error(request, "このメールアドレスは既に使用されています。")
+                else:
+                    user.email = email
+                    user.save(update_fields=["email"])
+                    messages.success(request, "メールアドレスを変更しました。")
+
+        elif action == "update_password":
+            current_password = request.POST.get("current_password", "")
+            new_password1 = request.POST.get("new_password1", "")
+            new_password2 = request.POST.get("new_password2", "")
+
+            if not user.check_password(current_password):
+                messages.error(request, "現在のパスワードが正しくありません。")
+            elif new_password1 != new_password2:
+                messages.error(request, "新しいパスワードが一致しません。")
+            else:
+                try:
+                    password_validation.validate_password(new_password1, user)
+                except ValidationError as e:
+                    messages.error(request, e.messages[0])
+                else:
+                    user.set_password(new_password1)
+                    user.save(update_fields=["password"])
+                    update_session_auth_hash(request, user)
+                    messages.success(request, "パスワードを変更しました。")
+
+        if request.headers.get("HX-Request") == "true":
+            response = HttpResponse("")
+            response["HX-Redirect"] = "/setting/"
+            return response
+        return redirect("/setting/")
 
 
 class LogoutView(View):
