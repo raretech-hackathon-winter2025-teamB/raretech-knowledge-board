@@ -72,6 +72,7 @@ class CreateAnswer(LoginRequiredMixin,CreateView):
         # 「どの質問に対する回答なのか」というQuestionオブジェクトをテンプレに渡している
         # そのIDを持つQuestionオブジェクトをDBから取得する。見つからなければ自動的に404エラーを出す
         context['question'] = get_object_or_404(Question, pk = self.kwargs.get('question_id'))
+        # 何のquestion_idのAnswerオブジェクトを取得したいのか指定する必要がある
         context['answers'] = Answer.objects.filter(question = self.kwargs.get('question_id'))
         return context
     
