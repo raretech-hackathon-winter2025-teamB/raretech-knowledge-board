@@ -8,6 +8,7 @@ from .models import User
 class CustomUserAdmin(UserAdmin):
     # どのフィールドを表示するかを指定
     list_display = (
+        "id",
         "name",
         "email",
         "is_staff",

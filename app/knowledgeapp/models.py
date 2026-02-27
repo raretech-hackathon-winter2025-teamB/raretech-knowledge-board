@@ -37,7 +37,7 @@ class Question(models.Model):
 class Answer(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='回答者')
-    question = models.ForeignKey(Question, on_delete=models.CASCADE, verbose_name='質問')
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers',verbose_name='質問')
     detail = models.TextField(max_length=4000, verbose_name='回答本文')
     image_url = models.URLField(max_length=2048, verbose_name='画像URL', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='回答日時')

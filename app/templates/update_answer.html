@@ -1,0 +1,21 @@
+<!-- your_app_name/answer_update_form.html -->
+    <div class="container mt-4">
+        <h1>回答を編集</h1>
+        <p>質問: {{ question.title }}</p> {# questionオブジェクトはget_context_dataで渡す #}
+        <div class="card-footer text-muted d-flex justify-content-between">
+          <small>投稿者: {{ question.user.name }}</small>
+          <small>投稿日時: {{ question.created_at|date:"Y/m/d H:i" }}</small>
+        </div>
+
+
+        <form method="post" 
+              action="{% url 'knowledgeapp:update_answer' answer_id=answer.pk %}"> {# ここが重要！ #}
+            {% csrf_token %}
+            
+            {# フォーム全体をas_pで出力 #}
+            {{ form.as_p }} 
+
+            <button type="submit" class="btn btn-primary">更新</button>
+            <a href="{% url 'knowledgeapp:detail_question' question_id=question.pk %}" class="btn btn-secondary">キャンセル</a>
+        </form>
+    </div>

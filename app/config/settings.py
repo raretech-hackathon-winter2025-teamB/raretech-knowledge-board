@@ -92,8 +92,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "accounts.User"
 
-# LoginRequiredMixinを使うと、デフォルトでaccounts/login/というURLにリダイレクトされる
-    #accounts/login/以外にリダイレクトしたいなら、「LOGIN_URL =」 設定する必要がある
+# LoginRequiredMixinを使うとログインしていない場合、デフォでaccounts/login/というURLにリダイレクトされる
+# accounts/login/以外にリダイレクトしたいなら、「LOGIN_URL =」 設定する必要がある
 LOGIN_URL = "/login"
 
 #ログイン後にリダイレクトされるパスを設定

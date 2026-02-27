@@ -1,3 +1,4 @@
+from django import forms
 from django.contrib.auth import get_user_model
 # Djangoが提供するユーザー登録（アカウント作成）のための便利なフォームクラス
 # カスタムユーザーモデルを使用している場合に、ユーザー登録フォームを簡単に作成できるように設計されている
@@ -7,6 +8,7 @@ User = get_user_model()
 
 
 class SignUpForm(UserCreationForm):
+    #Noneにしてもパスワードフォームは表示してるからなくても良い？
     usable_password = None
 
     class Meta:

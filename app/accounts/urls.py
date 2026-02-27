@@ -5,6 +5,9 @@ from . import views
 app_name = "accounts"
 urlpatterns = [
     path('signup/',views.SignUpView.as_view(), name="signup" ),
+    # LoginViewはデフォでdjango.contrib.auth.forms.AuthenticationFormというフォームクラスを使用するように設定されている
+    # AuthenticationFormは、USERNAME_FIELDで指定されたフィールドとパスワードのフィールドを自動的に持っている
+    # forms.pyに書かなくても、LoginViewが裏でAuthenticationFormをインスタンス化して、テンプレに{{ form.as_p }}を書けばフォームができる
     path(
         "login/",
         auth_views.LoginView.as_view(

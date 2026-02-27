@@ -1,0 +1,63 @@
+    <div class="container mt-4">
+        {# 質問の表示 #}
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h1 class="card-title mb-0">{{ question.title }}</h1>
+            </div>
+            <div class="card-body">
+                <p class="card-text">{{ question.content|linebreaksbr }}</p> {# 内容を改行付きで表示 #}
+            </div>
+            <div class="card-footer text-muted d-flex justify-content-between">
+                <small>投稿者: {{ question.user.name }}</small>
+                <small>投稿日時: {{ question.created_at|date:"Y/m/d H:i" }}</small>
+            </div>
+        </div>
+
+        {# 回答のリスト表示 #}
+        <h2 class="mb-3">回答 ({{ answers.count }})</h2>
+        {% if answers %}
+        <div class="list-group mb-4">
+            {% for answer in answers %}
+            <div class="list-group-item">
+                <div class="d-flex w-100 justify-content-between">
+                    <h6 class="mb-1">回答者: {{ answer.user.name }}</h6>
+                    <p class="mb-1">{{ answer.detail|linebreaksbr }}</p>
+                    <small class="text-muted d-block mt-2">投稿日時: {{ answer.created_at|date:"Y/m/d H:i" }}</small>
+                            {% if request.user == answer.user %}
+                                <div>
+                                    <a href="{% url 'knowledgeapp:update_answer' answer_id=answer.id %}" class="btn btn-sm btn-outline-primary me-2">編集</a>
+                                    
+                                    
+                                    {# ここが変更点！直接削除用のフォーム #}
+                                    <form action="{% url 'knowledgeapp:delete_answer' answer_id=answer.id %}" method="post" class="d-inline">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-sm btn-danger" 
+                                                onclick="return confirm('本当にこの回答を削除しますか？');">
+                                            削除
+                                        </button>
+                                    </form>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="mb-4">まだ回答がありません。</p>
+        {% endif %}
+
+        {# 回答作成フォーム #}
+        <h2 class="mb-3">新しい回答を投稿する</h2>
+        {% if user.is_authenticated %} {# ログインしているユーザーのみフォームを表示 #}
+            <div class="card p-4 mb-4">
+                 <form method="post" action="{% url 'knowledgeapp:create_answer' question_id=question.id %}">
+                    {% csrf_token %}
+                    
+                    {# ここが変更点フォーム全体をas_pで出力 #}
+                    {{ form.as_p }} 
+                    <button type="submit" class="btn btn-success">回答を投稿</button>
+                </form>
+            </div>
+        {% endif %}
+
+

@@ -4,7 +4,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.mixins import LoginRequiredMixin
 # from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
-from .form import SignUpForm
+from .forms import SignUpForm
 
 # ユーザ編集画面
 class Setting(LoginRequiredMixin, TemplateView):
